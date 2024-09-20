@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.quotes::before,
+	.quotes::after {
+		content: "\0022";
+	}
+}
+
+#root {
+	@apply h-screen;
+}
