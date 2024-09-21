@@ -1,5 +1,5 @@
 {
-	"name": "sparkyquotes-be",
+	"name": "quotes-app-be",
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/index.ts",

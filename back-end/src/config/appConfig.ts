@@ -8,7 +8,7 @@ interface AppConfig {
 }
 
 const appConfig: Readonly<AppConfig> = {
-	appName: "SparkyQuotes",
+	appName: "Quotes App",
 	authorMaxLength: 200,
 	passwordSpecialChars: "?!_$/&.",
 	passwordMinLength: 8,

@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
       - testdb
-    image: sparkyquotes-be
+    image: quotes-app-be
     env_file:
       - .env.development
     environment:

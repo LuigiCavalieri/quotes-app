@@ -12,7 +12,7 @@ interface AppConfig {
 }
 
 const appConfig: Readonly<AppConfig> = {
-	appName: "SparkyQuotes",
+	appName: "Quotes App",
 	adminSlug: "admin",
 	passwordSpecialChars: "?!_$/&.",
 	passwordMinLength: 8,
