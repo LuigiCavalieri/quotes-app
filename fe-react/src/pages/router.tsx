@@ -40,11 +40,11 @@ const router = createBrowserRouter([
 				path: pageItems.admin.url,
 				element: <Navigate to={pageItems.list.url} />,
 			},
+			{
+				path: "*",
+				element: <NotFoundPage />,
+			},
 		],
-	},
-	{
-		path: "*",
-		element: <NotFoundPage />,
 	},
 ]);
 
