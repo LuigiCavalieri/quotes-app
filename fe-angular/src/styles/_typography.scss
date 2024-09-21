@@ -5,6 +5,15 @@ html {
 	font: mat.get-theme-typography($theme, body-1);
 }
 
+h1,
+h2,
+h3,
+h4 {
+	font-weight: $font-weight-bold;
+	line-height: 1;
+	margin: 0;
+}
+
 h3 {
 	font-size: 1.875rem;
 	line-height: 2.25rem;

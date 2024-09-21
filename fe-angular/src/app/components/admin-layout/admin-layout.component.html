@@ -1,0 +1,21 @@
+<main class="h-screen">
+	<header>
+		<div class="container h-full flex justify-between items-center">
+			<h1>{{ title }}</h1>
+			<!-- <div class="text-xs mt-1">
+        <span>{`Hello ${getUserInfo()?.name}! — `}</span>
+        <TextButton
+          testid="logout-button"
+          colorClass="text-white"
+          class="leading-none underline sm:text-sm"
+          onClick={() => doLogout()}
+        >
+          Log out
+        </TextButton>
+      </div> -->
+		</div>
+	</header>
+	<div class="container">
+		<router-outlet />
+	</div>
+</main>

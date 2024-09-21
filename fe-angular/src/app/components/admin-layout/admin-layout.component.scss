@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+
+main {
+	background-color: $color-bg-primary;
+}
+
+header {
+	background-color: $color-bg-header;
+	color: $color-text-white;
+	height: $metric-app-header-height;
+}
+
+h1 {
+	font-size: 1.5rem;
+}
