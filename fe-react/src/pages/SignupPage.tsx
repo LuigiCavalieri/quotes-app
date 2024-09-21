@@ -30,18 +30,16 @@ export default function SignupPage() {
 			</Helmet>
 			{!showSuccessMessage && <AuthFormTitle>{pageItems.signup.pageTitle}</AuthFormTitle>}
 			{showSuccessMessage ? (
-				<div className="flex-grow flex items-center">
-					<p className="text-lg text-center">
-						<strong>Your account is almost ready.</strong>
-						<br />
-						<br />
-						Please, check your mailbox, you should have received an email with instructions on how
-						to activate your account.
-						<br />
-						<br />
-						Thank you!
-					</p>
-				</div>
+				<p className="text-lg text-center">
+					<strong>Your account is almost ready.</strong>
+					<br />
+					<br />
+					Please, check your mailbox, you should have received an email with instructions on how to
+					activate your account.
+					<br />
+					<br />
+					Thank you!
+				</p>
 			) : (
 				<>
 					<AuthForm
