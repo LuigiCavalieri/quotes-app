@@ -9,6 +9,7 @@ import appConfig from "../../config/appConfig";
 })
 export class AuthFormComponent implements OnInit {
 	@Input({ required: true }) type!: "signup" | "login";
+	showPassword = false;
 
 	readonly passwordMinLength = appConfig.passwordMinLength;
 	readonly passwordSpecialChars = appConfig.passwordSpecialChars;

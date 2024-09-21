@@ -25,7 +25,15 @@
 	</mat-form-field>
 	<mat-form-field>
 		<mat-label>Password</mat-label>
-		<input matInput required formControlName="password" />
+		<input
+			matInput
+			required
+			formControlName="password"
+			[type]="showPassword ? 'text' : 'password'"
+		/>
+		<button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
+			<mat-icon>{{ showPassword ? "visibility_off" : "visibility" }}</mat-icon>
+		</button>
 		<mat-error *ngIf="form.controls.password.invalid && form.controls.password.touched">
 			<ng-container *ngIf="form.controls.password.hasError('required')"
 				>Password is required.</ng-container
