@@ -8,4 +8,5 @@ import { pageItems } from "../../config/pageItems";
 })
 export class SignupPageComponent {
 	readonly pageItems = pageItems;
+	showSuccessMessage = false;
 }

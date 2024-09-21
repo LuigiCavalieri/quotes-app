@@ -5,5 +5,6 @@
 }
 
 .card {
+	min-height: $metric-auth-card-min-height;
 	width: $metric-auth-card-width;
 }

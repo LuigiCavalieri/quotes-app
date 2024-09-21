@@ -7,3 +7,4 @@ $color-text: mat.get-theme-color($theme, foreground, text);
 $color-card-border: mat.get-color-from-palette(mat.$blue-gray-palette, 300);
 
 $metric-auth-card-width: 24rem;
+$metric-auth-card-min-height: 20rem;
