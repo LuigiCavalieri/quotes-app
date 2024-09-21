@@ -14,6 +14,7 @@ import { AuthLayoutComponent } from "./components/auth-layout/auth-layout.compon
 import { AuthFormComponent } from "./components/auth-form/auth-form.component";
 import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
 import { AuthFormTitleComponent } from './components/auth-form-title/auth-form-title.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
 	declarations: [
@@ -23,6 +24,7 @@ import { AuthFormTitleComponent } from './components/auth-form-title/auth-form-t
 		AuthFormComponent,
 		SignupPageComponent,
   AuthFormTitleComponent,
+  NotFoundPageComponent,
 	],
 	imports: [
 		BrowserModule,
