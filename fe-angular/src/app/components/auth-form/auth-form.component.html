@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="flex flex-column mb-2">
 	<mat-form-field *ngIf="isSignupForm()">
 		<mat-label>Your Name</mat-label>
 		<input matInput required formControlName="name" />
@@ -32,11 +32,11 @@
 			>
 		</mat-error>
 	</mat-form-field>
-	<p *ngIf="isSignupForm()">
+	<p *ngIf="isSignupForm()" class="note mb-1">
 		Password must be an alphanumeric string of at least {{ passwordMinLength }} characters. It can
 		include only these special characters: {{ passwordSpecialChars }}
 	</p>
-	<button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">
+	<button mat-flat-button type="submit" color="primary" class="mt-1/2" [disabled]="form.invalid">
 		{{ isSignupForm() ? "Sign up" : "Login" }}
 	</button>
 </form>

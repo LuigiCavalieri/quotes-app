@@ -1,0 +1,9 @@
+@use "@angular/material" as mat;
+@import "./theme";
+
+$color-link-primary: mat.get-theme-color($theme, primary, default);
+$color-bg-primary: mat.get-theme-color($theme, primary, 50);
+$color-text: mat.get-theme-color($theme, foreground, text);
+$color-card-border: mat.get-color-from-palette(mat.$blue-gray-palette, 300);
+
+$metric-auth-card-width: 24rem;

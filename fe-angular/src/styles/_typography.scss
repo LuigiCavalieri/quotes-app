@@ -1,0 +1,19 @@
+@use "@angular/material" as mat;
+
+html {
+	color: $color-text;
+	font: mat.get-theme-typography($theme, body-1);
+}
+
+h3 {
+	font-size: 1.875rem;
+	line-height: 2.25rem;
+}
+
+p {
+	margin: 0;
+}
+
+a {
+	color: $color-link-primary;
+}

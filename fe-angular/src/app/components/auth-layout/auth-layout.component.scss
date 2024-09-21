@@ -1,0 +1,10 @@
+@import "../../../styles/variables";
+
+.wrapper {
+	background-color: $color-bg-primary;
+	height: 100vh;
+}
+
+.card {
+	width: $metric-auth-card-width;
+}
