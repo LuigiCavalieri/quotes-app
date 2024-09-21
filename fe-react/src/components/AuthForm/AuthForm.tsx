@@ -122,7 +122,7 @@ export default function AuthForm({
 					);
 				})}
 				{isSignupForm && (
-					<p className="text-sm">
+					<p className="text-sm opacity-90">
 						Password must be an alphanumeric string of at least {appConfig.passwordMinLength}{" "}
 						characters. It can include only these special characters:{" "}
 						{appConfig.passwordSpecialChars}
