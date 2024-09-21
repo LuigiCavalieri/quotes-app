@@ -5,13 +5,7 @@ import SubmitButton from "../SubmitButton/SubmitButton";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import appConfig from "../../config/appConfig";
 
-export default function AuthForm({
-	type,
-	errorMessage,
-	disabled,
-	isLoading,
-	onSubmit,
-}: AuthFormProps) {
+export default function AuthForm({ type, errorMessage, isLoading, onSubmit }: AuthFormProps) {
 	const isSignupForm = type === "signup";
 	const initialFieldsInfo = getFieldsInfo(isSignupForm);
 
@@ -112,7 +106,7 @@ export default function AuthForm({
 							name={info.name}
 							placeholder={info.shortDescription}
 							value={String(info.value)}
-							disabled={disabled}
+							disabled={isLoading}
 							validate={info.canBeValidated}
 							showError={info.showError}
 							onChange={handleOnChange}
@@ -128,7 +122,7 @@ export default function AuthForm({
 						{appConfig.passwordSpecialChars}
 					</p>
 				)}
-				<SubmitButton disabled={!submitEnabled || disabled} className="mt-2">
+				<SubmitButton disabled={!submitEnabled || isLoading} className="mt-2">
 					{isLoading ? "Please wait..." : isSignupForm ? "Sign up" : "Log in"}
 				</SubmitButton>
 			</form>

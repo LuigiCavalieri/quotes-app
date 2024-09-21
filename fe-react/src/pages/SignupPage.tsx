@@ -10,15 +10,12 @@ import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
 import { useAuth } from "../hooks/auth";
 
 export default function SignupPage() {
-	const [formDisabled, setFormDisabled] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const { isMutating, errorMessage, doSignup } = useAuth();
 
 	const handleOnSubmit = (formValues: AuthFormValues) => {
-		setFormDisabled(true);
 		doSignup(formValues, {
-			onError: () => setFormDisabled(false),
 			onSuccess: () => setShowSuccessMessage(true),
 		});
 	};
@@ -46,7 +43,6 @@ export default function SignupPage() {
 						type="signup"
 						errorMessage={errorMessage}
 						isLoading={isMutating}
-						disabled={formDisabled}
 						onSubmit={handleOnSubmit}
 					/>
 					<p>

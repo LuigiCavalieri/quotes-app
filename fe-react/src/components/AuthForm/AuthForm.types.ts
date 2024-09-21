@@ -23,7 +23,6 @@ export interface AuthFormValues {
 export interface AuthFormProps {
 	type: AuthFormTypes;
 	errorMessage: string | null;
-	disabled?: boolean;
 	isLoading?: boolean;
 	onSubmit: (formValues: AuthFormValues) => void;
 }
