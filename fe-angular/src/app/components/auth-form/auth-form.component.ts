@@ -1,30 +1,50 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	SimpleChanges,
+} from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import appConfig from "../../config/appConfig";
+import { AuthFormValues } from "../../types/auth";
 
 @Component({
 	selector: "app-auth-form",
 	templateUrl: "./auth-form.component.html",
 	styleUrl: "./auth-form.component.scss",
 })
-export class AuthFormComponent implements OnInit {
+export class AuthFormComponent implements OnInit, OnChanges {
 	@Input({ required: true }) type!: "signup" | "login";
+	@Input() isLoading = false;
+	@Output() onSubmit = new EventEmitter<AuthFormValues>();
+
 	showPassword = false;
 
 	readonly passwordMinLength = appConfig.passwordMinLength;
 	readonly passwordSpecialChars = appConfig.passwordSpecialChars;
-
 	readonly form = new FormGroup<{
-		name?: FormControl<string | null>;
-		email: FormControl<string | null>;
-		password: FormControl<string | null>;
+		name?: FormControl<string>;
+		email: FormControl<string>;
+		password: FormControl<string>;
 	}>({
-		name: new FormControl("", [
-			Validators.required,
-			Validators.pattern(new RegExp(`^[${appConfig.authorNameAllowedCharsRegex}]+$`, "iu")),
-		]),
-		email: new FormControl("", [Validators.required, Validators.email]),
-		password: new FormControl("", [Validators.required]),
+		name: new FormControl("", {
+			validators: [
+				Validators.required,
+				Validators.pattern(new RegExp(`^[${appConfig.authorNameAllowedCharsRegex}]+$`, "iu")),
+			],
+			nonNullable: true,
+		}),
+		email: new FormControl("", {
+			validators: [Validators.required, Validators.email],
+			nonNullable: true,
+		}),
+		password: new FormControl("", {
+			validators: [Validators.required],
+			nonNullable: true,
+		}),
 	});
 
 	constructor() {}
@@ -42,7 +62,21 @@ export class AuthFormComponent implements OnInit {
 		}
 	}
 
-	isSignupForm() {
+	ngOnChanges(changes: SimpleChanges): void {
+		const { currentValue: isLoading } = changes["isLoading"] || {};
+
+		if (isLoading) {
+			this.form.disable();
+		} else {
+			this.form.enable();
+		}
+	}
+
+	isSignupForm(): boolean {
 		return this.type === "signup";
+	}
+
+	handleNgSubmit(): void {
+		this.onSubmit.emit(this.form.value as AuthFormValues);
 	}
 }
