@@ -3,6 +3,7 @@ import { AuthFormFieldsInfo, AuthFormProps, AuthFormValues } from "./AuthForm.ty
 import TextField from "../TextField/TextField";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import appConfig from "../../config/appConfig";
 
 export default function AuthForm({
 	type,
@@ -113,12 +114,20 @@ export default function AuthForm({
 							value={String(info.value)}
 							disabled={disabled}
 							validate={info.canBeValidated}
+							showError={info.showError}
 							onChange={handleOnChange}
 							onValidated={handleOnValidated}
 							onError={handleOnError}
 						/>
 					);
 				})}
+				{isSignupForm && (
+					<p className="text-sm">
+						Password must be an alphanumeric string of at least {appConfig.passwordMinLength}{" "}
+						characters. It can include only these special characters:{" "}
+						{appConfig.passwordSpecialChars}
+					</p>
+				)}
 				<SubmitButton disabled={!submitEnabled || disabled} className="mt-2">
 					{isLoading ? "Please wait..." : isSignupForm ? "Sign up" : "Log in"}
 				</SubmitButton>
@@ -154,6 +163,7 @@ const getFieldsInfo = (isSignupForm: boolean) => {
 		type: "password",
 		name: "password",
 		shortDescription: "Password",
+		showError: false,
 	};
 
 	return info;

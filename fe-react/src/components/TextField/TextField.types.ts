@@ -8,7 +8,7 @@ export interface TextFieldProps {
 	value?: string;
 	placeholder?: string;
 	name?: string;
-	prettyName?: string;
+	showError?: boolean;
 	maxLength?: number;
 	disabled?: boolean;
 	validate?: boolean;

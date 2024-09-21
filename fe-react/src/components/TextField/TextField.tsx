@@ -12,7 +12,7 @@ export default function TextField({
 	type,
 	value,
 	name,
-	prettyName,
+	showError = true,
 	placeholder,
 	maxLength,
 	disabled,
@@ -28,9 +28,7 @@ export default function TextField({
 	const [passwordReadable, setPasswordReadable] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	if (name && !prettyName) {
-		prettyName = toTitleCase(name);
-	}
+	const fieldName = name ? toTitleCase(name) : "Field";
 
 	const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const trimmedValue = event.target.value.trim();
@@ -39,7 +37,7 @@ export default function TextField({
 
 		if (required && !trimmedValue) {
 			triggerOnChange(event);
-			triggerOnError(`${prettyName} cannot be empty.`, event);
+			triggerOnError(`${fieldName} cannot be empty.`, event);
 
 			return;
 		}
@@ -75,7 +73,7 @@ export default function TextField({
 		const value = event.target.value;
 
 		if (!value) {
-			triggerOnError(`${prettyName} cannot be empty.`, event);
+			triggerOnError(`${fieldName} cannot be empty.`, event);
 
 			return false;
 		}
@@ -140,7 +138,7 @@ export default function TextField({
 					</button>
 				)}
 			</div>
-			{error && <p className="text-red-700 text-sm mt-2">{error}</p>}
+			{error && showError && <p className="text-red-700 text-sm mt-2">{error}</p>}
 		</div>
 	);
 }

@@ -9,6 +9,7 @@ interface AuthFormFieldInfo {
 	type: TextFieldInputTypes;
 	name: string;
 	shortDescription: string;
+	showError?: boolean;
 }
 
 export type AuthFormFieldsInfo = Record<string, AuthFormFieldInfo>;

@@ -32,8 +32,7 @@ export const validateInput = (
 			);
 
 			if (!regex.test(value)) {
-				errorMsg = `Password must be an alphanumeric string of at least ${appConfig.passwordMinLength} characters.  
-                    It can include only these special characters: ${appConfig.passwordSpecialChars}`;
+				errorMsg = "Invalid password.";
 			}
 			break;
 	}
