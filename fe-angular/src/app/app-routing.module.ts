@@ -4,19 +4,24 @@ import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { pageItems } from "./config/pageItems";
 import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
+import appConfig from "./config/appConfig";
 
+const pageTitleEnd = ` | ${appConfig.appName}`;
 const routes: Routes = [
 	{
 		path: pageItems.login.routePath,
 		component: LoginPageComponent,
+		title: appConfig.appName,
 	},
 	{
 		path: pageItems.signup.routePath,
 		component: SignupPageComponent,
+		title: pageItems.signup.pageTitle + pageTitleEnd,
 	},
 	{
 		path: "**",
 		component: NotFoundPageComponent,
+		title: "404" + pageTitleEnd,
 	},
 ];
 
