@@ -10,16 +10,16 @@ import { MatButtonModule } from "@angular/material/button";
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { AuthLayoutComponent } from "./components/auth-layout/auth-layout.component";
-import { AuthPageComponent } from "./components/auth-page/auth-page.component";
 import { AuthFormComponent } from "./components/auth-form/auth-form.component";
+import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginPageComponent,
 		AuthLayoutComponent,
-		AuthPageComponent,
 		AuthFormComponent,
+		SignupPageComponent,
 	],
 	imports: [
 		BrowserModule,
