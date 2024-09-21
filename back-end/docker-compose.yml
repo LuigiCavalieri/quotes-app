@@ -25,7 +25,7 @@ services:
     env_file:
       - .env.development
     environment:
-      - PORT=2024
+      - PORT=4001
     build:
       context: .
       dockerfile: ./Dockerfile.dev
@@ -34,7 +34,7 @@ services:
       - "./:/usr/app-be"
       - "/usr/app-be/node_modules/"
     ports:
-      - 2024:2024
+      - 4001:4001
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
