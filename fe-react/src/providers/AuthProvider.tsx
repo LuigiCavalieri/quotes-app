@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AuthContext, AuthFunctionCallbacks } from "../contexts/AuthContext";
-import { UserInfo } from "../types/user";
+import { User } from "../types/user";
 import { getStorageItem, removeStorageItem, setStorageItem } from "../library/local-storage";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as AuthService from "../services/AuthService";
@@ -8,6 +8,7 @@ import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pageItems } from "../config/pageItems";
 import { ResponseError } from "../types/error";
+import { LocalStorageKeys } from "../constants";
 
 interface AuthProviderProps {
 	children: ReactNode;
@@ -18,7 +19,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 	const { pathname } = useLocation();
 	const queryClient = useQueryClient();
 	const mutationCallbacksRef = useRef<AuthFunctionCallbacks | null>(null);
-	const userInfoRef = useRef<UserInfo | null>(null);
+	const userRef = useRef<User | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [shouldFetch, setShouldFetch] = useState(false);
 
@@ -62,11 +63,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		queryFn: AuthService.me,
 		enabled: shouldFetch,
 		onSuccess: data => {
-			userInfoRef.current = data;
+			userRef.current = data;
 
 			setIsLoggedIn(true);
 			setShouldFetch(false);
-			setStorageItem("isLoggedIn", true);
+			setStorageItem(LocalStorageKeys.isLoggedIn, true);
 		},
 		onError: () => {
 			initLogout();
@@ -76,7 +77,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
 	const initLogout = useCallback(() => {
 		queryClient.removeQueries();
-		removeStorageItem("isLoggedIn");
+		removeStorageItem(LocalStorageKeys.isLoggedIn);
 	}, [queryClient]);
 
 	const doLogin = useCallback(
@@ -110,13 +111,13 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 	}, [pathname, resetLoginMutation, resetSignupMutation]);
 
 	useLayoutEffect(() => {
-		if (getStorageItem("isLoggedIn")) {
+		if (getStorageItem(LocalStorageKeys.isLoggedIn)) {
 			setShouldFetch(true);
 		}
 	}, []);
 
-	const getUserInfo = () => {
-		return userInfoRef.current;
+	const getUser = () => {
+		return userRef.current;
 	};
 
 	const handleOnMutationError = () => {
@@ -132,7 +133,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 				isMutating: isDoingLogin || isDoingSignup,
 				isQuering: shouldFetch,
 				errorMessage: loginError?.message || signupError?.message || "",
-				getUserInfo,
+				getUser,
 				doLogin,
 				doSignup,
 				doLogout,

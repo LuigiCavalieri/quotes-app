@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { UserInfo } from "../types/user";
+import { User } from "../types/user";
 import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
 
 export interface AuthFunctionCallbacks {
@@ -14,7 +14,7 @@ export interface AuthContextInterface {
 	isQuering: boolean;
 	isMutating: boolean;
 	errorMessage: string;
-	getUserInfo: () => UserInfo | null;
+	getUser: () => User | null;
 	doLogin: AuthFunction;
 	doSignup: AuthFunction;
 	doLogout: () => void;
@@ -25,7 +25,7 @@ export const AuthContext = createContext<AuthContextInterface>({
 	isQuering: false,
 	isMutating: false,
 	errorMessage: "",
-	getUserInfo: () => null,
+	getUser: () => null,
 	doLogin: () => undefined,
 	doSignup: () => undefined,
 	doLogout: () => undefined,

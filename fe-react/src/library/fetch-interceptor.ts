@@ -1,5 +1,6 @@
 import { removeStorageItem } from "./local-storage";
 import { endpointsUrl } from "../config/endpointsUrl";
+import { LocalStorageKeys } from "../constants";
 
 const { fetch: originalFetch } = window;
 
@@ -29,7 +30,7 @@ window.fetch = async (info: RequestInfo | URL, init?: RequestInit) => {
 
 		if (!authUrls.includes(url) && [401, 403].includes(response.status)) {
 			abortController.abort();
-			removeStorageItem("isLoggedIn");
+			removeStorageItem(LocalStorageKeys.isLoggedIn);
 			alert("Your session expired. Please, log in again.");
 			location.reload();
 

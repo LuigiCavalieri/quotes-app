@@ -1,3 +1,7 @@
+export enum LocalStorageKeys {
+	isLoggedIn = "isLoggedIn",
+}
+
 export enum ErrorCodes {
 	accountCannotBeActivated = "CANNOT_BE_ACTIVATED",
 }

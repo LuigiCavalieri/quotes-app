@@ -9,7 +9,7 @@ import TextButton from "../TextButton/TextButton";
 
 export default function AdminLayout() {
 	const { pathname } = useLocation();
-	const { isLoggedIn, isQuering, doLogout, getUserInfo } = useAuth();
+	const { isLoggedIn, isQuering, doLogout, getUser } = useAuth();
 
 	const pageTitle = useMemo(() => {
 		const item = Object.values(pageItems).find(item => item.url === pathname);
@@ -36,7 +36,7 @@ export default function AdminLayout() {
 				<div className="container text-white h-full flex justify-between items-center">
 					<h1 className="leading-none font-bold text-xl md:text-2xl">{appConfig.appName}</h1>
 					<div className="text-xs mt-1">
-						<span>{`Hello ${getUserInfo()?.name}! — `}</span>
+						<span>{`Hello ${getUser()?.name}! — `}</span>
 						<TextButton
 							testid="logout-button"
 							colorClassName="text-white"
