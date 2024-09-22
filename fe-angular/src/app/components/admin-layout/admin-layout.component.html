@@ -5,17 +5,12 @@
 		<header>
 			<div class="container h-full flex justify-between items-center">
 				<h1>{{ title }}</h1>
-				<!-- <div class="text-xs mt-1">
-        <span>{`Hello ${getUserInfo()?.name}! — `}</span>
-        <TextButton
-          testid="logout-button"
-          colorClass="text-white"
-          class="leading-none underline sm:text-sm"
-          onClick={() => doLogout()}
-        >
-          Log out
-        </TextButton>
-      </div> -->
+				<div class="text-xs mt-1/2">
+					<span>Hello {{ (user$ | async)?.name }}! —</span>
+					<button type="button" class="logout-button text-sm" (click)="handleLogout()">
+						Log out
+					</button>
+				</div>
 			</div>
 		</header>
 		<div class="container">

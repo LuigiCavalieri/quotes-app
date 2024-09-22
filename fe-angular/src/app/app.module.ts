@@ -12,6 +12,7 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "../store/effects/auth.effects";
 import { reducers } from "../store";
+import { logoutMetareducer } from "../store/reducers/auth.reducer";
 
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
@@ -21,7 +22,7 @@ import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
 import { AuthFormTitleComponent } from "./components/auth-form-title/auth-form-title.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.component";
-import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { LoadingScreenComponent } from "./components/loading-screen/loading-screen.component";
 
 @NgModule({
 	declarations: [
@@ -33,7 +34,7 @@ import { LoadingScreenComponent } from './components/loading-screen/loading-scre
 		AuthFormTitleComponent,
 		NotFoundPageComponent,
 		AdminLayoutComponent,
-  LoadingScreenComponent,
+		LoadingScreenComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -44,7 +45,7 @@ import { LoadingScreenComponent } from './components/loading-screen/loading-scre
 		MatButtonModule,
 		MatCardModule,
 		MatIconModule,
-		StoreModule.forRoot(reducers),
+		StoreModule.forRoot(reducers, { metaReducers: [logoutMetareducer] }),
 		EffectsModule.forRoot(AuthEffects),
 	],
 	providers: [provideAnimations()],
