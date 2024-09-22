@@ -1,6 +1,10 @@
 import { Component } from "@angular/core";
 import { pageItems } from "../../config/pageItems";
-import { AuthFormValues } from "../../types/auth";
+import { Credentials } from "../../types/auth";
+import { Store } from "@ngrx/store";
+import { login } from "../../../store/actions/auth.actions";
+import { selectIsDoingLogin } from "../../../store/selectors/auth.selectors";
+import { AppState } from "../../../store";
 
 @Component({
 	selector: "app-login-page",
@@ -9,14 +13,11 @@ import { AuthFormValues } from "../../types/auth";
 })
 export class LoginPageComponent {
 	readonly pageItems = pageItems;
-	isLoading = false;
+	readonly isLoading$ = this.store.select(selectIsDoingLogin);
 
-	onSubmit(values: AuthFormValues) {
-		this.isLoading = true;
+	constructor(private store: Store<AppState>) {}
 
-		console.log(values);
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 2000);
+	onSubmit(credentials: Credentials) {
+		this.store.dispatch(login({ credentials }));
 	}
 }

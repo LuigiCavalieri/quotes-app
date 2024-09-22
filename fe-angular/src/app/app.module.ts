@@ -8,6 +8,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { AuthEffects } from "../store/effects/auth.effects";
+import { reducers } from "../store";
 
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
@@ -17,6 +21,7 @@ import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
 import { AuthFormTitleComponent } from "./components/auth-form-title/auth-form-title.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.component";
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +33,7 @@ import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.com
 		AuthFormTitleComponent,
 		NotFoundPageComponent,
 		AdminLayoutComponent,
+  LoadingScreenComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -38,6 +44,8 @@ import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.com
 		MatButtonModule,
 		MatCardModule,
 		MatIconModule,
+		StoreModule.forRoot(reducers),
+		EffectsModule.forRoot(AuthEffects),
 	],
 	providers: [provideAnimations()],
 	bootstrap: [AppComponent],

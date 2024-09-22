@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { pageItems } from "../../config/pageItems";
-import { AuthFormValues } from "../../types/auth";
+import { Credentials } from "../../types/auth";
 
 @Component({
 	selector: "app-signup-page",
@@ -13,7 +13,7 @@ export class SignupPageComponent {
 
 	readonly pageItems = pageItems;
 
-	onSubmit(values: AuthFormValues) {
+	onSubmit(values: Credentials) {
 		this.isLoading = true;
 
 		console.log(values);

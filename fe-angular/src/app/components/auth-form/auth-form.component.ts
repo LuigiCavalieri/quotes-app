@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import appConfig from "../../config/appConfig";
-import { AuthFormValues } from "../../types/auth";
+import { Credentials } from "../../types/auth";
 
 @Component({
 	selector: "app-auth-form",
@@ -19,7 +19,7 @@ import { AuthFormValues } from "../../types/auth";
 export class AuthFormComponent implements OnInit, OnChanges {
 	@Input({ required: true }) type!: "signup" | "login";
 	@Input() isLoading = false;
-	@Output() onSubmit = new EventEmitter<AuthFormValues>();
+	@Output() onSubmit = new EventEmitter<Credentials>();
 
 	showPassword = false;
 
@@ -77,6 +77,6 @@ export class AuthFormComponent implements OnInit, OnChanges {
 	}
 
 	handleNgSubmit(): void {
-		this.onSubmit.emit(this.form.value as AuthFormValues);
+		this.onSubmit.emit(this.form.value as Credentials);
 	}
 }

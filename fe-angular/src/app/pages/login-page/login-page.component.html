@@ -1,5 +1,9 @@
 <app-auth-layout>
 	<app-auth-form-title>{{ pageItems.login.pageTitle }}</app-auth-form-title>
-	<app-auth-form type="login" [isLoading]="isLoading" (onSubmit)="onSubmit($event)" />
+	<app-auth-form
+		type="login"
+		[isLoading]="(isLoading$ | async) || false"
+		(onSubmit)="onSubmit($event)"
+	/>
 	<p>Need an account? <a [routerLink]="pageItems.signup.url">Sign up</a></p>
 </app-auth-layout>

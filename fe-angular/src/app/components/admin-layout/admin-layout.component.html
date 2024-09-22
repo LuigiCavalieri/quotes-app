@@ -1,8 +1,11 @@
-<main class="h-screen">
-	<header>
-		<div class="container h-full flex justify-between items-center">
-			<h1>{{ title }}</h1>
-			<!-- <div class="text-xs mt-1">
+<app-loading-screen *ngIf="isLoading$ | async; else adminPage" />
+
+<ng-template #adminPage>
+	<main class="h-screen">
+		<header>
+			<div class="container h-full flex justify-between items-center">
+				<h1>{{ title }}</h1>
+				<!-- <div class="text-xs mt-1">
         <span>{`Hello ${getUserInfo()?.name}! — `}</span>
         <TextButton
           testid="logout-button"
@@ -13,9 +16,10 @@
           Log out
         </TextButton>
       </div> -->
+			</div>
+		</header>
+		<div class="container">
+			<router-outlet />
 		</div>
-	</header>
-	<div class="container">
-		<router-outlet />
-	</div>
-</main>
+	</main>
+</ng-template>
