@@ -13,7 +13,7 @@ export const initialState: AuthState = {
 	user: {} as User,
 	isLoggedIn: false,
 	isDoingLogin: false,
-	isFetchingUser: true,
+	isFetchingUser: false,
 };
 
 export const authReducer = createReducer(
