@@ -10,6 +10,8 @@ The app is intended to let a user save her favourite quotes and discover, and sa
 - Various E2E tests developed with Cypress.
 - Angular version of the front-end — a work in progress.
 
+If you want to run the app on your local machine, below are all the steps you need to follow.
+
 ## Launching the Front-end
 
 With your terminal app, navigate to the project's folder, then follow these steps:
