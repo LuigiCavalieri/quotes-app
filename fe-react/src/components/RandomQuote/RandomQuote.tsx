@@ -9,28 +9,32 @@ import { useTimer } from "../../hooks/timer";
 
 export default function RandomQuote() {
 	const { setTimer, clearTimer } = useTimer();
-	const [showOptimisticSaved, setShowOptimisticSaved] = useState(false);
+	const [showSaved, setShowSaved] = useState(false);
 
 	const { randomQuoteQueryState } = useQuotes();
-	const { isError: isMutationError, mutate } = useSaveQuote({
+	const {
+		isError: isSaveError,
+		isLoading: isSaveLoading,
+		mutate: triggerSave,
+	} = useSaveQuote({
+		onSuccess: () => {
+			setShowSaved(true);
+			setTimer(() => {
+				setShowSaved(false);
+				randomQuoteQueryState.refetch();
+			}, appConfig.feedbackTimeout);
+		},
 		onError: () => {
 			clearTimer();
-			setShowOptimisticSaved(false);
+			setShowSaved(false);
 		},
 	});
 
 	const handleOnClickSave = useCallback(() => {
 		if (randomQuoteQueryState.data) {
-			mutate(randomQuoteQueryState.data);
+			triggerSave(randomQuoteQueryState.data);
 		}
-
-		setShowOptimisticSaved(true);
-
-		setTimer(() => {
-			setShowOptimisticSaved(false);
-			randomQuoteQueryState.refetch();
-		}, appConfig.feedbackTimeout);
-	}, [mutate, setTimer, randomQuoteQueryState]);
+	}, [triggerSave, randomQuoteQueryState.data]);
 
 	const handleOnClickDismiss = useCallback(() => {
 		randomQuoteQueryState.updateEnabled(false);
@@ -47,7 +51,7 @@ export default function RandomQuote() {
 
 	return (
 		<Card testid="random-quote-card">
-			{isMutationError && (
+			{isSaveError && (
 				<ErrorMessage canBeDismissed>Failed saving quote. Please, try again.</ErrorMessage>
 			)}
 			{randomQuoteQueryState.isLoading ? (
@@ -67,8 +71,15 @@ export default function RandomQuote() {
 				</div>
 			) : (
 				<RandomQuoteContent
+					saveButton={{
+						disabled: isSaveLoading || showSaved,
+						text: showSaved ? (
+							<span className="text-green-700">Saved!</span>
+						) : (
+							isSaveLoading && "Saving..."
+						),
+					}}
 					quote={randomQuoteQueryState.data}
-					showSaved={showOptimisticSaved}
 					disabled={randomQuoteQueryState.isRefetching}
 					onClickSave={handleOnClickSave}
 					onClickDismiss={handleOnClickDismiss}

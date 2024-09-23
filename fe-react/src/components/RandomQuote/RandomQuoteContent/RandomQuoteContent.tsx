@@ -6,7 +6,7 @@ import RandomQuoteDismissButton from "../RandomQuoteDismissButton/RandomQuoteDis
 
 export default function RandomQuoteContent({
 	quote,
-	showSaved,
+	saveButton,
 	disabled,
 	onClickDismiss,
 	onClickSave,
@@ -23,20 +23,19 @@ export default function RandomQuoteContent({
 					</em>
 				</h3>
 				<div className="flex items-center gap-2">
-					<RandomQuoteDismissButton disabled={disabled} onClick={onClickDismiss} />
+					<RandomQuoteDismissButton
+						disabled={disabled || saveButton?.disabled}
+						onClick={onClickDismiss}
+					/>
 					<span className="text-gray-300">|</span>
 					<div className="text-sm font-medium sm:leading-7">
-						{showSaved ? (
-							<span className="text-green-700">Saved!</span>
-						) : (
-							<TextButton
-								testid="random-quote-save-button"
-								disabled={disabled}
-								onClick={onClickSave}
-							>
-								Save
-							</TextButton>
-						)}
+						<TextButton
+							testid="random-quote-save-button"
+							disabled={disabled || saveButton?.disabled}
+							onClick={onClickSave}
+						>
+							{saveButton?.text || "Save"}
+						</TextButton>
 					</div>
 				</div>
 			</div>
