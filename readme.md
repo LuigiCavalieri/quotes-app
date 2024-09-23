@@ -2,7 +2,9 @@
 
 _Quotes App_ is a full-stack TypeScript application I'm actively developing in the meanwhile I get a new job. The first iteration of this app was part of a job interview I underwent.
 
-The app is intended to let a user save her favourite quotes and discover, and save, new randomly generated quotes fetched through the API Ninjas service. The following are its main features:
+The app is intended to let a user save her favourite quotes and discover, and save, new randomly generated quotes fetched through the API Ninjas service.
+
+The following are its main features:
 
 - Composed of two parts, a front-end SPA developed with React, and a Express.js-based back-end which exposes a REST API built on top of PostgreSQL.
 - Full authentication flow using the JWT pattern and email verification on sign-up, with automatic logout when the JWT expires.
