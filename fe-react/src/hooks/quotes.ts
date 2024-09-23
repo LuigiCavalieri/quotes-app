@@ -21,17 +21,12 @@ export function useSaveQuote(callbacks?: UseSaveQuoteCallbacks) {
 	const result = useMutation<Quote, ResponseError, QuoteWithoutServerGenFields>({
 		mutationFn: saveQuote,
 		onSuccess: (data, variables) => {
-			if (typeof callbacks?.onSuccess === "function") {
-				callbacks.onSuccess(data, variables);
-			}
-
+			callbacks?.onSuccess?.(data, variables);
 			refreshQuotes(1);
 			queryClient.removeQueries({ queryKey: ["quotes"] });
 		},
 		onError: (error, variables) => {
-			if (typeof callbacks?.onError === "function") {
-				callbacks.onError(error, variables);
-			}
+			callbacks?.onError?.(error, variables);
 		},
 	});
 

@@ -64,9 +64,7 @@ export default function TextField({
 	};
 
 	const triggerOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (typeof onChange === "function") {
-			onChange(event);
-		}
+		onChange?.(event);
 	};
 
 	const triggerOnValidated = (event: ChangeEvent<HTMLInputElement>): boolean => {
@@ -80,8 +78,8 @@ export default function TextField({
 
 		const inputValid = validateInput(type, value, errorMsg => triggerOnError(errorMsg, event));
 
-		if (inputValid && typeof onValidated === "function") {
-			onValidated(value, event);
+		if (inputValid) {
+			onValidated?.(value, event);
 		}
 
 		return inputValid;
@@ -89,10 +87,7 @@ export default function TextField({
 
 	const triggerOnError = (msg: string, event: ChangeEvent<HTMLInputElement>) => {
 		setError(msg);
-
-		if (typeof onError === "function") {
-			onError(event);
-		}
+		onError?.(event);
 	};
 
 	const getInputType = () => {

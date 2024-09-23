@@ -36,9 +36,7 @@ export function useThrottle() {
 				timerRef.current = null;
 				lastCallTimeRef.current = Date.now();
 
-				if (typeof callbackRef.current === "function") {
-					callbackRef.current();
-				}
+				callbackRef.current?.();
 			}, delay - elapsedTime);
 		}
 	}, []);

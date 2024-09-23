@@ -85,9 +85,7 @@ export default function AuthForm({ type, errorMessage, isLoading, onSubmit }: Au
 			formValues[_key] = fieldsInfo[_key].value;
 		}
 
-		if (typeof onSubmit === "function") {
-			onSubmit(formValues);
-		}
+		onSubmit?.(formValues);
 	};
 
 	return (

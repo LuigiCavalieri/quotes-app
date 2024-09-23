@@ -20,9 +20,7 @@ export function useTimer() {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
 
-				if (typeof callbackRef.current === "function") {
-					callbackRef.current();
-				}
+				callbackRef.current?.();
 			}, Number(delay));
 		},
 		[clearTimer]
