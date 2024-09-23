@@ -41,7 +41,7 @@ Things to take into account:
 - The MAILER-related variables in the .env file are needed to send the account activation email required for the sign up process to complete.
 - For the random-quote feature to work, you'll need to create and account on [API Ninjas](https://api-ninjas.com/) and request an API key.
 
-### WITH Docker
+### With Docker
 
 ```
 # Navigate to 'back-end'
@@ -80,7 +80,7 @@ All of these steps are required only the first time you want to launch the app. 
 docker compose up
 ```
 
-### WITHOUT Docker
+### Without Docker
 
 To proceed, you first have to make sure the PostgreSQL server is installed on your machine. Next, you need to create a PostgreSQL database and a role. You can use the following settings if you want:
 
@@ -127,7 +127,7 @@ npm run dev
 
 The font-end project includes more than 15 E2E tests.
 
-### WITH Docker
+### With Docker
 
 ```
 # In the back-end app, you first have to edit the
@@ -157,7 +157,7 @@ cd ./fe-react
 npm run cy:open
 ```
 
-### WITHOUT Docker
+### Without Docker
 
 ```
 # Launch the server app
