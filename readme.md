@@ -1,6 +1,6 @@
 # Quotes App
 
-_Quotes App_ is a full-stack TypeScript application I'm actively developing in the meanwhile I get a new job. The first iteration of this app was part of a job interview I undergone.
+_Quotes App_ is a full-stack TypeScript application I'm actively developing in the meanwhile I get a new job. The first iteration of this app was part of a job interview I underwent.
 
 The app is intended to let a user save her favourite quotes and discover, and save, new randomly generated quotes fetched through the API Ninjas service. The following are its main features:
 
