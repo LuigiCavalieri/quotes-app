@@ -114,6 +114,9 @@ openssl rand -base64 60
 # Install the dependencies
 npm i
 
+# Create the database tables
+npm run migrate
+
 # Launch the app
 npm run dev
 ```
