@@ -8,7 +8,7 @@ import appConfig from "../../config/appConfig";
 import { useTimer } from "../../hooks/timer";
 
 export default function RandomQuote() {
-	const { setTimer, clearTimer } = useTimer();
+	const { setTimer } = useTimer();
 	const [showSaved, setShowSaved] = useState(false);
 
 	const { randomQuoteQueryState } = useQuotes();
@@ -23,10 +23,6 @@ export default function RandomQuote() {
 				setShowSaved(false);
 				randomQuoteQueryState.refetch();
 			}, appConfig.feedbackTimeout);
-		},
-		onError: () => {
-			clearTimer();
-			setShowSaved(false);
 		},
 	});
 
