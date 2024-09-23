@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import router from "./pages/router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { HelmetProvider } from "react-helmet-async";
 import AuthProvider from "./providers/AuthProvider";
@@ -22,7 +23,7 @@ export default function App() {
 			<ErrorBoundary fallback={<ErrorScreen />}>
 				<AuthProvider>
 					<HelmetProvider>
-						<Outlet />
+						<RouterProvider router={router} />
 					</HelmetProvider>
 				</AuthProvider>
 			</ErrorBoundary>

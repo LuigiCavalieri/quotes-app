@@ -5,9 +5,9 @@ import { AuthLayoutProps } from "./AuthLayout.types";
 import { pageItems } from "../../config/pageItems";
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-	const { isLoggedIn, isQuering } = useAuth();
+	const { isLoggedIn, isFetchingUser } = useAuth();
 
-	if (isQuering) {
+	if (isFetchingUser) {
 		return <LoadingScreen />;
 	}
 

@@ -7,18 +7,17 @@ import RouterLink from "../components/RouterLink/RouterLink";
 import appConfig from "../config/appConfig";
 import { pageItems } from "../config/pageItems";
 import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
-import { useAuth } from "../hooks/auth";
+import { useMutation } from "react-query";
+import { ResponseError } from "../types/error";
+import { signup } from "../services/AuthService";
 
 export default function SignupPage() {
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-	const { isMutating, errorMessage, doSignup } = useAuth();
-
-	const handleOnSubmit = (formValues: AuthFormValues) => {
-		doSignup(formValues, {
-			onSuccess: () => setShowSuccessMessage(true),
-		});
-	};
+	const { isLoading, error, mutate } = useMutation<unknown, ResponseError, AuthFormValues>({
+		mutationFn: signup,
+		onSuccess: () => setShowSuccessMessage(true),
+	});
 
 	return (
 		<AuthLayout>
@@ -41,9 +40,9 @@ export default function SignupPage() {
 				<>
 					<AuthForm
 						type="signup"
-						errorMessage={errorMessage}
-						isLoading={isMutating}
-						onSubmit={handleOnSubmit}
+						errorMessage={error?.message || ""}
+						isLoading={isLoading}
+						onSubmit={mutate}
 					/>
 					<p>
 						Do you already have an account? <RouterLink to={pageItems.login.url}>Log in</RouterLink>
