@@ -1,12 +1,12 @@
 # Quotes App
 
-_Quotes App_ is a full-stack TypeScript application I'm currently working on while on the lookout for a new job. The first iteration of this app was part of a job interview I undergone.
+_Quotes App_ is a full-stack TypeScript application I'm actively developing in the meanwhile I get a new job. The first iteration of this app was part of a job interview I undergone.
 
 The app is intended to let a user save her favourite quotes and discover, and save, new randomly generated quotes fetched through the API Ninjas service. The following are its main features:
 
 - Composed of two parts, a front-end SPA developed with React, and a Express.js-based back-end which exposes a REST API built on top of PostgreSQL.
 - Full authentication flow using the JWT pattern and email verification on sign-up, with automatic logout when the JWT expires.
-- Quotes search feature characterised by caching of the search results, pagination implemented on the back-end, and throttling of the HTTP requests.
+- Quotes-search feature characterised by caching of the search results, pagination implemented on the back-end, and throttling of the HTTP requests.
 - Various E2E tests developed with Cypress.
 - Angular version of the front-end — a work in progress.
 
@@ -72,7 +72,7 @@ docker compose build
 docker compose up
 ```
 
-All of these steps are required only the first time you want to launch the app. For the next times, you just need to fire the last command used, namely:
+All of these steps are required only the first time you want to launch the app. For the next times, you just need to fire the last command shown above, namely:
 
 ```
 docker compose up
@@ -101,7 +101,7 @@ cp .env.example .env
 # the necessary information.
 #
 # For the POSTGRES-related variables, you have to use
-# the parameters you choose when you created the database:
+# the parameters you chose when you created the database:
 #
 # POSTGRES_HOST=localhost
 # POSTGRES_USER=quotes_master
@@ -171,7 +171,7 @@ npm run dev
 cp cypress.env.json.example cypress.env.json
 
 # Fill in the configuration file just created with the
-# credential you choose on creating your account.
+# credential you chose on creating your account.
 #
 # Finally, from a new terminal window,
 # you can launch Cypress and run the tests:
