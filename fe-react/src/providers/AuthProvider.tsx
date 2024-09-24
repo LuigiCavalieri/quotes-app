@@ -25,15 +25,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 			setShouldFetchUser(false);
 		},
 		onError: () => {
-			initLogout();
+			doLogout();
 			setShouldFetchUser(false);
 		},
 	});
-
-	const initLogout = useCallback(() => {
-		queryClient.removeQueries();
-		removeStorageItem(LocalStorageKeys.isLoggedIn);
-	}, [queryClient]);
 
 	const doLogin = () => {
 		setIsLoggedIn(true);
@@ -42,9 +37,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 	};
 
 	const doLogout = useCallback(() => {
-		initLogout();
 		setIsLoggedIn(false);
-	}, [initLogout]);
+		queryClient.removeQueries();
+		removeStorageItem(LocalStorageKeys.isLoggedIn);
+	}, [queryClient]);
 
 	useLayoutEffect(() => {
 		if (getStorageItem(LocalStorageKeys.isLoggedIn)) {
