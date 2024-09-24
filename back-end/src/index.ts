@@ -18,12 +18,7 @@ const port = process.env.PORT || 4001;
 const spaAbsPath = path.join(process.cwd(), "/spa");
 const app = express();
 
-app.use(
-	cors({
-		credentials: true,
-		origin: process.env.NODE_ENV === "development" ? process.env.SPA_HOST : undefined,
-	})
-);
+app.use(cors({ credentials: true }));
 app.use(helmet());
 app.disable("x-powered-by");
 app.use(cookieParser());
