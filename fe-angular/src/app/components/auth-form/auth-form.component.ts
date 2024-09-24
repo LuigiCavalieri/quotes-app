@@ -10,7 +10,7 @@ import {
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import appConfig from "../../config/appConfig";
 import { Credentials } from "../../types/auth";
-import { EMPTY_STRING } from "../../constants";
+import { EMAIL_REGEXP, EMPTY_STRING } from "../../constants";
 
 @Component({
 	selector: "app-auth-form",
@@ -40,7 +40,7 @@ export class AuthFormComponent implements OnInit, OnChanges {
 			nonNullable: true,
 		}),
 		email: new FormControl(EMPTY_STRING, {
-			validators: [Validators.required, Validators.email],
+			validators: [Validators.required, Validators.pattern(EMAIL_REGEXP)],
 			nonNullable: true,
 		}),
 		password: new FormControl(EMPTY_STRING, {

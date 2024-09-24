@@ -18,7 +18,7 @@
 			<ng-container *ngIf="form.controls.email.hasError('required')">
 				Email is required.
 			</ng-container>
-			<ng-container *ngIf="form.controls.email.hasError('email')">
+			<ng-container *ngIf="form.controls.email.hasError('pattern')">
 				Please, enter a valid email address.
 			</ng-container>
 		</mat-error>
