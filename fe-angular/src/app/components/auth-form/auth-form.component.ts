@@ -10,6 +10,7 @@ import {
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import appConfig from "../../config/appConfig";
 import { Credentials } from "../../types/auth";
+import { EMPTY_STRING } from "../../constants";
 
 @Component({
 	selector: "app-auth-form",
@@ -19,6 +20,7 @@ import { Credentials } from "../../types/auth";
 export class AuthFormComponent implements OnInit, OnChanges {
 	@Input({ required: true }) type!: "signup" | "login";
 	@Input() isLoading = false;
+	@Input() errorMessage = EMPTY_STRING;
 	@Output() onSubmit = new EventEmitter<Credentials>();
 
 	showPassword = false;
@@ -30,18 +32,18 @@ export class AuthFormComponent implements OnInit, OnChanges {
 		email: FormControl<string>;
 		password: FormControl<string>;
 	}>({
-		name: new FormControl("", {
+		name: new FormControl(EMPTY_STRING, {
 			validators: [
 				Validators.required,
 				Validators.pattern(new RegExp(`^[${appConfig.authorNameAllowedCharsRegex}]+$`, "iu")),
 			],
 			nonNullable: true,
 		}),
-		email: new FormControl("", {
+		email: new FormControl(EMPTY_STRING, {
 			validators: [Validators.required, Validators.email],
 			nonNullable: true,
 		}),
-		password: new FormControl("", {
+		password: new FormControl(EMPTY_STRING, {
 			validators: [Validators.required],
 			nonNullable: true,
 		}),
@@ -74,6 +76,10 @@ export class AuthFormComponent implements OnInit, OnChanges {
 
 	isSignupForm(): boolean {
 		return this.type === "signup";
+	}
+
+	showErrorMessage(): boolean {
+		return Boolean(this.errorMessage);
 	}
 
 	handleNgSubmit(): void {

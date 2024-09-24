@@ -2,9 +2,13 @@ import { Component } from "@angular/core";
 import { pageItems } from "../../config/pageItems";
 import { Credentials } from "../../types/auth";
 import { Store } from "@ngrx/store";
-import { login } from "../../store/actions/auth.actions";
-import { selectIsDoingLogin } from "../../store/selectors/auth.selectors";
+import { doLogin } from "../../store/actions/auth.actions";
 import { AppState } from "../../store";
+import { AuthService } from "../../services/auth.service";
+import { catchError, tap } from "rxjs/operators";
+import { EMPTY } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
+import { EMPTY_STRING } from "../../constants";
 
 @Component({
 	selector: "app-login-page",
@@ -13,11 +17,31 @@ import { AppState } from "../../store";
 })
 export class LoginPageComponent {
 	readonly pageItems = pageItems;
-	readonly isLoading$ = this.store.select(selectIsDoingLogin);
+	isLoading = false;
+	errorMessage = EMPTY_STRING;
 
-	constructor(private store: Store<AppState>) {}
+	constructor(
+		private store: Store<AppState>,
+		private authService: AuthService
+	) {}
 
 	onSubmit(credentials: Credentials) {
-		this.store.dispatch(login({ credentials }));
+		this.isLoading = true;
+		this.errorMessage = EMPTY_STRING;
+
+		this.authService
+			.login(credentials)
+			.pipe(
+				catchError(({ error }: HttpErrorResponse) => {
+					this.isLoading = false;
+					this.errorMessage = error?.message || EMPTY_STRING;
+
+					return EMPTY;
+				})
+			)
+			.subscribe(() => {
+				this.isLoading = false;
+				this.store.dispatch(doLogin());
+			});
 	}
 }

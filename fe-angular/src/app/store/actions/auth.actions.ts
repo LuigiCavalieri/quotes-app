@@ -1,9 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { Credentials } from "../../types/auth";
 import { User } from "../../types/user";
 
-export const login = createAction("[Auth API] Log in", props<{ credentials: Credentials }>());
-export const loginSuccess = createAction("[Auth API] Logged in successfully");
+export const doLogin = createAction("[Auth State] Log in");
 export const logout = createAction("[Auth API] Log out");
 export const logoutSuccess = createAction("[Auth API] Logged out successfully");
 export const fetchUser = createAction("[Auth API] Fetch user");

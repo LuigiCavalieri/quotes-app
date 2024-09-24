@@ -1,0 +1,13 @@
+<div *ngIf="show" class="wrapper text-sm mb-2 flex justify-between items-center">
+	<div class="message"><ng-content /></div>
+	<button
+		*ngIf="canBeDismissed"
+		mat-icon-button
+		color="warn"
+		type="button"
+		title="Dismiss"
+		(click)="show = false"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>

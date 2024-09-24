@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+
+$wrapper-height: 2.4em;
+
+.wrapper {
+	background-color: $color-bg-warn;
+	border-left: 2px solid #{$color-warn};
+	color: $color-warn;
+}
+
+.message,
+.mat-mdc-icon-button {
+	line-height: $wrapper-height;
+}
+
+.message {
+	padding: 0 1rem;
+}
+
+.mat-mdc-icon-button {
+	align-items: center;
+	display: flex;
+	font-size: inherit;
+	height: $wrapper-height;
+	justify-content: center;
+	padding: 0;
+	width: $wrapper-height;
+}

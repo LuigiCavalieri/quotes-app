@@ -6,33 +6,42 @@ import { AppState } from "..";
 export interface AuthState {
 	user: User;
 	isLoggedIn: boolean;
-	isDoingLogin: boolean;
 	isFetchingUser: boolean;
 }
 
 export const initialState: AuthState = {
 	user: {} as User,
 	isLoggedIn: false,
-	isDoingLogin: false,
 	isFetchingUser: false,
 };
 
 export const authReducer = createReducer(
 	initialState,
-	on(Actions.login, state => {
-		return { ...state, isDoingLogin: true };
-	}),
-	on(Actions.loginSuccess, state => {
-		return { ...state, isLoggedIn: true, isDoingLogin: false };
+	on(Actions.doLogin, state => {
+		return {
+			...state,
+			isLoggedIn: true,
+		};
 	}),
 	on(Actions.logoutSuccess, state => {
-		return { ...state, isLoggedIn: false };
+		return {
+			...state,
+			isLoggedIn: false,
+		};
 	}),
 	on(Actions.fetchUser, state => {
-		return { ...state, isFetchingUser: true };
+		return {
+			...state,
+			isFetchingUser: true,
+		};
 	}),
 	on(Actions.fetchUserSuccess, (state, { user }) => {
-		return { ...state, user, isFetchingUser: false };
+		return {
+			...state,
+			user,
+			isLoggedIn: true,
+			isFetchingUser: false,
+		};
 	})
 );
 

@@ -13,6 +13,8 @@ import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "./store/effects/auth.effects";
 import { reducers } from "./store";
 import { logoutMetareducer } from "./store/reducers/auth.reducer";
+import { HttpClientModule, provideHttpClient, withInterceptors } from "@angular/common/http";
+import { interceptors } from "./http-interceptors";
 
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
@@ -23,6 +25,7 @@ import { AuthFormTitleComponent } from "./components/auth-form-title/auth-form-t
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.component";
 import { LoadingScreenComponent } from "./components/loading-screen/loading-screen.component";
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 @NgModule({
 	declarations: [
@@ -35,6 +38,7 @@ import { LoadingScreenComponent } from "./components/loading-screen/loading-scre
 		NotFoundPageComponent,
 		AdminLayoutComponent,
 		LoadingScreenComponent,
+  ErrorMessageComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -45,10 +49,11 @@ import { LoadingScreenComponent } from "./components/loading-screen/loading-scre
 		MatButtonModule,
 		MatCardModule,
 		MatIconModule,
+		HttpClientModule,
 		StoreModule.forRoot(reducers, { metaReducers: [logoutMetareducer] }),
 		EffectsModule.forRoot(AuthEffects),
 	],
-	providers: [provideAnimations()],
+	providers: [provideAnimations(), provideHttpClient(withInterceptors(interceptors))],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
