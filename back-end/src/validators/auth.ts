@@ -1,6 +1,7 @@
 import { body } from "express-validator";
 import { isPersonName, validate } from ".";
 import appConfig from "../config/appConfig";
+import { EMAIL_REGEXP } from "../constants";
 
 const validateName = body("name")
 	.trim()
@@ -9,7 +10,10 @@ const validateName = body("name")
 	.custom(isPersonName)
 	.withMessage("Cannot include special characters.");
 
-const validateEmail = body("email").trim().notEmpty().isEmail();
+const validateEmail = body("email")
+	.trim()
+	.notEmpty()
+	.custom(value => EMAIL_REGEXP.test(value));
 
 const validatePassword = body("password")
 	.trim()
