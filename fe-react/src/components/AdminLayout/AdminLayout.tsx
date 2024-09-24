@@ -8,6 +8,7 @@ import appConfig from "../../config/appConfig";
 import TextButton from "../TextButton/TextButton";
 import { logout } from "../../services/AuthService";
 import { useMutation } from "react-query";
+import { EMPTY_STRING } from "../../constants";
 
 export default function AdminLayout() {
 	const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function AdminLayout() {
 	const pageTitle = useMemo(() => {
 		const item = Object.values(pageItems).find(item => item.url === pathname);
 
-		return item?.pageTitle || "";
+		return item?.pageTitle || EMPTY_STRING;
 	}, [pathname]);
 
 	const handleLogout = () => {

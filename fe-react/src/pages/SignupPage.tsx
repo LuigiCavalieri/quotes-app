@@ -10,6 +10,7 @@ import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
 import { useMutation } from "react-query";
 import { ResponseError } from "../types/error";
 import { signup } from "../services/AuthService";
+import { EMPTY_STRING } from "../constants";
 
 export default function SignupPage() {
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -40,7 +41,7 @@ export default function SignupPage() {
 				<>
 					<AuthForm
 						type="signup"
-						errorMessage={error?.message || ""}
+						errorMessage={error?.message || EMPTY_STRING}
 						isLoading={isLoading}
 						onSubmit={mutate}
 					/>

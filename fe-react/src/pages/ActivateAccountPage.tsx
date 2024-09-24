@@ -6,7 +6,7 @@ import { Navigate, useSearchParams } from "react-router-dom";
 import { activateAccount } from "../services/AuthService";
 import { isEmail } from "../utils/strings";
 import { ResponseError } from "../types/error";
-import { ErrorCodes } from "../constants";
+import { EMPTY_STRING, ErrorCodes } from "../constants";
 import RouterLink from "../components/RouterLink/RouterLink";
 
 export default function ActivateAccountPage() {
@@ -16,8 +16,8 @@ export default function ActivateAccountPage() {
 	const [errorMessage, setErrorMessage] = useState<ReactNode>(null);
 	const [isLoading, setIsLoading] = useState<ReactNode>(true);
 
-	const email = searchParams.get("email") || "";
-	const activationToken = searchParams.get("activationToken") || "";
+	const email = searchParams.get("email") || EMPTY_STRING;
+	const activationToken = searchParams.get("activationToken") || EMPTY_STRING;
 	const searchParamsExist = email && activationToken;
 
 	useEffect(() => {

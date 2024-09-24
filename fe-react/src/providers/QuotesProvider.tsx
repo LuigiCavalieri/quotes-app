@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import * as QuotesService from "../services/QuotesService";
 import { ResponseError } from "../types/error";
 import { QuotesResponseData, QuotesSearchFilters } from "../types/quotes";
+import { EMPTY_STRING } from "../constants";
 
 interface QuotesProviderProps {
 	children: ReactNode;
@@ -83,5 +84,5 @@ export default function QuotesProvider({ children }: QuotesProviderProps) {
 }
 
 const mainQueryFiltersInitValue: QuotesSearchFilters = {
-	keywords: "",
+	keywords: EMPTY_STRING,
 };
