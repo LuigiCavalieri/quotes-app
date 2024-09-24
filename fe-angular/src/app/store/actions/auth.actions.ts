@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { Credentials } from "../../app/types/auth";
-import { User } from "../../app/types/user";
+import { Credentials } from "../../types/auth";
+import { User } from "../../types/user";
 
 export const login = createAction("[Auth API] Log in", props<{ credentials: Credentials }>());
 export const loginSuccess = createAction("[Auth API] Logged in successfully");

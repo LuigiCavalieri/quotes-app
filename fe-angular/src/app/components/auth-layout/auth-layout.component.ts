@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { AppState } from "../../../store";
-import { selectIsFetchingUser, selectIsLoggedIn } from "../../../store/selectors/auth.selectors";
+import { AppState } from "../../store";
+import { selectIsFetchingUser, selectIsLoggedIn } from "../../store/selectors/auth.selectors";
 import { Router } from "@angular/router";
 import { pageItems } from "../../config/pageItems";
 import { Subject, takeUntil } from "rxjs";

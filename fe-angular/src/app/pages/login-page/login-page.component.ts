@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { pageItems } from "../../config/pageItems";
 import { Credentials } from "../../types/auth";
 import { Store } from "@ngrx/store";
-import { login } from "../../../store/actions/auth.actions";
-import { selectIsDoingLogin } from "../../../store/selectors/auth.selectors";
-import { AppState } from "../../../store";
+import { login } from "../../store/actions/auth.actions";
+import { selectIsDoingLogin } from "../../store/selectors/auth.selectors";
+import { AppState } from "../../store";
 
 @Component({
 	selector: "app-login-page",

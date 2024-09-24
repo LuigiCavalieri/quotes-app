@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { getStorageItem } from "./library/local-storage";
 import { LocalStorageKeys } from "./constants";
 import { Store } from "@ngrx/store";
-import { fetchUser } from "../store/actions/auth.actions";
+import { fetchUser } from "./store/actions/auth.actions";
 
 @Component({
 	selector: "app-root",

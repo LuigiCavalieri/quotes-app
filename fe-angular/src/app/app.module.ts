@@ -10,9 +10,9 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { AuthEffects } from "../store/effects/auth.effects";
-import { reducers } from "../store";
-import { logoutMetareducer } from "../store/reducers/auth.reducer";
+import { AuthEffects } from "./store/effects/auth.effects";
+import { reducers } from "./store";
+import { logoutMetareducer } from "./store/reducers/auth.reducer";
 
 import { AppComponent } from "./app.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";

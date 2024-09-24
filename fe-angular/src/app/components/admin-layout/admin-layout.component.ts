@@ -2,15 +2,15 @@ import { Component } from "@angular/core";
 import appConfig from "../../config/appConfig";
 import { Subject, takeUntil } from "rxjs";
 import { Store } from "@ngrx/store";
-import { AppState } from "../../../store";
+import { AppState } from "../../store";
 import { Router } from "@angular/router";
 import {
 	selectIsFetchingUser,
 	selectIsLoggedIn,
 	selectUser,
-} from "../../../store/selectors/auth.selectors";
+} from "../../store/selectors/auth.selectors";
 import { pageItems } from "../../config/pageItems";
-import { logout } from "../../../store/actions/auth.actions";
+import { logout } from "../../store/actions/auth.actions";
 
 @Component({
 	selector: "app-admin-layout",

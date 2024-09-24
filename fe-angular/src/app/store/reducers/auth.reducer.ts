@@ -1,6 +1,6 @@
 import { createReducer, MetaReducer, on } from "@ngrx/store";
 import * as Actions from "../actions/auth.actions";
-import { User } from "../../app/types/user";
+import { User } from "../../types/user";
 import { AppState } from "..";
 
 export interface AuthState {
