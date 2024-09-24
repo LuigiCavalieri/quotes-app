@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as AuthActions from "../actions/auth.actions";
-import { catchError, delay, exhaustMap, map, switchMap, tap } from "rxjs/operators";
+import { catchError, exhaustMap, map, tap } from "rxjs/operators";
 import { getStorageItem, removeStorageItem, setStorageItem } from "../../library/local-storage";
 import { LocalStorageKeys } from "../../constants";
-import { User } from "../../types/user";
-import { EMPTY, of } from "rxjs";
+import { EMPTY, of, iif } from "rxjs";
 import { AuthService } from "../../services/auth.service";
+import { noopAction } from "../actions/app.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -22,7 +22,13 @@ export class AuthEffects {
 			this.actions$.pipe(
 				ofType(AuthActions.doLogout),
 				tap(() => removeStorageItem(LocalStorageKeys.isLoggedIn)),
-				exhaustMap(() => this.authService.logout().pipe(catchError(() => EMPTY)))
+				exhaustMap(({ force }) => {
+					return iif(
+						() => Boolean(force),
+						of(EMPTY),
+						this.authService.logout().pipe(catchError(() => EMPTY))
+					);
+				})
 			),
 		{ dispatch: false }
 	);
@@ -30,15 +36,13 @@ export class AuthEffects {
 		this.actions$.pipe(
 			ofType(AuthActions.fetchUser),
 			exhaustMap(() => {
-				console.log("fetching user");
-
-				if (!getStorageItem(LocalStorageKeys.isLoggedIn)) {
-					return of(AuthActions.fetchUserSuccess({ user: {} as User }));
-				}
-
-				return of<User>({ name: "Mr. User", email: "user@mail.com" }).pipe(
-					delay(2000),
-					map(user => AuthActions.fetchUserSuccess({ user }))
+				return iif(
+					() => Boolean(getStorageItem(LocalStorageKeys.isLoggedIn)),
+					this.authService.me().pipe(
+						map(user => AuthActions.fetchUserSuccess({ user })),
+						catchError(() => of(AuthActions.doLogout({ force: true })))
+					),
+					of(noopAction())
 				);
 			})
 		)

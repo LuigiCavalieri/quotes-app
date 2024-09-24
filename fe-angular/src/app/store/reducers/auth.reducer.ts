@@ -47,7 +47,7 @@ export const authReducer = createReducer(
 
 export const logoutMetareducer: MetaReducer<AppState> = reducer => {
 	return (state, action) => {
-		if (action.type === Actions.doLogout().type) {
+		if (action.type === Actions.doLogout({}).type) {
 			state = undefined;
 		}
 

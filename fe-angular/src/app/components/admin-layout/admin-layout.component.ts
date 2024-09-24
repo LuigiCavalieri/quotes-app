@@ -38,7 +38,7 @@ export class AdminLayoutComponent {
 	}
 
 	handleLogout(): void {
-		this.store.dispatch(doLogout());
+		this.store.dispatch(doLogout({}));
 	}
 
 	ngOnDestroy(): void {
