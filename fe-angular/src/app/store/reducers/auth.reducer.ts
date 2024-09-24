@@ -23,7 +23,7 @@ export const authReducer = createReducer(
 			isLoggedIn: true,
 		};
 	}),
-	on(Actions.logoutSuccess, state => {
+	on(Actions.doLogout, state => {
 		return {
 			...state,
 			isLoggedIn: false,
@@ -47,7 +47,7 @@ export const authReducer = createReducer(
 
 export const logoutMetareducer: MetaReducer<AppState> = reducer => {
 	return (state, action) => {
-		if (action.type === Actions.logout().type) {
+		if (action.type === Actions.doLogout().type) {
 			state = undefined;
 		}
 

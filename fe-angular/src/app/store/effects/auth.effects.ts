@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as AuthActions from "../actions/auth.actions";
-import { delay, exhaustMap, map, switchMap, tap } from "rxjs/operators";
+import { catchError, delay, exhaustMap, map, switchMap, tap } from "rxjs/operators";
 import { getStorageItem, removeStorageItem, setStorageItem } from "../../library/local-storage";
 import { LocalStorageKeys } from "../../constants";
 import { User } from "../../types/user";
-import { of } from "rxjs";
+import { EMPTY, of } from "rxjs";
+import { AuthService } from "../../services/auth.service";
 
 @Injectable()
 export class AuthEffects {
@@ -16,20 +17,15 @@ export class AuthEffects {
 			map(() => AuthActions.fetchUser())
 		)
 	);
-	// readonly doLogout$ = createEffect(
-	// 	() =>
-	// 		this.actions$.pipe(
-	// 			ofType(AuthActions.logout),
-	// 			tap(() => removeStorageItem(LocalStorageKeys.isLoggedIn)),
-	// 			exhaustMap(() =>
-	// 				of(EMPTY).pipe(
-	// 					delay(2000),
-	// 					tap(() => console.log("logged out"))
-	// 				)
-	// 			)
-	// 		),
-	// 	{ dispatch: false }
-	// );
+	readonly doLogout$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(AuthActions.doLogout),
+				tap(() => removeStorageItem(LocalStorageKeys.isLoggedIn)),
+				exhaustMap(() => this.authService.logout().pipe(catchError(() => EMPTY)))
+			),
+		{ dispatch: false }
+	);
 	readonly fetchUser$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(AuthActions.fetchUser),
@@ -48,5 +44,8 @@ export class AuthEffects {
 		)
 	);
 
-	constructor(private actions$: Actions) {}
+	constructor(
+		private actions$: Actions,
+		private authService: AuthService
+	) {}
 }

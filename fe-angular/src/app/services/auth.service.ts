@@ -19,4 +19,8 @@ export class AuthService {
 	login(credentials: Credentials) {
 		return this.http.post(endpointsUrl.login, credentials, this.httpOptions);
 	}
+
+	logout() {
+		return this.http.post(endpointsUrl.logout, undefined, this.httpOptions);
+	}
 }

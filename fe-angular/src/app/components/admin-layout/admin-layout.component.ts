@@ -10,7 +10,7 @@ import {
 	selectUser,
 } from "../../store/selectors/auth.selectors";
 import { pageItems } from "../../config/pageItems";
-import { logout } from "../../store/actions/auth.actions";
+import { doLogout } from "../../store/actions/auth.actions";
 
 @Component({
 	selector: "app-admin-layout",
@@ -38,7 +38,7 @@ export class AdminLayoutComponent {
 	}
 
 	handleLogout(): void {
-		this.store.dispatch(logout());
+		this.store.dispatch(doLogout());
 	}
 
 	ngOnDestroy(): void {
