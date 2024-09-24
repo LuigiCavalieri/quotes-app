@@ -1,1 +1,3 @@
-export const interceptors = [];
+import { authInterceptor } from "./auth.interceptor";
+
+export const interceptors = [authInterceptor];

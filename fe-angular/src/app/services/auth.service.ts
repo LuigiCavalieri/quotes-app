@@ -7,20 +7,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 	providedIn: "root",
 })
 export class AuthService {
-	httpOptions = {
-		credentials: "include",
-		headers: new HttpHeaders({
-			"Content-Type": "application/json",
-		}),
-	};
-
 	constructor(private http: HttpClient) {}
 
 	login(credentials: Credentials) {
-		return this.http.post(endpointsUrl.login, credentials, this.httpOptions);
+		return this.http.post(endpointsUrl.login, credentials);
 	}
 
 	logout() {
-		return this.http.post(endpointsUrl.logout, undefined, this.httpOptions);
+		return this.http.post(endpointsUrl.logout, null);
 	}
 }
