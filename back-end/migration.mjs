@@ -4,6 +4,7 @@ import pg from "pg";
 dotenv.config();
 
 const { Client } = pg;
+const EMPTY_STRING = "";
 
 const migrateDB = client => {
 	return Promise.resolve()
@@ -35,10 +36,10 @@ const migrateDB = client => {
 
 const main = async () => {
 	const client = new Client({
-		host: process.env.POSTGRES_HOST || "",
-		database: process.env.POSTGRES_DB || "",
-		user: process.env.POSTGRES_USER || "",
-		password: process.env.POSTGRES_PASSWORD || "",
+		host: process.env.POSTGRES_HOST || EMPTY_STRING,
+		database: process.env.POSTGRES_DB || EMPTY_STRING,
+		user: process.env.POSTGRES_USER || EMPTY_STRING,
+		password: process.env.POSTGRES_PASSWORD || EMPTY_STRING,
 	});
 
 	try {

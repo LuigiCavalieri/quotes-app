@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import appConfig from "../config/appConfig";
 import createHttpError from "http-errors";
+import { EMPTY_STRING } from "../constants";
 
 export const sendAccountActivationEmail = async ({
 	name,
@@ -11,7 +12,7 @@ export const sendAccountActivationEmail = async ({
 	name: string;
 	email: string;
 }) => {
-	const spaHostUrl = process.env.SPA_HOST || "";
+	const spaHostUrl = process.env.SPA_HOST || EMPTY_STRING;
 	const activationUrl = new URL(`${spaHostUrl}/activate-account`);
 
 	activationUrl.searchParams.append("activationToken", activationToken);
@@ -24,17 +25,17 @@ export const sendAccountActivationEmail = async ({
 
 	try {
 		const transporter = nodemailer.createTransport({
-			host: process.env.MAILER_SMTP_HOST || "",
+			host: process.env.MAILER_SMTP_HOST || EMPTY_STRING,
 			port: Number(process.env.MAILER_SMTP_PORT || 465),
 			secure: true,
 			auth: {
-				user: process.env.MAILER_SMTP_USER || "",
-				pass: process.env.MAILER_SMTP_PASSWORD || "",
+				user: process.env.MAILER_SMTP_USER || EMPTY_STRING,
+				pass: process.env.MAILER_SMTP_PASSWORD || EMPTY_STRING,
 			},
 		});
 
 		const result = await transporter.sendMail({
-			from: process.env.MAILER_SENDER_ADDRESS || "",
+			from: process.env.MAILER_SENDER_ADDRESS || EMPTY_STRING,
 			to: email,
 			subject: `${appConfig.appName} account activation`,
 			text,

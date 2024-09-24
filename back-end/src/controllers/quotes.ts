@@ -3,6 +3,7 @@ import { db } from "../db";
 import { QuoteWithoutUserId, RandomQuote } from "../types/quote";
 import appConfig from "../config/appConfig";
 import createHttpError from "http-errors";
+import { EMPTY_STRING } from "../constants";
 
 export const getQuotes = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -19,7 +20,7 @@ export const getQuotes = async (req: Request, res: Response, next: NextFunction)
 
 		if (keywords) {
 			needles = String(keywords)
-				.replace(/%/g, "")
+				.replace(/%/g, EMPTY_STRING)
 				.split("|")
 				.filter(value => Boolean(value.trim()))
 				.map(value => `%${value.trim()}%`);
@@ -31,7 +32,7 @@ export const getQuotes = async (req: Request, res: Response, next: NextFunction)
 
 		const getValuesAndKeywordsCondition = (values: unknown[]) => {
 			const _values = [...values];
-			let keywordsCondition = "";
+			let keywordsCondition = EMPTY_STRING;
 
 			if (needles.length) {
 				_values.push(needles);
@@ -91,8 +92,8 @@ export const addQuote = async (req: Request, res: Response, next: NextFunction) 
 		const regex = new RegExp(`[^${appConfig.authorNameAllowedCharsRegex}]`, "giu");
 
 		content = content.trim();
-		author = String(author || "")
-			.replace(regex, "")
+		author = String(author || EMPTY_STRING)
+			.replace(regex, EMPTY_STRING)
 			.trim();
 		author = author || null;
 
@@ -112,8 +113,8 @@ export const addQuote = async (req: Request, res: Response, next: NextFunction) 
 
 export const getRandomQuote = async (_req: Request, res: Response, next: NextFunction) => {
 	try {
-		const url = String(process.env.NINJAS_API_URL || "");
-		const apiKey = String(process.env.NINJAS_API_KEY || "");
+		const url = String(process.env.NINJAS_API_URL || EMPTY_STRING);
+		const apiKey = String(process.env.NINJAS_API_KEY || EMPTY_STRING);
 
 		if (!(url && apiKey)) {
 			throw createHttpError(500, "Failed retrieving a new quote.");
@@ -132,8 +133,8 @@ export const getRandomQuote = async (_req: Request, res: Response, next: NextFun
 		}
 
 		const quote: RandomQuote = {
-			content: data[0]?.quote.trim() || "",
-			author: data[0]?.author.trim() || "",
+			content: data[0]?.quote.trim() || EMPTY_STRING,
+			author: data[0]?.author.trim() || EMPTY_STRING,
 		};
 
 		if (!quote.content) {

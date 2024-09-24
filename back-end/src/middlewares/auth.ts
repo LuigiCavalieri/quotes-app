@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import createHttpError from "http-errors";
 import { AuthObj } from "../types";
+import { EMPTY_STRING } from "../constants";
 
 export const authMiddleware = (req: Request, _res: Response, next: NextFunction) => {
 	try {
@@ -9,7 +10,7 @@ export const authMiddleware = (req: Request, _res: Response, next: NextFunction)
 			throw createHttpError(401);
 		}
 
-		const decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET || "");
+		const decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET || EMPTY_STRING);
 
 		if (!(typeof decoded === "object" && decoded.userId)) {
 			throw createHttpError(403);
