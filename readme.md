@@ -22,7 +22,7 @@ With your terminal app, navigate to the project's folder, then follow these step
 # Navigate to 'fe-react'
 cd ./fe-react
 
-# Create an .env file
+# Create a .env file
 cp .env.example .env
 
 # Install the dependencies
@@ -34,7 +34,7 @@ npm run dev
 
 ## Launching the Back-end
 
-The server app can be launched both with and without Docker. For a simpler set up, I recommend using Docker.
+The server app can be launched both with and without Docker. For the sake of simplicity, I suggest using Docker.
 
 Things to take into account:
 
@@ -50,8 +50,7 @@ cd ./back-end
 # Create a development .env file
 cp .env.example .env.development
 
-# Fill in the .env.development just created with
-# the necessary information.
+# Fill in the .env.development just created.
 #
 # For the POSTGRES-related variables, you can use
 # the following values:
@@ -74,7 +73,7 @@ docker compose build
 docker compose up
 ```
 
-All of these steps are required only the first time you want to launch the app. For the next times, you just need to fire the last command shown above, namely:
+All of these steps are required only the first time you want to launch the app. For the next times, you just need to fire the last command shown above, namely this:
 
 ```
 docker compose up
@@ -99,8 +98,7 @@ cd ./back-end
 # Create an .env file
 cp .env.example .env
 
-# Fill in the .env just created with
-# the necessary information.
+# Fill in the .env just created.
 #
 # For the POSTGRES-related variables, you have to use
 # the parameters you chose when you created the database:
