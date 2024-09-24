@@ -6,7 +6,7 @@ import QuotesListItem from "../QuotesListItem/QuotesListItem";
 import PaginationMenu from "../PaginationMenu/PaginationMenu";
 import appConfig from "../../config/appConfig";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { CopyStatus } from "../../constants";
+import { CopyStatus, EMPTY_STRING } from "../../constants";
 import { Quote } from "../../types/quotes";
 import TextField from "../TextField/TextField";
 import { useThrottle } from "../../hooks/throttle";
@@ -20,7 +20,7 @@ export default function QuotesList() {
 	const { setTimer: setSearchTimer } = useTimer();
 	const [copyStatus, setCopyStatus] = useState(CopyStatus.waiting);
 	const [copiedQuoteId, setCopiedQuoteId] = useState<string | null>(null);
-	const [searchString, setSearchString] = useState("");
+	const [searchString, setSearchString] = useState(EMPTY_STRING);
 	const [showSearchField, setShowSearchField] = useState(Boolean(quotes.length));
 	const [isSearching, setIsSearching] = useState(false);
 
@@ -81,7 +81,7 @@ export default function QuotesList() {
 
 	useEffect(() => {
 		if (!mainQueryState.searchFilters.keywords) {
-			setSearchString("");
+			setSearchString(EMPTY_STRING);
 		}
 	}, [mainQueryState.searchFilters.keywords]);
 

@@ -4,6 +4,7 @@ import TextField from "../TextField/TextField";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import appConfig from "../../config/appConfig";
+import { EMPTY_STRING } from "../../constants";
 
 export default function AuthForm({ type, errorMessage, isLoading, onSubmit }: AuthFormProps) {
 	const isSignupForm = type === "signup";
@@ -134,7 +135,7 @@ const getFieldsInfo = (isSignupForm: boolean) => {
 
 	if (isSignupForm) {
 		info.name = {
-			value: "",
+			value: EMPTY_STRING,
 			canBeValidated: true,
 			type: "name",
 			name: "name",
@@ -143,14 +144,14 @@ const getFieldsInfo = (isSignupForm: boolean) => {
 	}
 
 	info.email = {
-		value: "",
+		value: EMPTY_STRING,
 		canBeValidated: true,
 		type: "email",
 		name: "email",
 		shortDescription: "Your Email",
 	};
 	info.password = {
-		value: "",
+		value: EMPTY_STRING,
 		canBeValidated: isSignupForm,
 		type: "password",
 		name: "password",

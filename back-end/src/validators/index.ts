@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ValidationChain } from "express-validator";
 import createHttpError from "http-errors";
 import appConfig from "../config/appConfig";
+import { EMPTY_STRING } from "../constants";
 
 export const validate = (validations: ValidationChain[]) => {
 	return async (req: Request, res: Response, next: NextFunction) => {
@@ -11,7 +12,7 @@ export const validate = (validations: ValidationChain[]) => {
 			if (!result.isEmpty()) {
 				const error = result.array()[0];
 				/* eslint-disable @typescript-eslint/no-explicit-any */
-				const fieldName = (error as any)?.path || "";
+				const fieldName = (error as any)?.path || EMPTY_STRING;
 				const errorMsg = (fieldName && `${fieldName}: `) + error.msg;
 
 				return next(createHttpError(400, errorMsg));

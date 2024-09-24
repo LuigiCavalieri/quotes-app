@@ -1,4 +1,6 @@
-const baseUrl = import.meta.env.VITE_API_URL || ``;
+import { EMPTY_STRING } from "../constants";
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL || EMPTY_STRING;
 
 export const endpointsUrl = {
 	signup: `${baseUrl}/signup`,

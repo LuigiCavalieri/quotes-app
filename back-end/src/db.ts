@@ -1,4 +1,5 @@
 import { Pool } from "pg";
+import { EMPTY_STRING } from "./constants";
 
 interface DB {
 	pool: Pool;
@@ -31,10 +32,10 @@ export const db: DB = {
 
 		try {
 			this.pool = new Pool({
-				host: process.env.POSTGRES_HOST || "",
-				database: process.env.POSTGRES_DB || "",
-				user: process.env.POSTGRES_USER || "",
-				password: process.env.POSTGRES_PASSWORD || "",
+				host: process.env.POSTGRES_HOST || EMPTY_STRING,
+				database: process.env.POSTGRES_DB || EMPTY_STRING,
+				user: process.env.POSTGRES_USER || EMPTY_STRING,
+				password: process.env.POSTGRES_PASSWORD || EMPTY_STRING,
 				idleTimeoutMillis: 30000,
 			});
 

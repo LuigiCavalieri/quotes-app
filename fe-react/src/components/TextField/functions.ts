@@ -1,4 +1,5 @@
 import appConfig from "../../config/appConfig";
+import { EMPTY_STRING } from "../../constants";
 import { isEmail } from "../../utils/strings";
 import { TextFieldInputTypes } from "./TextField.types";
 
@@ -8,7 +9,7 @@ export const validateInput = (
 	errorCallback: (errorMsg: string) => void
 ): boolean => {
 	let regex;
-	let errorMsg = "";
+	let errorMsg = EMPTY_STRING;
 
 	switch (inputType) {
 		case "name":

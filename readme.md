@@ -22,8 +22,8 @@ With your terminal app, navigate to the project's folder, then follow these step
 # Navigate to 'fe-react'
 cd ./fe-react
 
-# Create a development .env file
-cp .env.example .env.development
+# Create an .env file
+cp .env.example .env
 
 # Install the dependencies
 npm i

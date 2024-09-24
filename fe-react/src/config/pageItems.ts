@@ -1,3 +1,4 @@
+import { EMPTY_STRING } from "../constants";
 import appConfig from "./appConfig";
 
 export type PageItemKey = "admin" | "list" | "login" | "signup" | "activateAccount";
@@ -22,7 +23,7 @@ const _pageItems: Readonly<Record<PageItemKey, PageItem>> = {
 	},
 	admin: {
 		url: `/${appConfig.adminSlug}`,
-		pageTitle: "",
+		pageTitle: EMPTY_STRING,
 	},
 	list: {
 		url: `/${appConfig.adminSlug}/quotes`,

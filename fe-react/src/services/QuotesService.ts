@@ -1,6 +1,7 @@
 import { GET, POST } from ".";
 import appConfig from "../config/appConfig";
 import { endpointsUrl } from "../config/endpointsUrl";
+import { EMPTY_STRING } from "../constants";
 import {
 	Quote,
 	QuotesRequestQueryParams,
@@ -11,7 +12,7 @@ import {
 
 export const getQuotes = (page: number, { keywords }: QuotesSearchFilters) => {
 	const keywordsParamValue = keywords
-		?.replace(/|/g, "")
+		?.replace(/|/g, EMPTY_STRING)
 		.split(" ")
 		.map(value => value.trim())
 		.join("|");
@@ -19,7 +20,7 @@ export const getQuotes = (page: number, { keywords }: QuotesSearchFilters) => {
 	const init: QuotesRequestQueryParams = {
 		page: String(page),
 		itemsPerPage: String(appConfig.quotesPerPage),
-		keywords: keywordsParamValue || "",
+		keywords: keywordsParamValue || EMPTY_STRING,
 	};
 
 	const paramsObj = new URLSearchParams(init as unknown as Record<string, string>);

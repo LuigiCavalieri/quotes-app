@@ -9,6 +9,7 @@ import { useMutation } from "react-query";
 import { ResponseError } from "../types/error";
 import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
 import { login } from "../services/AuthService";
+import { EMPTY_STRING } from "../constants";
 
 export default function LoginPage() {
 	const { doLogin } = useAuth();
@@ -25,7 +26,7 @@ export default function LoginPage() {
 			<AuthFormTitle>{pageItems.login.pageTitle}</AuthFormTitle>
 			<AuthForm
 				type="login"
-				errorMessage={error?.message || ""}
+				errorMessage={error?.message || EMPTY_STRING}
 				isLoading={isLoading}
 				onSubmit={mutate}
 			/>
