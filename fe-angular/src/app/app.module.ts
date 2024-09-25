@@ -25,7 +25,8 @@ import { AuthFormTitleComponent } from "./components/auth-form-title/auth-form-t
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.component";
 import { LoadingScreenComponent } from "./components/loading-screen/loading-screen.component";
-import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { ErrorMessageComponent } from "./components/error-message/error-message.component";
+import { ActivateAccountPageComponent } from "./pages/activate-account-page/activate-account-page.component";
 
 @NgModule({
 	declarations: [
@@ -38,7 +39,8 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 		NotFoundPageComponent,
 		AdminLayoutComponent,
 		LoadingScreenComponent,
-  ErrorMessageComponent,
+		ErrorMessageComponent,
+		ActivateAccountPageComponent,
 	],
 	imports: [
 		BrowserModule,

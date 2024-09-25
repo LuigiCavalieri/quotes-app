@@ -23,6 +23,10 @@ export class AuthService {
 		return this.http.post(endpointsUrl.signup, credentials);
 	}
 
+	activateAccount(payload: { email: string; activationToken: string }): Observable<Object> {
+		return this.http.patch(endpointsUrl.activateAccount, payload);
+	}
+
 	me(): Observable<User> {
 		return this.http.get<User>(endpointsUrl.me);
 	}

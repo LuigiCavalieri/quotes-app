@@ -6,6 +6,7 @@ import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import appConfig from "./config/appConfig";
 import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.component";
+import { ActivateAccountPageComponent } from "./pages/activate-account-page/activate-account-page.component";
 
 const pageTitleEnd = ` | ${appConfig.appName}`;
 const routes: Routes = [
@@ -18,6 +19,11 @@ const routes: Routes = [
 		path: pageItems.signup.routePath,
 		component: SignupPageComponent,
 		title: pageItems.signup.pageTitle + pageTitleEnd,
+	},
+	{
+		path: pageItems.activateAccount.routePath,
+		component: ActivateAccountPageComponent,
+		title: pageItems.activateAccount.pageTitle + pageTitleEnd,
 	},
 	{
 		path: pageItems.admin.routePath,
