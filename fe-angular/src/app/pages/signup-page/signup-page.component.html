@@ -1,5 +1,5 @@
 <app-auth-layout>
-	<p *ngIf="showSuccessMessage; else signupForm" class="" class="text-lg text-center">
+	<p *ngIf="showSuccessMessage; else signupForm" class="text-lg text-center">
 		<strong>Your account is almost ready.</strong>
 		<br />
 		<br />
@@ -12,7 +12,12 @@
 
 	<ng-template #signupForm>
 		<app-auth-form-title>{{ pageItems.signup.pageTitle }}</app-auth-form-title>
-		<app-auth-form type="signup" [isLoading]="isLoading" (onSubmit)="onSubmit($event)" />
+		<app-auth-form
+			type="signup"
+			[isLoading]="isLoading"
+			[errorMessage]="errorMessage"
+			(onSubmit)="onSubmit($event)"
+		/>
 		<p>Do you already have an account? <a [routerLink]="pageItems.login.url">Log in</a></p>
 	</ng-template>
 </app-auth-layout>

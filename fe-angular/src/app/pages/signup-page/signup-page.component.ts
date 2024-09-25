@@ -1,6 +1,10 @@
 import { Component } from "@angular/core";
 import { pageItems } from "../../config/pageItems";
 import { Credentials } from "../../types/auth";
+import { AuthService } from "../../services/auth.service";
+import { catchError, EMPTY } from "rxjs";
+import { EMPTY_STRING } from "../../constants";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
 	selector: "app-signup-page",
@@ -9,16 +13,30 @@ import { Credentials } from "../../types/auth";
 })
 export class SignupPageComponent {
 	isLoading = false;
+	errorMessage = EMPTY_STRING;
 	showSuccessMessage = false;
 
 	readonly pageItems = pageItems;
 
-	onSubmit(values: Credentials) {
-		this.isLoading = true;
+	constructor(private authService: AuthService) {}
 
-		console.log(values);
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 2000);
+	onSubmit(credentials: Credentials) {
+		this.isLoading = true;
+		this.errorMessage = EMPTY_STRING;
+
+		this.authService
+			.signup(credentials)
+			.pipe(
+				catchError(({ error }: HttpErrorResponse) => {
+					this.isLoading = false;
+					this.errorMessage = error?.message || "";
+
+					return EMPTY;
+				})
+			)
+			.subscribe(() => {
+				this.isLoading = false;
+				this.showSuccessMessage = true;
+			});
 	}
 }

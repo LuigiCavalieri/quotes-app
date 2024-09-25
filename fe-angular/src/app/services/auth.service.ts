@@ -19,6 +19,10 @@ export class AuthService {
 		return this.http.post(endpointsUrl.logout, null);
 	}
 
+	signup(credentials: Credentials): Observable<Object> {
+		return this.http.post(endpointsUrl.signup, credentials);
+	}
+
 	me(): Observable<User> {
 		return this.http.get<User>(endpointsUrl.me);
 	}
