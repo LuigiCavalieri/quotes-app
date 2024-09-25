@@ -9,7 +9,7 @@ The following are its main features:
 - Composed of two parts, a front-end SPA developed with React, and a Express.js-based back-end which exposes a REST API built on top of PostgreSQL.
 - Full authentication flow using the JWT pattern and email verification on sign-up, with automatic logout when the JWT expires.
 - Quotes-search feature characterised by caching of the search results, pagination implemented on the back-end, and throttling of the HTTP requests.
-- Various E2E tests developed with Cypress.
+- Various E2E tests developed with Cypress and Dockerised back-end for development.
 - Angular version of the front-end — a work in progress.
 
 If you want to run the app on your local machine, below are all the steps you need to follow.
