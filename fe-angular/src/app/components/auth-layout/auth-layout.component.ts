@@ -12,7 +12,7 @@ import { Subject, takeUntil } from "rxjs";
 	styleUrl: "./auth-layout.component.scss",
 })
 export class AuthLayoutComponent implements OnDestroy {
-	readonly destroyedSbj$ = new Subject();
+	readonly destroySbj$ = new Subject();
 	readonly isLoading$ = this.store.select(selectIsFetchingUser);
 
 	constructor(
@@ -21,7 +21,7 @@ export class AuthLayoutComponent implements OnDestroy {
 	) {
 		store
 			.select(selectIsLoggedIn)
-			.pipe(takeUntil(this.destroyedSbj$))
+			.pipe(takeUntil(this.destroySbj$))
 			.subscribe(isLoggedIn => {
 				if (isLoggedIn) {
 					this.router.navigateByUrl(pageItems.admin.url);
@@ -30,7 +30,7 @@ export class AuthLayoutComponent implements OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.destroyedSbj$.next(true);
-		this.destroyedSbj$.complete();
+		this.destroySbj$.next(true);
+		this.destroySbj$.complete();
 	}
 }

@@ -19,7 +19,7 @@ import { doLogout } from "../../store/actions/auth.actions";
 })
 export class AdminLayoutComponent {
 	readonly title = appConfig.appName;
-	readonly destroyedSbj$ = new Subject();
+	readonly destroySbj$ = new Subject();
 	readonly isLoading$ = this.store.select(selectIsFetchingUser);
 	readonly user$ = this.store.select(selectUser);
 
@@ -29,7 +29,7 @@ export class AdminLayoutComponent {
 	) {
 		store
 			.select(selectIsLoggedIn)
-			.pipe(takeUntil(this.destroyedSbj$))
+			.pipe(takeUntil(this.destroySbj$))
 			.subscribe(isLoggedIn => {
 				if (!isLoggedIn) {
 					this.router.navigateByUrl(pageItems.login.url);
@@ -42,7 +42,7 @@ export class AdminLayoutComponent {
 	}
 
 	ngOnDestroy(): void {
-		this.destroyedSbj$.next(true);
-		this.destroyedSbj$.complete();
+		this.destroySbj$.next(true);
+		this.destroySbj$.complete();
 	}
 }
