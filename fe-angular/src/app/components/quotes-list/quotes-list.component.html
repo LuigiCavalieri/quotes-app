@@ -1,0 +1,14 @@
+<mat-card class="card">
+	<h2 class="mb-1">Your saved quotes</h2>
+	<p *ngIf="isLoading$ | async; else listTemplate" class="status-message text-sm mt-1/2">
+		Quotes are loading...
+	</p>
+	<ng-template #listTemplate>
+		<ng-container *ngIf="quotes$ | async as quotes" [ngSwitch]="quotes.length">
+			<p *ngSwitchCase="0" class="status-message text-sm">No quotes found.</p>
+			<ol *ngSwitchDefault>
+				<app-quotes-list-item *ngFor="let quote of quotes" [quote]="quote" />
+			</ol>
+		</ng-container>
+	</ng-template>
+</mat-card>

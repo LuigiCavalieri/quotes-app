@@ -2,6 +2,7 @@
 @import "./theme";
 
 $color-text: mat.get-theme-color($theme, foreground, text);
+$color-text-light: mat.get-color-from-palette(mat.$blue-gray-palette, 600);
 $color-text-white: white;
 $color-link-primary: mat.get-theme-color($theme, primary, default);
 $color-bg-primary: mat.get-theme-color($theme, primary, 50);

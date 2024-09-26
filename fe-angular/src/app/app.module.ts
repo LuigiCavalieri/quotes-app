@@ -7,6 +7,7 @@ import { AdminModule } from "./modules/admin.module";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "./store/effects/auth.effects";
+import { QuotesEffects } from "./store/effects/quotes.effects";
 import { reducers } from "./store";
 import { logoutMetareducer } from "./store/reducers/auth.reducer";
 import { HttpClientModule, provideHttpClient, withInterceptors } from "@angular/common/http";
@@ -24,7 +25,7 @@ import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.com
 		AdminModule,
 		HttpClientModule,
 		StoreModule.forRoot(reducers, { metaReducers: [logoutMetareducer] }),
-		EffectsModule.forRoot(AuthEffects),
+		EffectsModule.forRoot(AuthEffects, QuotesEffects),
 	],
 	providers: [provideAnimations(), provideHttpClient(withInterceptors(interceptors))],
 	bootstrap: [AppComponent],
