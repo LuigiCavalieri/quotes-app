@@ -30,14 +30,20 @@ const _pageItems: Readonly<Record<PageItemKey, PageItem>> = {
 		pageTitle: "",
 	},
 	list: {
-		url: "",
-		routePath: `${appConfig.adminSlug}/quotes`,
+		url: `/${appConfig.adminSlug}/quotes`,
+		routePath: `quotes`,
 		pageTitle: "Your Quotes",
 	},
 };
 
 for (let key in _pageItems) {
-	_pageItems[key as PageItemKey].url = "/" + _pageItems[key as PageItemKey].routePath;
+	const _key = key as PageItemKey;
+
+	if (_pageItems[_key].url) {
+		continue;
+	}
+
+	_pageItems[_key].url = "/" + _pageItems[_key].routePath;
 }
 
 export const pageItems = Object.freeze(_pageItems);

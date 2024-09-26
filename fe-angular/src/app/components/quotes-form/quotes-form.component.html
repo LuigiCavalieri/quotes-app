@@ -1,0 +1,20 @@
+<mat-card class="card">
+	<form [formGroup]="form" (ngSubmit)="handleNgSubmit()">
+		<mat-form-field>
+			<textarea
+				matInput
+				cdkTextareaAutosize
+				cdkAutosizeMinRows="1"
+				cdkAutosizeMaxRows="8"
+				placeholder="Type in the quote you want to save"
+				formControlName="content"
+			></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput placeholder="by 'anonymous'" formControlName="author" />
+		</mat-form-field>
+		<button mat-flat-button type="submit" color="primary" [disabled]="isSubmitDisabled()">
+			Save
+		</button>
+	</form>
+</mat-card>

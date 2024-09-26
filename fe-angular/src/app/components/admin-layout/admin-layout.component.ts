@@ -31,7 +31,9 @@ export class AdminLayoutComponent {
 			.select(selectIsLoggedIn)
 			.pipe(takeUntil(this.destroySbj$))
 			.subscribe(isLoggedIn => {
-				if (!isLoggedIn) {
+				if (isLoggedIn) {
+					this.router.navigateByUrl(pageItems.list.url);
+				} else {
 					this.router.navigateByUrl(pageItems.login.url);
 				}
 			});

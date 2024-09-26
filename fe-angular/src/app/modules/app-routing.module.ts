@@ -7,6 +7,7 @@ import { NotFoundPageComponent } from "../pages/not-found-page/not-found-page.co
 import appConfig from "../config/appConfig";
 import { AdminLayoutComponent } from "../components/admin-layout/admin-layout.component";
 import { ActivateAccountPageComponent } from "../pages/activate-account-page/activate-account-page.component";
+import { ListPageComponent } from "../pages/list-page/list-page.component";
 
 const pageTitleEnd = ` | ${appConfig.appName}`;
 const routes: Routes = [
@@ -28,7 +29,13 @@ const routes: Routes = [
 	{
 		path: pageItems.admin.routePath,
 		component: AdminLayoutComponent,
-		children: [],
+		children: [
+			{
+				path: pageItems.list.routePath,
+				component: ListPageComponent,
+				title: pageItems.list.pageTitle,
+			},
+		],
 	},
 	{
 		path: "**",
