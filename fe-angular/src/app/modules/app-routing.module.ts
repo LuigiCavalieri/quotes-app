@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { LoginPageComponent } from "./pages/login-page/login-page.component";
-import { pageItems } from "./config/pageItems";
-import { SignupPageComponent } from "./pages/signup-page/signup-page.component";
-import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
-import appConfig from "./config/appConfig";
-import { AdminLayoutComponent } from "./components/admin-layout/admin-layout.component";
-import { ActivateAccountPageComponent } from "./pages/activate-account-page/activate-account-page.component";
+import { LoginPageComponent } from "../pages/login-page/login-page.component";
+import { pageItems } from "../config/pageItems";
+import { SignupPageComponent } from "../pages/signup-page/signup-page.component";
+import { NotFoundPageComponent } from "../pages/not-found-page/not-found-page.component";
+import appConfig from "../config/appConfig";
+import { AdminLayoutComponent } from "../components/admin-layout/admin-layout.component";
+import { ActivateAccountPageComponent } from "../pages/activate-account-page/activate-account-page.component";
 
 const pageTitleEnd = ` | ${appConfig.appName}`;
 const routes: Routes = [
