@@ -20,7 +20,7 @@ export class QuotesEffects {
 			concatLatestFrom(({ page }) => this.store.select(selectQuotes(page))),
 			switchMap(([{ page, filters }, quotes]) => {
 				return iif(
-					() => Boolean(quotes.length),
+					() => Boolean(!page || quotes.length),
 					of(noopAction()),
 					this.quotesService.getQuotes(page, filters).pipe(
 						map(data => QuotesActions.fetchQuotesSuccess({ newQuotes: data?.quotes || [], page })),

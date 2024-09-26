@@ -15,6 +15,8 @@ import {
 	styleUrl: "./quotes-list.component.scss",
 })
 export class QuotesListComponent implements OnInit {
+	currentPage = 1;
+
 	readonly quotes$ = this.store.select(selectDisplayedQuotes);
 	readonly isLoading$ = this.store.select(selectIsLoadingQuotes);
 
@@ -22,5 +24,11 @@ export class QuotesListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.store.dispatch(loadQuotes({ page: 1, filters: { keywords: "" } }));
+	}
+
+	handlePageChange(page: number) {
+		this.currentPage = page;
+
+		this.store.dispatch(loadQuotes({ page, filters: { keywords: "" } }));
 	}
 }

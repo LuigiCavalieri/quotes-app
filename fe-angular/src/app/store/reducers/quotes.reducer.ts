@@ -7,7 +7,6 @@ export interface QuotesState {
 	quotes: Record<number, Quote[]>;
 	displayedQuotes: Quote[];
 	isLoading: boolean;
-	isRefetching: boolean;
 	fetchError: string;
 }
 
@@ -15,24 +14,29 @@ export const initialState: QuotesState = {
 	quotes: {} as Record<number, Quote[]>,
 	displayedQuotes: [],
 	isLoading: false,
-	isRefetching: false,
 	fetchError: EMPTY_STRING,
 };
 
 export const quotesReducer = createReducer(
 	initialState,
 	on(Actions.loadQuotes, (state, { page }) => {
-		if (Number(page) && state.quotes[page]) {
+		const _page = Number(page);
+
+		if (_page && state.quotes[_page]) {
 			return {
 				...state,
-				displayedQuotes: state.quotes[page],
+				displayedQuotes: state.quotes[_page],
 			};
 		}
 
-		return {
-			...state,
-			isLoading: true,
-		};
+		if (_page > 0) {
+			return {
+				...state,
+				isLoading: true,
+			};
+		}
+
+		return state;
 	}),
 	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page }) => {
 		const quotes = {
