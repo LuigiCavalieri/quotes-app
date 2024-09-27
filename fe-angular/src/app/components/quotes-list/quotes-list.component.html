@@ -5,7 +5,7 @@
 		quotes: quotes$ | async,
 	} as asyncData"
 >
-	<h2 class="mb-1">Your saved quotes</h2>
+	<h2 class="mt-1/2 mb-1">Your saved quotes</h2>
 	<p
 		*ngIf="asyncData.isLoading && !asyncData.quotes?.length; else dataTemplate"
 		class="status-message text-sm mt-1/2"
