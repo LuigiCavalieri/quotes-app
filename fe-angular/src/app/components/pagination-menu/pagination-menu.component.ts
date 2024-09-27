@@ -11,8 +11,8 @@ export class PaginationMenuComponent implements OnChanges {
 	totalPages = 1;
 	counterText = EMPTY_STRING;
 
-	@Input({ required: true }) currentPage = 1;
-	@Input({ required: true }) numOfQuotes = 0;
+	@Input({ required: true }) currentPage!: number;
+	@Input({ required: true }) numOfQuotes!: number;
 	@Output() onClick = new EventEmitter<number>();
 
 	ngOnChanges(_changes: SimpleChanges): void {

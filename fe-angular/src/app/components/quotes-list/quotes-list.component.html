@@ -3,6 +3,7 @@
 	*ngIf="{
 		isLoading: isLoading$ | async,
 		quotes: quotes$ | async,
+		pagination: pagination$ | async,
 	} as asyncData"
 >
 	<h2 class="mt-1/2 mb-1">Your saved quotes</h2>
@@ -26,8 +27,8 @@
 					/>
 				</ol>
 				<app-pagination-menu
-					[currentPage]="currentPage"
-					[numOfQuotes]="quotes.length"
+					[currentPage]="asyncData.pagination?.currentPage || 1"
+					[numOfQuotes]="asyncData.pagination?.totalCount || 0"
 					(onClick)="handlePageChange($event)"
 				/>
 			</ng-template>

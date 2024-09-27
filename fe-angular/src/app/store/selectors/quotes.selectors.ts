@@ -13,3 +13,8 @@ export const selectIsLoadingQuotes = createSelector(
 	selectQuotesState,
 	quotesState => quotesState.isLoading
 );
+
+export const selectPagination = createSelector(
+	selectQuotesState,
+	quotesState => quotesState.pagination
+);

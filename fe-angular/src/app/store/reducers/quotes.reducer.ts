@@ -8,6 +8,10 @@ export interface QuotesState {
 	displayedQuotes: Quote[];
 	isLoading: boolean;
 	fetchError: string;
+	pagination: {
+		currentPage: number;
+		totalCount: number;
+	};
 }
 
 export const initialState: QuotesState = {
@@ -15,6 +19,10 @@ export const initialState: QuotesState = {
 	displayedQuotes: [],
 	isLoading: false,
 	fetchError: EMPTY_STRING,
+	pagination: {
+		currentPage: 1,
+		totalCount: 0,
+	},
 };
 
 export const quotesReducer = createReducer(
@@ -26,6 +34,10 @@ export const quotesReducer = createReducer(
 			return {
 				...state,
 				displayedQuotes: state.quotes[_page],
+				pagination: {
+					...state.pagination,
+					currentPage: page,
+				},
 			};
 		}
 
@@ -38,17 +50,19 @@ export const quotesReducer = createReducer(
 
 		return state;
 	}),
-	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page }) => {
-		const quotes = {
-			...state.quotes,
-			[page]: newQuotes,
-		};
-
+	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount }) => {
 		return {
 			...state,
-			quotes,
 			displayedQuotes: newQuotes,
 			isLoading: false,
+			quotes: {
+				...state.quotes,
+				[page]: newQuotes,
+			},
+			pagination: {
+				totalCount,
+				currentPage: page,
+			},
 		};
 	})
 );

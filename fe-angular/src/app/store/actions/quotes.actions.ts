@@ -7,5 +7,5 @@ export const loadQuotes = createAction(
 );
 export const fetchQuotesSuccess = createAction(
 	"[Quotes State] Quotes successfully fetched",
-	props<{ newQuotes: Quote[]; page: number }>()
+	props<{ newQuotes: Quote[]; page: number; totalCount: number }>()
 );

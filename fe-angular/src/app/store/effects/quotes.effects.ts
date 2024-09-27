@@ -18,48 +18,24 @@ export class QuotesEffects {
 		this.actions$.pipe(
 			ofType(QuotesActions.loadQuotes),
 			concatLatestFrom(({ page }) => this.store.select(selectQuotes(page))),
-			switchMap(([{ page, filters }, quotes]) => {
+			exhaustMap(([{ page, filters }, quotes]) => {
 				return iif(
 					() => Boolean(!page || quotes.length),
 					of(noopAction()),
 					this.quotesService.getQuotes(page, filters).pipe(
-						map(data => QuotesActions.fetchQuotesSuccess({ newQuotes: data?.quotes || [], page })),
+						map(data =>
+							QuotesActions.fetchQuotesSuccess({
+								page,
+								totalCount: data?.total_count || 0,
+								newQuotes: data?.quotes || [],
+							})
+						),
 						catchError(() => of(noopAction()))
 					)
 				);
 			})
 		)
 	);
-	// readonly doLogout$ = createEffect(
-	// 	() =>
-	// 		this.actions$.pipe(
-	// 			ofType(AuthActions.doLogout),
-	// 			tap(() => removeStorageItem(LocalStorageKeys.isLoggedIn)),
-	// 			exhaustMap(({ force }) => {
-	// 				return iif(
-	// 					() => Boolean(force),
-	// 					of(EMPTY),
-	// 					this.authService.logout().pipe(catchError(() => EMPTY))
-	// 				);
-	// 			})
-	// 		),
-	// 	{ dispatch: false }
-	// );
-	// readonly fetchUser$ = createEffect(() =>
-	// 	this.actions$.pipe(
-	// 		ofType(AuthActions.fetchUser),
-	// 		exhaustMap(() => {
-	// 			return iif(
-	// 				() => Boolean(getStorageItem(LocalStorageKeys.isLoggedIn)),
-	// 				this.authService.me().pipe(
-	// 					map(user => AuthActions.fetchUserSuccess({ user })),
-	// 					catchError(() => of(AuthActions.doLogout({ force: true })))
-	// 				),
-	// 				of(noopAction())
-	// 			);
-	// 		})
-	// 	)
-	// );
 
 	constructor(
 		private actions$: Actions,

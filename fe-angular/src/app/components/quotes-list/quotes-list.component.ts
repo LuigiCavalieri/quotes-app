@@ -7,6 +7,7 @@ import { loadQuotes } from "../../store/actions/quotes.actions";
 import {
 	selectDisplayedQuotes,
 	selectIsLoadingQuotes,
+	selectPagination,
 } from "../../store/selectors/quotes.selectors";
 
 @Component({
@@ -15,10 +16,9 @@ import {
 	styleUrl: "./quotes-list.component.scss",
 })
 export class QuotesListComponent implements OnInit {
-	currentPage = 1;
-
 	readonly quotes$ = this.store.select(selectDisplayedQuotes);
 	readonly isLoading$ = this.store.select(selectIsLoadingQuotes);
+	readonly pagination$ = this.store.select(selectPagination);
 
 	constructor(private store: Store<AppState>) {}
 
@@ -27,8 +27,6 @@ export class QuotesListComponent implements OnInit {
 	}
 
 	handlePageChange(page: number) {
-		this.currentPage = page;
-
 		this.store.dispatch(loadQuotes({ page, filters: { keywords: "" } }));
 	}
 }
