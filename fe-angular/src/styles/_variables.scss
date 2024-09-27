@@ -3,14 +3,17 @@
 
 $color-text: mat.get-theme-color($theme, foreground, text);
 $color-text-light: mat.get-color-from-palette(mat.$blue-gray-palette, 600);
+$color-text-lighter: mat.get-color-from-palette(mat.$blue-gray-palette, 300);
 $color-text-white: white;
 $color-link-primary: mat.get-theme-color($theme, primary, default);
 $color-bg-primary: mat.get-theme-color($theme, primary, 50);
 $color-bg-header: mat.get-theme-color($theme, primary, 800);
+$color-bg-neutral: mat.get-color-from-palette(mat.$blue-gray-palette, 50);
 $color-bg-warn: mat.get-theme-color($theme, warn, 50);
 $color-bg-warn-dark: mat.get-theme-color($theme, warn, 200);
 $color-warn: mat.get-theme-color($theme, warn, 700);
 $color-card-border: mat.get-color-from-palette(mat.$blue-gray-palette, 300);
+$color-divider: $color-card-border;
 
 $font-weight-standard: 300;
 $font-weight-medium: 400;

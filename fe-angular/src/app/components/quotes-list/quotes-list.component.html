@@ -18,8 +18,12 @@
 				No quotes found.
 			</p>
 			<ng-template #listTemplate>
-				<ol [ngClass]="{ 'opacity-50': asyncData.isLoading }">
-					<app-quotes-list-item *ngFor="let quote of quotes" [quote]="quote" />
+				<ol class="m-0 p-0" [ngClass]="{ 'opacity-50': asyncData.isLoading }">
+					<app-quotes-list-item
+						*ngFor="let quote of quotes; index as i"
+						[quote]="quote"
+						[itemIndex]="i + 1"
+					/>
 				</ol>
 				<button (click)="handlePageChange(currentPage - 1)">prev</button>
 				<button (click)="handlePageChange(currentPage + 1)">next</button>
