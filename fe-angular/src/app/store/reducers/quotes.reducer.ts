@@ -20,9 +20,9 @@ export const initialState: QuotesState = {
 export const quotesReducer = createReducer(
 	initialState,
 	on(Actions.loadQuotes, (state, { page }) => {
-		const _page = Number(page);
+		const _page = Number(page) || 0;
 
-		if (_page && state.quotes[_page]) {
+		if (state.quotes[_page]) {
 			return {
 				...state,
 				displayedQuotes: state.quotes[_page],
