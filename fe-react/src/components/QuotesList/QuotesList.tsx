@@ -135,9 +135,6 @@ export default function QuotesList() {
 									itemIndex={itemNum}
 									copyStatus={copiedQuoteId === quote.id ? copyStatus : CopyStatus.waiting}
 									onClickCopy={() => copyToClipboard(quote)}
-									className={classNames({
-										"border-t border-dashed border-t-slate-400": idx !== 0,
-									})}
 								/>
 							);
 						})}

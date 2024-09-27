@@ -32,7 +32,7 @@ export default function ActivateAccountPage() {
 				} else {
 					setErrorMessage(
 						<>
-							Your account cannot be activated.
+							<strong>Your account cannot be activated.</strong>
 							<br />
 							Please check your activation link and retry.
 						</>
@@ -44,8 +44,9 @@ export default function ActivateAccountPage() {
 				if (error.message === ErrorCodes.accountCannotBeActivated) {
 					setErrorMessage(
 						<>
-							<strong>Your account cannot be activated.</strong> Maybe your activation link has
-							expired.
+							<strong>Your account cannot be activated.</strong>
+							<br />
+							Maybe your activation link has expired.
 							<br />
 							<br />
 							Please, <RouterLink to={pageItems.signup.url}>try to sign up anew</RouterLink>.
@@ -54,7 +55,9 @@ export default function ActivateAccountPage() {
 				} else {
 					setErrorMessage(
 						<>
-							<strong>Something didn't work</strong> as expected, please try again later.
+							<strong>Something didn't work</strong> as expected,
+							<br />
+							please try again later.
 						</>
 					);
 				}
