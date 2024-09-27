@@ -85,8 +85,7 @@ export default function QuotesList() {
 		}
 	}, [mainQueryState.searchFilters.keywords]);
 
-	const onClickRefresh = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
+	const onClickRefresh = () => {
 		location.reload();
 	};
 
@@ -142,7 +141,7 @@ export default function QuotesList() {
 					<PaginationMenu
 						className="mt-6 mb-2"
 						currentPage={pagination.currentPage}
-						numOfQuotes={pagination.numOfItems}
+						numOfQuotes={pagination.totalCount}
 						onClick={page => refreshQuotes(page, { keywords: searchString.trim() })}
 					/>
 				</>

@@ -73,7 +73,7 @@ export default function QuotesProvider({ children }: QuotesProviderProps) {
 				},
 				pagination: {
 					currentPage,
-					numOfItems: queryData?.total_count || 0,
+					totalCount: queryData?.total_count || 0,
 				},
 				refreshQuotes,
 			}}

@@ -36,8 +36,7 @@ export default function RandomQuote() {
 		randomQuoteQueryState.updateEnabled(false);
 	}, [randomQuoteQueryState]);
 
-	const onClickRefresh = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
+	const onClickRefresh = () => {
 		location.reload();
 	};
 
