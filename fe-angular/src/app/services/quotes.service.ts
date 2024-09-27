@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
-import { QuotesRequestQueryParams, QuotesResponseData, QuotesSearchFilters } from "../types/quotes";
+import {
+	Quote,
+	QuotesRequestQueryParams,
+	QuotesResponseData,
+	QuotesSearchFilters,
+	QuoteWithoutServerGenFields,
+} from "../types/quotes";
 import appConfig from "../config/appConfig";
 import { endpointsUrl } from "../config/endpointsUrl";
 import { HttpClient } from "@angular/common/http";
@@ -10,7 +16,8 @@ import { HttpClient } from "@angular/common/http";
 export class QuotesService {
 	constructor(private http: HttpClient) {}
 
-	getQuotes(page: number, { keywords }: QuotesSearchFilters) {
+	getQuotes(page: number, filters?: QuotesSearchFilters) {
+		const { keywords } = filters || {};
 		const keywordsParamValue = keywords
 			?.replace(/|/g, "")
 			.split(" ")
@@ -27,5 +34,9 @@ export class QuotesService {
 		const url = endpointsUrl.quotes + "?" + paramsObj.toString();
 
 		return this.http.get<QuotesResponseData>(url);
+	}
+
+	saveQuote(payload: QuoteWithoutServerGenFields) {
+		return this.http.post<Quote>(endpointsUrl.quotes, payload);
 	}
 }

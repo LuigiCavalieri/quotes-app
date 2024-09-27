@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+
+form {
+	display: grid;
+}
+
+button {
+	justify-self: end;
+	width: 25%;
+}
+
+.success-feedback {
+	color: $color-success;
+	font-weight: $font-weight-bold;
+}

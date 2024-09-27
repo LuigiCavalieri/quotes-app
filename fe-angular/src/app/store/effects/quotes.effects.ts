@@ -18,16 +18,16 @@ export class QuotesEffects {
 		this.actions$.pipe(
 			ofType(QuotesActions.loadQuotes),
 			concatLatestFrom(({ page }) => this.store.select(selectQuotes(page))),
-			exhaustMap(([{ page, filters }, quotes]) => {
+			exhaustMap(([{ page }, quotes]) => {
 				return iif(
 					() => Boolean(!page || quotes.length),
 					of(noopAction()),
-					this.quotesService.getQuotes(page, filters).pipe(
+					this.quotesService.getQuotes(page).pipe(
 						map(data =>
 							QuotesActions.fetchQuotesSuccess({
 								page,
-								totalCount: data?.total_count || 0,
 								newQuotes: data?.quotes || [],
+								totalCount: data?.total_count || 0,
 							})
 						),
 						catchError(({ error }: HttpErrorResponse) =>
@@ -36,6 +36,30 @@ export class QuotesEffects {
 									errorMessage: error?.message || EMPTY_STRING,
 								})
 							)
+						)
+					)
+				);
+			})
+		)
+	);
+	readonly reloadQuotes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(QuotesActions.reloadQuotes),
+			exhaustMap(() => {
+				return this.quotesService.getQuotes(1).pipe(
+					map(data =>
+						QuotesActions.fetchQuotesSuccess({
+							page: 1,
+							resetCache: true,
+							newQuotes: data?.quotes || [],
+							totalCount: data?.total_count || 0,
+						})
+					),
+					catchError(({ error }: HttpErrorResponse) =>
+						of(
+							QuotesActions.fetchQuotesError({
+								errorMessage: error?.message || EMPTY_STRING,
+							})
 						)
 					)
 				);

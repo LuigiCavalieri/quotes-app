@@ -26,11 +26,11 @@ export class QuotesListComponent implements OnInit {
 	constructor(private store: Store<AppState>) {}
 
 	ngOnInit(): void {
-		this.store.dispatch(loadQuotes({ page: 1, filters: { keywords: "" } }));
+		this.store.dispatch(loadQuotes({ page: 1 }));
 	}
 
 	handleClickPagination(page: number) {
-		this.store.dispatch(loadQuotes({ page, filters: { keywords: "" } }));
+		this.store.dispatch(loadQuotes({ page }));
 	}
 
 	handleClickRefreshPage() {

@@ -1,4 +1,7 @@
 <mat-card class="card">
+	<app-error-message *ngIf="errorMessage" [canBeDismissed]="true">
+		{{ errorMessage }}
+	</app-error-message>
 	<form [formGroup]="form" (ngSubmit)="handleNgSubmit()">
 		<mat-form-field>
 			<textarea
@@ -13,8 +16,11 @@
 		<mat-form-field>
 			<input matInput placeholder="by 'anonymous'" formControlName="author" />
 		</mat-form-field>
-		<button mat-flat-button type="submit" color="primary" [disabled]="isSubmitDisabled()">
-			Save
-		</button>
+		<div class="flex items-center justify-end gap-1">
+			<span *ngIf="showSavedSbj$ | async" class="success-feedback text-sm">Saved!</span>
+			<button mat-flat-button type="submit" color="primary" [disabled]="isSubmitDisabled()">
+				{{ isSaving ? "Saving..." : "Save" }}
+			</button>
+		</div>
 	</form>
 </mat-card>

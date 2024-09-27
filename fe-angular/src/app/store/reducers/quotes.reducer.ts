@@ -4,7 +4,7 @@ import { Quote } from "../../types/quotes";
 import { EMPTY_STRING } from "../../constants";
 
 export interface QuotesState {
-	quotes: Record<number, Quote[]>;
+	cachedQuotes: Record<number, Quote[]>;
 	displayedQuotes: Quote[];
 	isLoading: boolean;
 	fetchErrorMessage: string;
@@ -15,7 +15,7 @@ export interface QuotesState {
 }
 
 export const initialState: QuotesState = {
-	quotes: {} as Record<number, Quote[]>,
+	cachedQuotes: {} as Record<number, Quote[]>,
 	displayedQuotes: [],
 	isLoading: false,
 	fetchErrorMessage: EMPTY_STRING,
@@ -30,10 +30,10 @@ export const quotesReducer = createReducer(
 	on(Actions.loadQuotes, (state, { page }) => {
 		const _page = Number(page) || 0;
 
-		if (state.quotes[_page]) {
+		if (state.cachedQuotes[_page]) {
 			return {
 				...state,
-				displayedQuotes: state.quotes[_page],
+				displayedQuotes: state.cachedQuotes[_page],
 				pagination: {
 					...state.pagination,
 					currentPage: page,
@@ -44,19 +44,20 @@ export const quotesReducer = createReducer(
 		if (_page > 0) {
 			return {
 				...state,
+				fetchErrorMessage: EMPTY_STRING,
 				isLoading: true,
 			};
 		}
 
 		return state;
 	}),
-	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount }) => {
+	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount, resetCache }) => {
 		return {
 			...state,
 			displayedQuotes: newQuotes,
 			isLoading: false,
-			quotes: {
-				...state.quotes,
+			cachedQuotes: {
+				...(resetCache ? {} : state.cachedQuotes),
 				[page]: newQuotes,
 			},
 			pagination: {
@@ -70,6 +71,13 @@ export const quotesReducer = createReducer(
 			...state,
 			isLoading: false,
 			fetchErrorMessage: errorMessage,
+		};
+	}),
+	on(Actions.reloadQuotes, state => {
+		return {
+			...state,
+			fetchErrorMessage: EMPTY_STRING,
+			isLoading: true,
 		};
 	})
 );
