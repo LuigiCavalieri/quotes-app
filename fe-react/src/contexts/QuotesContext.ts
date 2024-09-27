@@ -24,7 +24,7 @@ export interface QuotesContextInterface {
 	randomQuoteQueryState: RandomQuoteQueryState;
 	pagination: {
 		currentPage: number;
-		numOfItems: number;
+		totalCount: number;
 	};
 	refreshQuotes: (page: number, searchFilters?: QuotesSearchFilters) => void;
 }
@@ -40,7 +40,7 @@ export const QuotesContext = createContext<QuotesContextInterface>({
 	},
 	pagination: {
 		currentPage: 1,
-		numOfItems: 0,
+		totalCount: 0,
 	},
 	refreshQuotes: () => undefined,
 });
