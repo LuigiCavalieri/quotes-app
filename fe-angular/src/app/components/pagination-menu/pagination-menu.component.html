@@ -1,0 +1,21 @@
+<div class="flex justify-between items-center mt-2 mb-1/2">
+	<button
+		mat-icon-button
+		type="button"
+		color="primary"
+		[disabled]="currentPage <= 1"
+		(click)="handleOnClick(currentPage - 1)"
+	>
+		<mat-icon>arrow_back</mat-icon>
+	</button>
+	<span class="counter-text text-sm">{{ counterText }}</span>
+	<button
+		mat-icon-button
+		type="button"
+		color="primary"
+		[disabled]="currentPage >= totalPages"
+		(click)="handleOnClick(currentPage + 1)"
+	>
+		<mat-icon>arrow_forward</mat-icon>
+	</button>
+</div>

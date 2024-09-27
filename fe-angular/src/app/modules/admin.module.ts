@@ -5,6 +5,7 @@ import { QuotesFormComponent } from "../components/quotes-form/quotes-form.compo
 import { ListPageComponent } from "../pages/list-page/list-page.component";
 import { QuotesListComponent } from "../components/quotes-list/quotes-list.component";
 import { QuotesListItemComponent } from "../components/quotes-list-item/quotes-list-item.component";
+import { PaginationMenuComponent } from "../components/pagination-menu/pagination-menu.component";
 
 @NgModule({
 	declarations: [
@@ -13,6 +14,7 @@ import { QuotesListItemComponent } from "../components/quotes-list-item/quotes-l
 		QuotesFormComponent,
 		QuotesListComponent,
 		QuotesListItemComponent,
+		PaginationMenuComponent,
 	],
 	imports: [SharedModule],
 })
