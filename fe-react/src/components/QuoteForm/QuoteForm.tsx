@@ -39,11 +39,7 @@ export default function QuoteForm() {
 
 	return (
 		<Card>
-			{isError && (
-				<ErrorMessage canBeDismissed className="mt-2">
-					{error.message}
-				</ErrorMessage>
-			)}
+			{isError && <ErrorMessage canBeDismissed>{error.message}</ErrorMessage>}
 			<form
 				data-testid="quote-form"
 				className="grid gap-5 py-2"

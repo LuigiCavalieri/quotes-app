@@ -92,7 +92,7 @@ export default function QuotesList() {
 	return (
 		<Card title="Your saved quotes">
 			{mainQueryState.isError && (
-				<ErrorMessage className="mt-8">
+				<ErrorMessage>
 					{"Something didn't work. Please try to "}
 					<button type="button" className="underline" onClick={onClickRefresh}>
 						refresh the page
