@@ -5,7 +5,7 @@
 			data-before="by"
 			class="text-right text-sm font-medium mt-1/2 before:text-gray-400 before:mr-1 before:font-normal"
 		>
-			{{ quote.author }}
+			{{ quote.author || authorDefaultName }}
 		</figcaption>
 	</figure>
 </li>
