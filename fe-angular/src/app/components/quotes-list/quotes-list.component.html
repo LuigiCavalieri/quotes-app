@@ -2,7 +2,6 @@
 	class="card"
 	*ngIf="{
 		isLoading: isLoading$ | async,
-		quotes: quotes$ | async,
 		pagination: pagination$ | async,
 	} as asyncData"
 >
@@ -13,17 +12,17 @@
 			refresh the page</button
 		>.
 	</app-error-message>
-	<mat-form-field>
-		<input matInput type="search" />
+	<mat-form-field *ngIf="showSearchField">
+		<input matInput type="search" name="searchKeywords" />
 	</mat-form-field>
 	<p
-		*ngIf="asyncData.isLoading && !asyncData.quotes?.length; else dataTemplate"
+		*ngIf="asyncData.isLoading && !quotes.length; else dataTemplate"
 		class="status-message text-sm mt-1/2"
 	>
 		Quotes are loading...
 	</p>
 	<ng-template #dataTemplate>
-		<ng-container *ngIf="asyncData.quotes as quotes">
+		<ng-container>
 			<p *ngIf="!quotes.length; else listTemplate" class="text-sm">No quotes found.</p>
 			<ng-template #listTemplate>
 				<ol class="m-0 p-0" [ngClass]="{ 'opacity-50': asyncData.isLoading }">

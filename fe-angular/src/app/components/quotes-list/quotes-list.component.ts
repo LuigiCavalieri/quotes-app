@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Subject } from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subject, takeUntil } from "rxjs";
 import { Quote } from "../../types/quotes";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
@@ -17,8 +17,11 @@ import appConfig from "../../config/appConfig";
 	templateUrl: "./quotes-list.component.html",
 	styleUrl: "./quotes-list.component.scss",
 })
-export class QuotesListComponent implements OnInit {
-	readonly quotes$ = this.store.select(selectDisplayedQuotes);
+export class QuotesListComponent implements OnInit, OnDestroy {
+	quotes: Quote[] = [];
+	showSearchField = false;
+
+	readonly destroySbj$ = new Subject();
 	readonly isLoading$ = this.store.select(selectIsLoadingQuotes);
 	readonly isError$ = this.store.select(selectIsFetchError);
 	readonly pagination$ = this.store.select(selectPagination);
@@ -27,6 +30,21 @@ export class QuotesListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.store.dispatch(loadQuotes({ page: 1 }));
+		this.store
+			.select(selectDisplayedQuotes)
+			.pipe(takeUntil(this.destroySbj$))
+			.subscribe(quotes => {
+				this.quotes = quotes;
+
+				if (quotes.length) {
+					this.showSearchField = true;
+				}
+			});
+	}
+
+	ngOnDestroy(): void {
+		this.destroySbj$.next(true);
+		this.destroySbj$.complete();
 	}
 
 	handleClickPagination(page: number) {

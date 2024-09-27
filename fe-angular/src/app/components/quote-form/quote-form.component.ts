@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { EMPTY_STRING } from "../../constants";
 import { QuoteWithoutServerGenFields } from "../../types/quotes";
 import { QuotesService } from "../../services/quotes.service";
-import { BehaviorSubject, catchError, delay, EMPTY, filter } from "rxjs";
+import { BehaviorSubject, catchError, delay, EMPTY, filter, Subject, takeUntil } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
@@ -15,11 +15,12 @@ import appConfig from "../../config/appConfig";
 	templateUrl: "./quote-form.component.html",
 	styleUrl: "./quote-form.component.scss",
 })
-export class QuoteFormComponent {
+export class QuoteFormComponent implements OnInit, OnDestroy {
 	isSaving = false;
 	errorMessage = EMPTY_STRING;
 	showSavedSbj$ = new BehaviorSubject(false);
 
+	readonly destroySbj$ = new Subject();
 	readonly form = new FormGroup<{
 		content: FormControl<string>;
 		author: FormControl<string>;
@@ -31,10 +32,19 @@ export class QuoteFormComponent {
 	constructor(
 		private quotesService: QuotesService,
 		private store: Store<AppState>
-	) {
-		this.showSavedSbj$.pipe(filter(Boolean), delay(appConfig.feedbackTimeout)).subscribe(() => {
-			this.showSavedSbj$.next(false);
-		});
+	) {}
+
+	ngOnInit(): void {
+		this.showSavedSbj$
+			.pipe(filter(Boolean), delay(appConfig.feedbackTimeout), takeUntil(this.destroySbj$))
+			.subscribe(() => {
+				this.showSavedSbj$.next(false);
+			});
+	}
+
+	ngOnDestroy(): void {
+		this.destroySbj$.next(true);
+		this.destroySbj$.complete();
 	}
 
 	isSubmitDisabled(): boolean {
