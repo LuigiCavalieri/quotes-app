@@ -19,7 +19,7 @@ export default function QuotesListItem({
 			data-before={itemIndex}
 			className={classNames(
 				"py-4",
-				"before:content-[attr(data-before)] before:text-slate-500 before:bg-slate-100 before:rounded-full before:w-8 before:h-8 before:inline-flex before:justify-center before:items-center",
+				"border-t border-dashed border-t-slate-400 first:border-none before:content-[attr(data-before)] before:text-slate-500 before:bg-slate-100 before:rounded-full before:w-8 before:h-8 before:inline-flex before:justify-center before:items-center",
 				className
 			)}
 		>
