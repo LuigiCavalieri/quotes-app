@@ -7,7 +7,7 @@ export interface QuotesState {
 	quotes: Record<number, Quote[]>;
 	displayedQuotes: Quote[];
 	isLoading: boolean;
-	fetchError: string;
+	fetchErrorMessage: string;
 	pagination: {
 		currentPage: number;
 		totalCount: number;
@@ -18,7 +18,7 @@ export const initialState: QuotesState = {
 	quotes: {} as Record<number, Quote[]>,
 	displayedQuotes: [],
 	isLoading: false,
-	fetchError: EMPTY_STRING,
+	fetchErrorMessage: EMPTY_STRING,
 	pagination: {
 		currentPage: 1,
 		totalCount: 0,
@@ -63,6 +63,13 @@ export const quotesReducer = createReducer(
 				totalCount,
 				currentPage: page,
 			},
+		};
+	}),
+	on(Actions.fetchQuotesError, (state, { errorMessage }) => {
+		return {
+			...state,
+			isLoading: false,
+			fetchErrorMessage: errorMessage,
 		};
 	})
 );

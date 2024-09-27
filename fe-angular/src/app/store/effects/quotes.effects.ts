@@ -2,15 +2,15 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatLatestFrom } from "@ngrx/operators";
 import * as QuotesActions from "../actions/quotes.actions";
-import { catchError, exhaustMap, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
-import { getStorageItem, removeStorageItem, setStorageItem } from "../../library/local-storage";
-import { LocalStorageKeys } from "../../constants";
-import { EMPTY, of, iif } from "rxjs";
+import { catchError, exhaustMap, map } from "rxjs/operators";
+import { EMPTY_STRING } from "../../constants";
+import { of, iif } from "rxjs";
 import { noopAction } from "../actions/app.actions";
 import { QuotesService } from "../../services/quotes.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "..";
 import { selectQuotes } from "../selectors/quotes.selectors";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class QuotesEffects {
@@ -30,7 +30,13 @@ export class QuotesEffects {
 								newQuotes: data?.quotes || [],
 							})
 						),
-						catchError(() => of(noopAction()))
+						catchError(({ error }: HttpErrorResponse) =>
+							of(
+								QuotesActions.fetchQuotesError({
+									errorMessage: error?.message || EMPTY_STRING,
+								})
+							)
+						)
 					)
 				);
 			})

@@ -13,7 +13,9 @@ export const selectIsLoadingQuotes = createSelector(
 	selectQuotesState,
 	quotesState => quotesState.isLoading
 );
-
+export const selectIsFetchError = createSelector(selectQuotesState, quotesState =>
+	Boolean(quotesState.fetchErrorMessage)
+);
 export const selectPagination = createSelector(
 	selectQuotesState,
 	quotesState => quotesState.pagination

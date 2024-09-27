@@ -6,6 +6,7 @@ import { AppState } from "../../store";
 import { loadQuotes } from "../../store/actions/quotes.actions";
 import {
 	selectDisplayedQuotes,
+	selectIsFetchError,
 	selectIsLoadingQuotes,
 	selectPagination,
 } from "../../store/selectors/quotes.selectors";
@@ -19,6 +20,7 @@ import appConfig from "../../config/appConfig";
 export class QuotesListComponent implements OnInit {
 	readonly quotes$ = this.store.select(selectDisplayedQuotes);
 	readonly isLoading$ = this.store.select(selectIsLoadingQuotes);
+	readonly isError$ = this.store.select(selectIsFetchError);
 	readonly pagination$ = this.store.select(selectPagination);
 
 	constructor(private store: Store<AppState>) {}
@@ -27,8 +29,12 @@ export class QuotesListComponent implements OnInit {
 		this.store.dispatch(loadQuotes({ page: 1, filters: { keywords: "" } }));
 	}
 
-	handlePageChange(page: number) {
+	handleClickPagination(page: number) {
 		this.store.dispatch(loadQuotes({ page, filters: { keywords: "" } }));
+	}
+
+	handleClickRefreshPage() {
+		location.reload();
 	}
 
 	getPaginatedItemIndex(index: number, currentPage?: number) {

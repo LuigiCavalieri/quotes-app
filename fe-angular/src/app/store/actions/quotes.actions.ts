@@ -9,3 +9,7 @@ export const fetchQuotesSuccess = createAction(
 	"[Quotes State] Quotes successfully fetched",
 	props<{ newQuotes: Quote[]; page: number; totalCount: number }>()
 );
+export const fetchQuotesError = createAction(
+	"[Quotes State] Failed fetching quotes",
+	props<{ errorMessage: string }>()
+);

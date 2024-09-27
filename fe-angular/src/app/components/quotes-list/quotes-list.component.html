@@ -7,6 +7,12 @@
 	} as asyncData"
 >
 	<h2 class="mt-1/2 mb-1">Your saved quotes</h2>
+	<app-error-message *ngIf="isError$ | async">
+		Something didn't work. Please try to
+		<button type="button" class="link-color-inherit" (click)="handleClickRefreshPage()">
+			refresh the page</button
+		>.
+	</app-error-message>
 	<p
 		*ngIf="asyncData.isLoading && !asyncData.quotes?.length; else dataTemplate"
 		class="status-message text-sm mt-1/2"
@@ -15,9 +21,7 @@
 	</p>
 	<ng-template #dataTemplate>
 		<ng-container *ngIf="asyncData.quotes as quotes">
-			<p *ngIf="!quotes.length; else listTemplate" class="status-message text-sm">
-				No quotes found.
-			</p>
+			<p *ngIf="!quotes.length; else listTemplate" class="text-sm">No quotes found.</p>
 			<ng-template #listTemplate>
 				<ol class="m-0 p-0" [ngClass]="{ 'opacity-50': asyncData.isLoading }">
 					<app-quotes-list-item
@@ -29,7 +33,7 @@
 				<app-pagination-menu
 					[currentPage]="asyncData.pagination?.currentPage || 1"
 					[numOfQuotes]="asyncData.pagination?.totalCount || 0"
-					(onClick)="handlePageChange($event)"
+					(onClick)="handleClickPagination($event)"
 				/>
 			</ng-template>
 		</ng-container>

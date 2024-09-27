@@ -23,6 +23,21 @@ p {
 	margin: 0;
 }
 
-a {
+a,
+.link,
+.link-color-inherit {
+	background: none;
+	border: none;
 	color: $color-link-primary;
+	margin: 0;
+	padding: 0;
+	text-decoration: underline;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.link-color-inherit {
+	color: inherit;
 }
