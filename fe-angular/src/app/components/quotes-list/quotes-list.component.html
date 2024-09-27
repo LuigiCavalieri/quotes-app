@@ -23,7 +23,7 @@
 					<app-quotes-list-item
 						*ngFor="let quote of quotes; index as i"
 						[quote]="quote"
-						[itemIndex]="i + 1"
+						[itemIndex]="getPaginatedItemIndex(i, asyncData.pagination?.currentPage)"
 					/>
 				</ol>
 				<app-pagination-menu

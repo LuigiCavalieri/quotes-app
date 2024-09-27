@@ -9,6 +9,7 @@ import {
 	selectIsLoadingQuotes,
 	selectPagination,
 } from "../../store/selectors/quotes.selectors";
+import appConfig from "../../config/appConfig";
 
 @Component({
 	selector: "app-quotes-list",
@@ -28,5 +29,11 @@ export class QuotesListComponent implements OnInit {
 
 	handlePageChange(page: number) {
 		this.store.dispatch(loadQuotes({ page, filters: { keywords: "" } }));
+	}
+
+	getPaginatedItemIndex(index: number, currentPage?: number) {
+		currentPage = currentPage || 1;
+
+		return index + 1 + (currentPage - 1) * appConfig.quotesPerPage;
 	}
 }
