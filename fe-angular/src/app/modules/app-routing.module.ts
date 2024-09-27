@@ -33,7 +33,7 @@ const routes: Routes = [
 			{
 				path: pageItems.list.routePath,
 				component: ListPageComponent,
-				title: pageItems.list.pageTitle,
+				title: pageItems.list.pageTitle + pageTitleEnd,
 			},
 		],
 	},
