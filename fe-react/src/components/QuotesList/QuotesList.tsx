@@ -85,8 +85,7 @@ export default function QuotesList() {
 		}
 	}, [mainQueryState.searchFilters.keywords]);
 
-	const onClickRefresh = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
+	const onClickRefresh = () => {
 		location.reload();
 	};
 

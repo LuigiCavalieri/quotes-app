@@ -1,6 +1,5 @@
 export default function ErrorScreen() {
-	const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
+	const handleOnClick = () => {
 		location.reload();
 	};
 
