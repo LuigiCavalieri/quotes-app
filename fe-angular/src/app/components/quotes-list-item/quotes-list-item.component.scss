@@ -1,6 +1,8 @@
 @import "../../../styles/variables";
 
 li {
+	border-top: 1px dashed #{$color-divider};
+
 	&::before {
 		align-items: center;
 		background-color: $color-bg-neutral;
@@ -14,9 +16,9 @@ li {
 	}
 }
 
-:host:nth-of-type(n + 1) {
+:host:first-of-type {
 	li {
-		border-bottom: 1px dashed #{$color-divider};
+		border: none;
 	}
 }
 
