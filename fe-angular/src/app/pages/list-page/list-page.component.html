@@ -1,2 +1,2 @@
-<app-quotes-form />
-<app-quotes-list />
+<app-quotes-form (onSave)="handleOnSave()" />
+<app-quotes-list [resetSearchNeedleCounter]="resetSearchNeedleCounter" />

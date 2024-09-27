@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatLatestFrom } from "@ngrx/operators";
 import * as QuotesActions from "../actions/quotes.actions";
-import { catchError, exhaustMap, map } from "rxjs/operators";
+import { catchError, exhaustMap, map, switchMap } from "rxjs/operators";
 import { EMPTY_STRING } from "../../constants";
 import { of, iif } from "rxjs";
 import { noopAction } from "../actions/app.actions";
@@ -17,15 +17,16 @@ export class QuotesEffects {
 	readonly loadQuotes$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(QuotesActions.loadQuotes),
-			concatLatestFrom(({ page }) => this.store.select(selectQuotes(page))),
-			exhaustMap(([{ page }, quotes]) => {
+			concatLatestFrom(({ page, filters }) => this.store.select(selectQuotes(page, filters))),
+			exhaustMap(([{ page, filters }, quotes]) => {
 				return iif(
 					() => Boolean(!page || quotes.length),
 					of(noopAction()),
-					this.quotesService.getQuotes(page).pipe(
+					this.quotesService.getQuotes(page, filters).pipe(
 						map(data =>
 							QuotesActions.fetchQuotesSuccess({
 								page,
+								filtered: Boolean(filters),
 								newQuotes: data?.quotes || [],
 								totalCount: data?.total_count || 0,
 							})
@@ -45,12 +46,13 @@ export class QuotesEffects {
 	readonly reloadQuotes$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(QuotesActions.reloadQuotes),
-			exhaustMap(() => {
-				return this.quotesService.getQuotes(1).pipe(
+			switchMap(({ filters }) => {
+				return this.quotesService.getQuotes(1, filters).pipe(
 					map(data =>
 						QuotesActions.fetchQuotesSuccess({
 							page: 1,
 							resetCache: true,
+							filtered: Boolean(filters),
 							newQuotes: data?.quotes || [],
 							totalCount: data?.total_count || 0,
 						})

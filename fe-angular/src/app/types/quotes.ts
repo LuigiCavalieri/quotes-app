@@ -19,5 +19,5 @@ export interface QuotesRequestQueryParams {
 }
 
 export interface QuotesSearchFilters {
-	keywords: string;
+	searchNeedle: string;
 }

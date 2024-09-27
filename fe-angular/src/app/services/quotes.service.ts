@@ -17,8 +17,8 @@ export class QuotesService {
 	constructor(private http: HttpClient) {}
 
 	getQuotes(page: number, filters?: QuotesSearchFilters) {
-		const { keywords } = filters || {};
-		const keywordsParamValue = keywords
+		const { searchNeedle } = filters || {};
+		const keywordsParamValue = searchNeedle
 			?.replace(/|/g, "")
 			.split(" ")
 			.map(value => value.trim())

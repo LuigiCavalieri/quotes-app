@@ -1,43 +1,54 @@
 import { createReducer, on } from "@ngrx/store";
 import * as Actions from "../actions/quotes.actions";
-import { Quote } from "../../types/quotes";
+import { Quote, QuotesSearchFilters } from "../../types/quotes";
 import { EMPTY_STRING } from "../../constants";
 
 export interface QuotesState {
-	cachedQuotes: Record<number, Quote[]>;
+	quotesCache: {
+		filtered: Record<number, Quote[]>;
+		default: Record<number, Quote[]>;
+	};
 	displayedQuotes: Quote[];
 	isLoading: boolean;
 	fetchErrorMessage: string;
-	pagination: {
-		currentPage: number;
-		totalCount: number;
+	currentPage: number;
+	totalCount: {
+		filtered: number;
+		default: number;
 	};
 }
 
 export const initialState: QuotesState = {
-	cachedQuotes: {} as Record<number, Quote[]>,
+	quotesCache: {
+		filtered: {} as Record<number, Quote[]>,
+		default: {} as Record<number, Quote[]>,
+	},
 	displayedQuotes: [],
 	isLoading: false,
 	fetchErrorMessage: EMPTY_STRING,
-	pagination: {
-		currentPage: 1,
-		totalCount: 0,
+	currentPage: 1,
+	totalCount: {
+		filtered: 0,
+		default: 0,
 	},
+};
+
+export const getCacheKey = (args: { filtered: boolean }) => {
+	return args.filtered ? "filtered" : "default";
 };
 
 export const quotesReducer = createReducer(
 	initialState,
-	on(Actions.loadQuotes, (state, { page }) => {
+	on(Actions.loadQuotes, (state, { page, filters }) => {
 		const _page = Number(page) || 0;
+		const cacheKey = getCacheKey({ filtered: Boolean(filters) });
+		const quotesCache = state.quotesCache[cacheKey];
 
-		if (state.cachedQuotes[_page]) {
+		if (quotesCache[_page]) {
 			return {
 				...state,
-				displayedQuotes: state.cachedQuotes[_page],
-				pagination: {
-					...state.pagination,
-					currentPage: page,
-				},
+				displayedQuotes: quotesCache[_page],
+				currentPage: page,
 			};
 		}
 
@@ -51,18 +62,25 @@ export const quotesReducer = createReducer(
 
 		return state;
 	}),
-	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount, resetCache }) => {
+	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount, filtered, resetCache }) => {
+		const cacheKey = getCacheKey({ filtered: Boolean(filtered) });
+		const newQuotesCache = {
+			...(resetCache ? {} : state.quotesCache[cacheKey]),
+			[page]: newQuotes,
+		};
+
 		return {
 			...state,
+			currentPage: page,
 			displayedQuotes: newQuotes,
 			isLoading: false,
-			cachedQuotes: {
-				...(resetCache ? {} : state.cachedQuotes),
-				[page]: newQuotes,
+			quotesCache: {
+				...state.quotesCache,
+				[cacheKey]: newQuotesCache,
 			},
-			pagination: {
-				totalCount,
-				currentPage: page,
+			totalCount: {
+				...state.totalCount,
+				[cacheKey]: totalCount,
 			},
 		};
 	}),

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { EMPTY_STRING } from "../../constants";
 import { QuoteWithoutServerGenFields } from "../../types/quotes";
@@ -19,6 +19,8 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 	isSaving = false;
 	errorMessage = EMPTY_STRING;
 	showSavedSbj$ = new BehaviorSubject(false);
+
+	@Output() onSave = new EventEmitter();
 
 	readonly destroySbj$ = new Subject();
 	readonly form = new FormGroup<{
@@ -74,7 +76,8 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 				this.form.reset();
 				this.form.enable();
 				this.showSavedSbj$.next(true);
-				this.store.dispatch(reloadQuotes());
+				this.onSave.emit();
+				this.store.dispatch(reloadQuotes({}));
 			});
 	}
 }

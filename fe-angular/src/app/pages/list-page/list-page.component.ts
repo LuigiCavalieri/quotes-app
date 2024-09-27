@@ -8,4 +8,10 @@ import { Component } from "@angular/core";
 		class: "flex flex-column gap-3",
 	},
 })
-export class ListPageComponent {}
+export class ListPageComponent {
+	resetSearchNeedleCounter = 0;
+
+	handleOnSave() {
+		this.resetSearchNeedleCounter += 1;
+	}
+}
