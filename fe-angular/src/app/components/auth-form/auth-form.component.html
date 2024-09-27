@@ -1,7 +1,7 @@
 <form class="flex flex-column mb-2" [formGroup]="form" (ngSubmit)="handleNgSubmit()">
 	<mat-form-field *ngIf="isSignupForm()">
 		<mat-label>Your Name</mat-label>
-		<input matInput required formControlName="name" />
+		<input matInput type="text" name="name" formControlName="name" />
 		<mat-error *ngIf="form.controls.name?.invalid && form.controls.name?.touched">
 			<ng-container *ngIf="form.controls.name?.hasError('required')">
 				Name is required.
@@ -13,7 +13,7 @@
 	</mat-form-field>
 	<mat-form-field>
 		<mat-label>Your Email</mat-label>
-		<input matInput required formControlName="email" />
+		<input matInput type="text" name="email" formControlName="email" />
 		<mat-error *ngIf="form.controls.email.invalid && form.controls.email.touched">
 			<ng-container *ngIf="form.controls.email.hasError('required')">
 				Email is required.
@@ -27,7 +27,7 @@
 		<mat-label>Password</mat-label>
 		<input
 			matInput
-			required
+			name="password"
 			formControlName="password"
 			[type]="showPassword ? 'text' : 'password'"
 		/>

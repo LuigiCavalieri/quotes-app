@@ -9,12 +9,19 @@
 				cdkTextareaAutosize
 				cdkAutosizeMinRows="1"
 				cdkAutosizeMaxRows="8"
-				placeholder="Type in the quote you want to save"
+				name="content"
 				formControlName="content"
+				placeholder="Type in the quote you want to save"
 			></textarea>
 		</mat-form-field>
 		<mat-form-field>
-			<input matInput placeholder="by 'anonymous'" formControlName="author" />
+			<input
+				matInput
+				type="text"
+				name="author"
+				formControlName="author"
+				placeholder="by 'anonymous'"
+			/>
 		</mat-form-field>
 		<div class="flex items-center justify-end gap-1">
 			<span *ngIf="showSavedSbj$ | async" class="success-feedback text-sm">Saved!</span>
