@@ -55,7 +55,7 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 		const resetCounterChanges = changes["resetSearchNeedleCounter"] || {};
 
 		if (resetCounterChanges.currentValue != resetCounterChanges.previousValue) {
-			this.searchField.setValue(EMPTY_STRING);
+			this.searchField.setValue(EMPTY_STRING, { emitEvent: false });
 		}
 	}
 
