@@ -2,10 +2,9 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatLatestFrom } from "@ngrx/operators";
 import * as QuotesActions from "../actions/quotes.actions";
-import { catchError, exhaustMap, map, switchMap } from "rxjs/operators";
+import { catchError, map, switchMap } from "rxjs/operators";
 import { EMPTY_STRING } from "../../constants";
-import { of, iif } from "rxjs";
-import { noopAction } from "../actions/app.actions";
+import { of } from "rxjs";
 import { QuotesService } from "../../services/quotes.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "..";
@@ -18,40 +17,16 @@ export class QuotesEffects {
 		this.actions$.pipe(
 			ofType(QuotesActions.loadQuotes),
 			concatLatestFrom(({ page, filters }) => this.store.select(selectQuotes(page, filters))),
-			exhaustMap(([{ page, filters }, quotes]) => {
-				return iif(
-					() => Boolean(!page || quotes.length),
-					of(noopAction()),
-					this.quotesService.getQuotes(page, filters).pipe(
-						map(data =>
-							QuotesActions.fetchQuotesSuccess({
-								page,
-								filtered: Boolean(filters),
-								newQuotes: data?.quotes || [],
-								totalCount: data?.total_count || 0,
-							})
-						),
-						catchError(({ error }: HttpErrorResponse) =>
-							of(
-								QuotesActions.fetchQuotesError({
-									errorMessage: error?.message || EMPTY_STRING,
-								})
-							)
-						)
-					)
-				);
-			})
-		)
-	);
-	readonly reloadQuotes$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(QuotesActions.reloadQuotes),
-			switchMap(({ filters }) => {
-				return this.quotesService.getQuotes(1, filters).pipe(
+			switchMap(([{ page, filters, reload }, quotes]) => {
+				if (!page || (quotes.length && !reload)) {
+					return of(QuotesActions.resetIsLoadingQuotes());
+				}
+
+				return this.quotesService.getQuotes(page, filters).pipe(
 					map(data =>
 						QuotesActions.fetchQuotesSuccess({
-							page: 1,
-							resetCache: true,
+							page,
+							resetCache: reload,
 							filtered: Boolean(filters),
 							newQuotes: data?.quotes || [],
 							totalCount: data?.total_count || 0,

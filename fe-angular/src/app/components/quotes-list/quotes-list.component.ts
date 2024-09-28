@@ -12,10 +12,10 @@ import {
 	tap,
 	throttleTime,
 } from "rxjs";
-import { Quote, QuotesPagination } from "../../types/quotes";
+import { Quote } from "../../types/quotes";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
-import { loadQuotes, reloadQuotes } from "../../store/actions/quotes.actions";
+import { loadQuotes } from "../../store/actions/quotes.actions";
 import {
 	selectDisplayedQuotes,
 	selectIsFetchError,
@@ -92,8 +92,14 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 				takeUntil(this.destroySbj$)
 			)
 			.subscribe(searchNeedle => {
+				if (!this.searchField.value.trim()) {
+					return;
+				}
+
 				this.store.dispatch(
-					reloadQuotes({
+					loadQuotes({
+						page: 1,
+						reload: true,
 						filters: { searchNeedle },
 					})
 				);

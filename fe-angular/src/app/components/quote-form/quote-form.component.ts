@@ -7,7 +7,7 @@ import { BehaviorSubject, catchError, delay, EMPTY, filter, Subject, takeUntil }
 import { HttpErrorResponse } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
-import { reloadQuotes } from "../../store/actions/quotes.actions";
+import { loadQuotes } from "../../store/actions/quotes.actions";
 import appConfig from "../../config/appConfig";
 
 @Component({
@@ -77,7 +77,7 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 				this.form.enable();
 				this.showSavedSbj$.next(true);
 				this.onSave.emit();
-				this.store.dispatch(reloadQuotes({}));
+				this.store.dispatch(loadQuotes({ reload: true, page: 1 }));
 			});
 	}
 }

@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import * as Actions from "../actions/quotes.actions";
-import { Quote, QuotesSearchFilters } from "../../types/quotes";
+import { Quote } from "../../types/quotes";
 import { EMPTY_STRING } from "../../constants";
 
 type CacheKey = "filtered" | "default";
@@ -40,12 +40,13 @@ export const getCacheKey = (args: { filtered: boolean }) => {
 
 export const quotesReducer = createReducer(
 	initialState,
-	on(Actions.loadQuotes, (state, { page, filters }) => {
+	on(Actions.loadQuotes, (state, { page, filters, reload }) => {
 		const _page = Number(page) || 0;
-		const cacheKey = getCacheKey({ filtered: Boolean(filters) });
+		const filtered = Boolean(filters);
+		const cacheKey = getCacheKey({ filtered });
 		const quotesCache = state.quotesCache[cacheKey];
 
-		if (quotesCache[_page]) {
+		if (!reload && quotesCache[_page]) {
 			return {
 				...state,
 				activeCacheKey: cacheKey,
@@ -54,13 +55,28 @@ export const quotesReducer = createReducer(
 			};
 		}
 
-		if (_page > 0) {
+		const isSwitchingBetweenCaches = state.activeCacheKey !== cacheKey;
+		const newState = {
+			...state,
+			activeCacheKey: cacheKey,
+			fetchErrorMessage: EMPTY_STRING,
+			isLoading: true,
+		};
+
+		if (reload && isSwitchingBetweenCaches && cacheKey === "filtered") {
+			const oldTotalCount = state.totalCount;
+
 			return {
-				...state,
-				activeCacheKey: cacheKey,
-				fetchErrorMessage: EMPTY_STRING,
-				isLoading: true,
+				...newState,
+				totalCount: {
+					...oldTotalCount,
+					filtered: oldTotalCount.default,
+				},
 			};
+		}
+
+		if (reload || _page > 0) {
+			return newState;
 		}
 
 		return state;
@@ -75,7 +91,7 @@ export const quotesReducer = createReducer(
 		return {
 			...state,
 			currentPage: page,
-			displayedQuotes: newQuotes,
+			displayedQuotes: newQuotes ?? [],
 			isLoading: false,
 			quotesCache: {
 				...state.quotesCache,
@@ -94,30 +110,10 @@ export const quotesReducer = createReducer(
 			fetchErrorMessage: errorMessage,
 		};
 	}),
-	on(Actions.reloadQuotes, (state, { filters }) => {
-		const filtered = Boolean(filters);
-		const cacheKey = getCacheKey({ filtered });
-		const isSwitchingBetweenCaches = state.activeCacheKey !== cacheKey;
-
-		const newState = {
+	on(Actions.resetIsLoadingQuotes, state => {
+		return {
 			...state,
-			activeCacheKey: cacheKey,
-			fetchErrorMessage: EMPTY_STRING,
-			isLoading: true,
+			isLoading: false,
 		};
-
-		if (isSwitchingBetweenCaches && cacheKey === "filtered") {
-			const oldTotalCount = state.totalCount;
-
-			return {
-				...newState,
-				totalCount: {
-					...oldTotalCount,
-					filtered: oldTotalCount.default,
-				},
-			};
-		}
-
-		return newState;
 	})
 );
