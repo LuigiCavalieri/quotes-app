@@ -34,15 +34,12 @@ import { EMPTY_STRING } from "../../constants";
 export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 	quotes: Quote[] = [];
 	showSearchField = false;
-	pagination: QuotesPagination = {
-		currentPage: 1,
-		totalCount: 0,
-	};
 
 	@Input() resetSearchNeedleCounter = 0;
 
 	readonly isLoading$ = this.store.select(selectIsLoadingQuotes);
 	readonly isError$ = this.store.select(selectIsFetchError);
+	readonly pagination$ = this.store.select(selectPagination);
 	readonly destroySbj$ = new Subject();
 	readonly isSearchingSbj$ = new BehaviorSubject(false);
 	readonly searchField = new FormControl(EMPTY_STRING, { nonNullable: true });
@@ -79,12 +76,6 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 					this.showSearchField = true;
 				}
 			});
-		this.store
-			.select(selectPagination({ filtered: false }))
-			.pipe(takeUntil(this.destroySbj$))
-			.subscribe(pagination => {
-				this.pagination = pagination;
-			});
 	}
 
 	private subscribeToSearchNeedleChanges() {
@@ -106,21 +97,6 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 						filters: { searchNeedle },
 					})
 				);
-			});
-
-		this.searchField.valueChanges
-			.pipe(
-				switchMap(value =>
-					this.store.select(
-						selectPagination({
-							filtered: Boolean(value.trim()),
-						})
-					)
-				),
-				takeUntil(this.destroySbj$)
-			)
-			.subscribe(pagination => {
-				this.pagination = pagination;
 			});
 
 		this.searchField.valueChanges

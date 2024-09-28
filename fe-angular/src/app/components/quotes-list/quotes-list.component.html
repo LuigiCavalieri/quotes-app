@@ -3,6 +3,7 @@
 	*ngIf="{
 		isLoading: isLoading$ | async,
 		isSearching: isSearchingSbj$ | async,
+		pagination: pagination$ | async,
 	} as asyncData"
 >
 	<h2 class="mt-1/2 mb-1">Your saved quotes</h2>
@@ -33,12 +34,12 @@
 			<app-quotes-list-item
 				*ngFor="let quote of quotes; index as i"
 				[quote]="quote"
-				[itemIndex]="getPaginatedItemIndex(i, pagination.currentPage)"
+				[itemIndex]="getPaginatedItemIndex(i, asyncData.pagination?.currentPage)"
 			/>
 		</ol>
 		<app-pagination-menu
-			[currentPage]="pagination.currentPage"
-			[numOfQuotes]="pagination.totalCount"
+			[currentPage]="asyncData.pagination?.currentPage || 1"
+			[numOfQuotes]="asyncData.pagination?.totalCount || 0"
 			(onClick)="handleClickPagination($event)"
 		/>
 	</ng-template>

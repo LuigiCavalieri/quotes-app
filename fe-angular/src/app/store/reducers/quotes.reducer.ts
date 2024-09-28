@@ -3,11 +3,11 @@ import * as Actions from "../actions/quotes.actions";
 import { Quote, QuotesSearchFilters } from "../../types/quotes";
 import { EMPTY_STRING } from "../../constants";
 
+type CacheKey = "filtered" | "default";
+
 export interface QuotesState {
-	quotesCache: {
-		filtered: Record<number, Quote[]>;
-		default: Record<number, Quote[]>;
-	};
+	quotesCache: Record<CacheKey, Record<number, Quote[]>>;
+	activeCacheKey: CacheKey;
 	displayedQuotes: Quote[];
 	isLoading: boolean;
 	fetchErrorMessage: string;
@@ -23,6 +23,7 @@ export const initialState: QuotesState = {
 		filtered: {} as Record<number, Quote[]>,
 		default: {} as Record<number, Quote[]>,
 	},
+	activeCacheKey: "default",
 	displayedQuotes: [],
 	isLoading: false,
 	fetchErrorMessage: EMPTY_STRING,
@@ -34,7 +35,7 @@ export const initialState: QuotesState = {
 };
 
 export const getCacheKey = (args: { filtered: boolean }) => {
-	return args.filtered ? "filtered" : "default";
+	return (args.filtered ? "filtered" : "default") as CacheKey;
 };
 
 export const quotesReducer = createReducer(
@@ -47,6 +48,7 @@ export const quotesReducer = createReducer(
 		if (quotesCache[_page]) {
 			return {
 				...state,
+				activeCacheKey: cacheKey,
 				displayedQuotes: quotesCache[_page],
 				currentPage: page,
 			};
@@ -55,6 +57,7 @@ export const quotesReducer = createReducer(
 		if (_page > 0) {
 			return {
 				...state,
+				activeCacheKey: cacheKey,
 				fetchErrorMessage: EMPTY_STRING,
 				isLoading: true,
 			};
@@ -62,8 +65,8 @@ export const quotesReducer = createReducer(
 
 		return state;
 	}),
-	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount, filtered, resetCache }) => {
-		const cacheKey = getCacheKey({ filtered: Boolean(filtered) });
+	on(Actions.fetchQuotesSuccess, (state, { newQuotes, page, totalCount, resetCache }) => {
+		const cacheKey = state.activeCacheKey;
 		const newQuotesCache = {
 			...(resetCache ? {} : state.quotesCache[cacheKey]),
 			[page]: newQuotes,
@@ -91,11 +94,30 @@ export const quotesReducer = createReducer(
 			fetchErrorMessage: errorMessage,
 		};
 	}),
-	on(Actions.reloadQuotes, state => {
-		return {
+	on(Actions.reloadQuotes, (state, { filters }) => {
+		const filtered = Boolean(filters);
+		const cacheKey = getCacheKey({ filtered });
+		const isSwitchingBetweenCaches = state.activeCacheKey !== cacheKey;
+
+		const newState = {
 			...state,
+			activeCacheKey: cacheKey,
 			fetchErrorMessage: EMPTY_STRING,
 			isLoading: true,
 		};
+
+		if (isSwitchingBetweenCaches && cacheKey === "filtered") {
+			const oldTotalCount = state.totalCount;
+
+			return {
+				...newState,
+				totalCount: {
+					...oldTotalCount,
+					filtered: oldTotalCount.default,
+				},
+			};
+		}
+
+		return newState;
 	})
 );

@@ -27,12 +27,14 @@ export const selectFetchErrorMessage = createSelector(
 	selectQuotesState,
 	quotesState => quotesState.fetchErrorMessage
 );
-export const selectPagination = (args: { filtered: boolean }) =>
-	createSelector<AppState, QuotesState, QuotesPagination>(selectQuotesState, quotesState => {
-		const cacheKey = getCacheKey({ filtered: args.filtered });
+export const selectPagination = createSelector<AppState, QuotesState, QuotesPagination>(
+	selectQuotesState,
+	quotesState => {
+		const cacheKey = quotesState.activeCacheKey;
 
 		return {
 			currentPage: quotesState.currentPage,
 			totalCount: quotesState.totalCount[cacheKey],
 		};
-	});
+	}
+);
