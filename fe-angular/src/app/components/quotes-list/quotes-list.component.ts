@@ -12,7 +12,7 @@ import {
 	tap,
 	throttleTime,
 } from "rxjs";
-import { Quote } from "../../types/quotes";
+import { Quote, QuotesPagination } from "../../types/quotes";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
 import { loadQuotes, reloadQuotes } from "../../store/actions/quotes.actions";
@@ -34,7 +34,7 @@ import { EMPTY_STRING } from "../../constants";
 export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 	quotes: Quote[] = [];
 	showSearchField = false;
-	pagination = {
+	pagination: QuotesPagination = {
 		currentPage: 1,
 		totalCount: 0,
 	};

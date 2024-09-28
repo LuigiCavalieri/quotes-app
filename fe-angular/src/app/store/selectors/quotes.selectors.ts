@@ -1,7 +1,7 @@
 import { createSelector } from "@ngrx/store";
 import { AppState } from "..";
-import { getCacheKey } from "../reducers/quotes.reducer";
-import { QuotesSearchFilters } from "../../types/quotes";
+import { getCacheKey, QuotesState } from "../reducers/quotes.reducer";
+import { QuotesPagination, QuotesSearchFilters } from "../../types/quotes";
 
 const selectQuotesState = (state: AppState) => state.quotesState;
 
@@ -28,7 +28,7 @@ export const selectFetchErrorMessage = createSelector(
 	quotesState => quotesState.fetchErrorMessage
 );
 export const selectPagination = (args: { filtered: boolean }) =>
-	createSelector(selectQuotesState, quotesState => {
+	createSelector<AppState, QuotesState, QuotesPagination>(selectQuotesState, quotesState => {
 		const cacheKey = getCacheKey({ filtered: args.filtered });
 
 		return {

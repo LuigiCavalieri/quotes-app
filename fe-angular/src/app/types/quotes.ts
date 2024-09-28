@@ -21,3 +21,8 @@ export interface QuotesRequestQueryParams {
 export interface QuotesSearchFilters {
 	searchNeedle: string;
 }
+
+export interface QuotesPagination {
+	currentPage: number;
+	totalCount: number;
+}
