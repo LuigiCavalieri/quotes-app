@@ -16,31 +16,30 @@
 		<input matInput type="search" name="searchNeedle" [formControl]="searchField" />
 	</mat-form-field>
 	<p
-		*ngIf="asyncData.isLoading && !quotes.length; else dataTemplate"
-		class="status-message text-sm mt-1/2"
+		*ngIf="!quotes.length; else dataTemplate"
+		class="text-sm mt-1/2"
+		[ngClass]="{ 'status-message': asyncData.isLoading || asyncData.isSearching }"
 	>
-		Quotes are loading...
+		<ng-container [ngSwitch]="true">
+			<ng-container *ngSwitchCase="asyncData.isSearching">Searching...</ng-container>
+			<ng-container *ngSwitchCase="asyncData.isLoading && !asyncData.isSearching">
+				Quotes are loading...
+			</ng-container>
+			<ng-container *ngSwitchDefault>No quotes found.</ng-container>
+		</ng-container>
 	</p>
 	<ng-template #dataTemplate>
-		<ng-container>
-			<p *ngIf="!quotes.length; else listTemplate" class="text-sm">No quotes found.</p>
-			<ng-template #listTemplate>
-				<ol
-					class="m-0 p-0"
-					[ngClass]="{ 'opacity-50': asyncData.isLoading || asyncData.isSearching }"
-				>
-					<app-quotes-list-item
-						*ngFor="let quote of quotes; index as i"
-						[quote]="quote"
-						[itemIndex]="getPaginatedItemIndex(i, pagination.currentPage)"
-					/>
-				</ol>
-				<app-pagination-menu
-					[currentPage]="pagination.currentPage"
-					[numOfQuotes]="pagination.totalCount"
-					(onClick)="handleClickPagination($event)"
-				/>
-			</ng-template>
-		</ng-container>
+		<ol class="m-0 p-0" [ngClass]="{ 'opacity-50': asyncData.isLoading || asyncData.isSearching }">
+			<app-quotes-list-item
+				*ngFor="let quote of quotes; index as i"
+				[quote]="quote"
+				[itemIndex]="getPaginatedItemIndex(i, pagination.currentPage)"
+			/>
+		</ol>
+		<app-pagination-menu
+			[currentPage]="pagination.currentPage"
+			[numOfQuotes]="pagination.totalCount"
+			(onClick)="handleClickPagination($event)"
+		/>
 	</ng-template>
 </mat-card>
