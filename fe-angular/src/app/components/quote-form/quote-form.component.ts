@@ -3,7 +3,17 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { EMPTY_STRING } from "../../constants";
 import { QuoteWithoutServerGenFields } from "../../types/quotes";
 import { QuotesService } from "../../services/quotes.service";
-import { BehaviorSubject, catchError, delay, EMPTY, filter, Subject, takeUntil } from "rxjs";
+import {
+	BehaviorSubject,
+	catchError,
+	delay,
+	EMPTY,
+	filter,
+	of,
+	Subject,
+	switchMap,
+	takeUntil,
+} from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
@@ -38,10 +48,20 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.showSavedSbj$
-			.pipe(filter(Boolean), delay(appConfig.feedbackTimeout), takeUntil(this.destroySbj$))
+			.pipe(
+				filter(Boolean),
+				switchMap(value => of(value).pipe(delay(appConfig.feedbackTimeout))),
+				takeUntil(this.destroySbj$)
+			)
 			.subscribe(() => {
 				this.showSavedSbj$.next(false);
 			});
+
+		this.form.valueChanges.pipe(takeUntil(this.destroySbj$)).subscribe(() => {
+			if (this.showSavedSbj$.getValue()) {
+				this.showSavedSbj$.next(false);
+			}
+		});
 	}
 
 	ngOnDestroy(): void {
