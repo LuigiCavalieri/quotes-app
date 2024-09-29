@@ -18,12 +18,12 @@ import { EMAIL_REGEXP, EMPTY_STRING } from "../../constants";
 	styleUrl: "./auth-form.component.scss",
 })
 export class AuthFormComponent implements OnInit, OnChanges {
+	showPassword = false;
+
 	@Input({ required: true }) type!: "signup" | "login";
 	@Input() isLoading = false;
 	@Input() errorMessage = EMPTY_STRING;
 	@Output() onSubmit = new EventEmitter<Credentials>();
-
-	showPassword = false;
 
 	readonly passwordMinLength = appConfig.passwordMinLength;
 	readonly passwordSpecialChars = appConfig.passwordSpecialChars;

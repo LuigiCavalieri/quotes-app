@@ -17,8 +17,8 @@ export class QuotesEffects {
 		this.actions$.pipe(
 			ofType(QuotesActions.loadQuotes),
 			concatLatestFrom(({ page, filters }) => this.store.select(selectQuotes(page, filters))),
-			switchMap(([{ page, filters, reload }, quotes]) => {
-				if (!page || (quotes.length && !reload)) {
+			switchMap(([{ page, filters, refetch }, quotes]) => {
+				if (!page || (quotes.length && !refetch)) {
 					return of(QuotesActions.resetIsLoadingQuotes());
 				}
 
@@ -26,7 +26,7 @@ export class QuotesEffects {
 					map(data =>
 						QuotesActions.fetchQuotesSuccess({
 							page,
-							resetCache: reload,
+							resetCache: refetch,
 							filtered: Boolean(filters),
 							newQuotes: data?.quotes || [],
 							totalCount: data?.total_count || 0,

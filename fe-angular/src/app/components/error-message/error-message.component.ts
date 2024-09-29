@@ -6,7 +6,7 @@ import { Component, Input } from "@angular/core";
 	styleUrl: "./error-message.component.scss",
 })
 export class ErrorMessageComponent {
-	@Input() canBeDismissed = false;
-
 	show = true;
+
+	@Input() canBeDismissed = false;
 }

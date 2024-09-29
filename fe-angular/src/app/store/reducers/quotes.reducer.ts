@@ -40,13 +40,13 @@ export const getCacheKey = (args: { filtered: boolean }) => {
 
 export const quotesReducer = createReducer(
 	initialState,
-	on(Actions.loadQuotes, (state, { page, filters, reload }) => {
+	on(Actions.loadQuotes, (state, { page, filters, refetch }) => {
 		const _page = Number(page) || 0;
 		const filtered = Boolean(filters);
 		const cacheKey = getCacheKey({ filtered });
 		const quotesCache = state.quotesCache[cacheKey];
 
-		if (!reload && quotesCache[_page]) {
+		if (!refetch && quotesCache[_page]) {
 			return {
 				...state,
 				activeCacheKey: cacheKey,
@@ -63,7 +63,7 @@ export const quotesReducer = createReducer(
 			isLoading: true,
 		};
 
-		if (reload && isSwitchingBetweenCaches && cacheKey === "filtered") {
+		if (refetch && isSwitchingBetweenCaches && cacheKey === "filtered") {
 			const oldTotalCount = state.totalCount;
 
 			return {
@@ -75,7 +75,7 @@ export const quotesReducer = createReducer(
 			};
 		}
 
-		if (reload || _page > 0) {
+		if (refetch || _page > 0) {
 			return newState;
 		}
 

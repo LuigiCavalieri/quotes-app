@@ -99,7 +99,7 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 				this.store.dispatch(
 					loadQuotes({
 						page: 1,
-						reload: true,
+						refetch: true,
 						filters: { searchNeedle },
 					})
 				);

@@ -77,7 +77,7 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 				this.form.enable();
 				this.showSavedSbj$.next(true);
 				this.onSave.emit();
-				this.store.dispatch(loadQuotes({ reload: true, page: 1 }));
+				this.store.dispatch(loadQuotes({ page: 1, refetch: true }));
 			});
 	}
 }

@@ -16,9 +16,10 @@ import { EMPTY_STRING } from "../../constants";
 	styleUrl: "./login-page.component.scss",
 })
 export class LoginPageComponent {
-	readonly pageItems = pageItems;
 	isLoading = false;
 	errorMessage = EMPTY_STRING;
+
+	readonly pageItems = pageItems;
 
 	constructor(
 		private store: Store<AppState>,

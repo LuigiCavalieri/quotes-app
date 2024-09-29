@@ -3,7 +3,7 @@ import { Quote, QuotesSearchFilters } from "../../types/quotes";
 
 export const loadQuotes = createAction(
 	"[Quotes State] Load quotes",
-	props<{ page: number; filters?: QuotesSearchFilters; reload?: boolean; fromCache?: boolean }>()
+	props<{ page: number; filters?: QuotesSearchFilters; refetch?: boolean; fromCache?: boolean }>()
 );
 export const fetchQuotesSuccess = createAction(
 	"[Quotes State] Quotes successfully fetched",
