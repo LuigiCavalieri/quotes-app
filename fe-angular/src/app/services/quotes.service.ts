@@ -39,4 +39,8 @@ export class QuotesService {
 	saveQuote(payload: QuoteWithoutServerGenFields) {
 		return this.http.post<Quote>(endpointsUrl.quotes, payload);
 	}
+
+	getRandomQuote() {
+		return this.http.get<QuoteWithoutServerGenFields>(endpointsUrl.randomQuote);
+	}
 }

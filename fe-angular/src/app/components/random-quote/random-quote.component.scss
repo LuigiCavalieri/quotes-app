@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+
+h3 {
+	font-size: 1rem;
+	line-height: 1.5em;
+	font-weight: $font-weight-bold;
+
+	em {
+		color: $color-primary-dark;
+	}
+}
+
+.status-message,
+.divider {
+	color: $color-text-light;
+}
+
+.link {
+	text-decoration: none;
+}
+
+.save-button {
+	font-weight: $font-weight-bold;
+}
+
+.feedback {
+	color: $color-success;
+}

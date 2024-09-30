@@ -36,6 +36,12 @@ a,
 	&:hover {
 		cursor: pointer;
 	}
+
+	&.disabled,
+	&:disabled {
+		color: $color-text-light;
+		cursor: default;
+	}
 }
 
 .link-color-inherit {

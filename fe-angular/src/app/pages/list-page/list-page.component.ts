@@ -9,6 +9,7 @@ import { Component } from "@angular/core";
 	},
 })
 export class ListPageComponent {
+	showRandomQuote = true;
 	resetSearchNeedleCounter = 0;
 
 	handleOnSave() {
