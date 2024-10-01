@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpInterceptorFn } from "@angular/common/http";
-import { catchError, EMPTY } from "rxjs";
+import { catchError, EMPTY, throwError } from "rxjs";
 import { endpointsUrl } from "../config/endpointsUrl";
 import { inject } from "@angular/core";
 import { Store } from "@ngrx/store";
@@ -16,13 +16,13 @@ export const appInterceptor: HttpInterceptorFn = (req, next) => {
 	});
 
 	return next(newReq).pipe(
-		catchError((error: HttpErrorResponse) => {
-			if (!authUrls.includes(newReq.url) && [401, 403].includes(error.status)) {
+		catchError((respError: HttpErrorResponse) => {
+			if (!authUrls.includes(newReq.url) && [401, 403].includes(respError.status)) {
 				alert("Your session expired. Please, log in again.");
 				store.dispatch(doLogout({ force: true }));
 			}
 
-			return EMPTY;
+			return throwError(() => respError.error?.message || respError.statusText);
 		})
 	);
 };
