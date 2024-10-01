@@ -1,3 +1,3 @@
-import { authInterceptor } from "./auth.interceptor";
+import { appInterceptor } from "./app.interceptor";
 
-export const interceptors = [authInterceptor];
+export const interceptors = [appInterceptor];
