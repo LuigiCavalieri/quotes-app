@@ -5,6 +5,7 @@ import { getStorageItem, removeStorageItem, setStorageItem } from "../library/lo
 import { useQuery, useQueryClient } from "react-query";
 import { me } from "../services/AuthService";
 import { LocalStorageKeys } from "../constants";
+import { initFetchInterceptor } from "../library/fetch-interceptor";
 
 interface AuthProviderProps {
 	children: ReactNode;
@@ -43,10 +44,17 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 	}, [queryClient]);
 
 	useLayoutEffect(() => {
+		initFetchInterceptor({
+			onAuthError: () => {
+				alert("Your session expired. Please, log in again.");
+				doLogout();
+			},
+		});
+
 		if (getStorageItem(LocalStorageKeys.isLoggedIn)) {
 			setShouldFetchUser(true);
 		}
-	}, []);
+	}, [doLogout]);
 
 	return (
 		<AuthContext.Provider
