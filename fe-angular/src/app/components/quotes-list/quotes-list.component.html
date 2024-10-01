@@ -35,6 +35,8 @@
 				*ngFor="let quote of quotes; index as i"
 				[quote]="quote"
 				[itemIndex]="getPaginatedItemIndex(i, asyncData.pagination?.currentPage)"
+				[copyStatus]="quote.id === copyQuoteId ? (copyStatusSbj$ | async) : null"
+				(onClickCopy)="handleOnClickCopy($event)"
 			/>
 		</ol>
 		<app-pagination-menu

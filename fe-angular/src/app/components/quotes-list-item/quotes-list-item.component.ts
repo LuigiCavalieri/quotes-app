@@ -1,6 +1,6 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Quote } from "../../types/quotes";
-import { EMPTY_STRING } from "../../constants";
+import { CopyStatus, EMPTY_STRING } from "../../constants";
 import appConfig from "../../config/appConfig";
 
 @Component({
@@ -12,6 +12,21 @@ export class QuotesListItemComponent {
 	@Input({ required: true }) quote = {} as Quote;
 	@Input({ required: true }) itemIndex = 1;
 	@Input() class = EMPTY_STRING;
+	@Input() copyStatus: CopyStatus | null = null;
+	@Output() onClickCopy = new EventEmitter<Quote>();
 
+	readonly copyStati = CopyStatus;
 	readonly authorDefaultName = appConfig.authorDefaultName;
+
+	handlerClickCopy() {
+		this.onClickCopy.emit(this.quote);
+	}
+
+	isCopyStatus(status: CopyStatus) {
+		if (this.copyStatus === null) {
+			return status === this.copyStati.waiting;
+		}
+
+		return status === this.copyStatus;
+	}
 }

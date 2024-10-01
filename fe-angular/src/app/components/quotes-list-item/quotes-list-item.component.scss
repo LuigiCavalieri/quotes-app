@@ -1,5 +1,7 @@
 @import "../../../styles/variables";
 
+$counter-height: 2em;
+
 li {
 	border-top: 1px dashed #{$color-divider};
 
@@ -10,15 +12,39 @@ li {
 		color: $color-text-light;
 		content: attr(data-before);
 		display: inline-flex;
-		height: 2em;
+		height: $counter-height;
 		justify-content: center;
-		width: 2em;
+		width: $counter-height;
 	}
 }
 
 :host:first-of-type {
 	li {
 		border: none;
+	}
+}
+
+.copy-button {
+	background: none;
+	border: none;
+	color: $color-link-primary;
+	cursor: pointer;
+	float: right;
+	height: $counter-height;
+	padding: 0;
+
+	&.success {
+		color: $color-success;
+	}
+
+	&.error {
+		color: $color-warn;
+	}
+
+	.mat-icon {
+		font-size: 1.25rem;
+		height: fit-content;
+		width: auto;
 	}
 }
 

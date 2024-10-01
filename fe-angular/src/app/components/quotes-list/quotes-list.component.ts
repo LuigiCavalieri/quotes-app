@@ -24,7 +24,8 @@ import {
 } from "../../store/selectors/quotes.selectors";
 import appConfig from "../../config/appConfig";
 import { FormControl } from "@angular/forms";
-import { EMPTY_STRING } from "../../constants";
+import { CopyStatus, EMPTY_STRING } from "../../constants";
+import { Clipboard } from "@angular/cdk/clipboard";
 
 @Component({
 	selector: "app-quotes-list",
@@ -34,6 +35,7 @@ import { EMPTY_STRING } from "../../constants";
 export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 	quotes: Quote[] = [];
 	showSearchField = false;
+	copyQuoteId = EMPTY_STRING;
 
 	@Input() resetSearchNeedleCounter = 0;
 
@@ -42,13 +44,27 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 	readonly pagination$ = this.store.select(selectPagination);
 	readonly destroySbj$ = new Subject();
 	readonly isSearchingSbj$ = new BehaviorSubject(false);
+	readonly copyStatusSbj$ = new BehaviorSubject(CopyStatus.waiting);
 	readonly searchField = new FormControl(EMPTY_STRING, { nonNullable: true });
 
-	constructor(private store: Store<AppState>) {}
+	constructor(
+		private store: Store<AppState>,
+		private clipboard: Clipboard
+	) {}
 
 	ngOnInit(): void {
 		this.subscribeToStore();
 		this.subscribeToSearchNeedleChanges();
+
+		this.copyStatusSbj$
+			.pipe(
+				filter(value => value !== CopyStatus.waiting),
+				switchMap(value => of(value).pipe(delay(appConfig.feedbackTimeout))),
+				takeUntil(this.destroySbj$)
+			)
+			.subscribe(() => {
+				this.copyStatusSbj$.next(CopyStatus.waiting);
+			});
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -132,6 +148,19 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 
 	handleClickRefreshPage() {
 		location.reload();
+	}
+
+	handleOnClickCopy(quote: Quote) {
+		const author = quote.author || appConfig.authorDefaultName;
+		const textToCopy = `${quote.content}\n( ${author} )`;
+
+		this.copyQuoteId = quote.id;
+
+		if (this.clipboard.copy(textToCopy)) {
+			this.copyStatusSbj$.next(CopyStatus.copied);
+		} else {
+			this.copyStatusSbj$.next(CopyStatus.error);
+		}
 	}
 
 	getPaginatedItemIndex(index: number, currentPage?: number) {
