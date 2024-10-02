@@ -1,0 +1,25 @@
+<li [attr.data-before]="itemIndex" class="pt-1 pb-1" [ngClass]="class">
+	<button
+		type="button"
+		title="Copy to clipboard"
+		class="copy-button text-sm flex items-center gap-1/2"
+		[ngClass]="{
+			success: isCopyStatus(copyStati.copied),
+			error: isCopyStatus(copyStati.error),
+		}"
+		(click)="handlerClickCopy()"
+	>
+		<span *ngIf="isCopyStatus(copyStati.copied)">Copied</span>
+		<span *ngIf="isCopyStatus(copyStati.error)">Error</span>
+		<mat-icon>content_copy</mat-icon>
+	</button>
+	<figure class="m-0 pt-1/2 pb-1/2 pr-1 pl-1">
+		<blockquote class="m-0 quotes">{{ quote.content.trim() }}</blockquote>
+		<figcaption
+			data-before="by"
+			class="text-right text-sm font-medium mt-1/2 before:text-gray-400 before:mr-1 before:font-normal"
+		>
+			{{ quote.author || authorDefaultName }}
+		</figcaption>
+	</figure>
+</li>

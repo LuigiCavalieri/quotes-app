@@ -1,0 +1,59 @@
+<form class="flex flex-column mb-2" [formGroup]="form" (ngSubmit)="handleNgSubmit()">
+	<mat-form-field *ngIf="isSignupForm()">
+		<mat-label>Your Name</mat-label>
+		<input matInput type="text" name="name" formControlName="name" />
+		<mat-error *ngIf="form.controls.name?.invalid && form.controls.name?.touched">
+			<ng-container *ngIf="form.controls.name?.hasError('required')">
+				Name is required.
+			</ng-container>
+			<ng-container *ngIf="form.controls.name?.hasError('pattern')">
+				Cannot include special characters.
+			</ng-container>
+		</mat-error>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Your Email</mat-label>
+		<input matInput type="text" name="email" formControlName="email" />
+		<mat-error *ngIf="form.controls.email.invalid && form.controls.email.touched">
+			<ng-container *ngIf="form.controls.email.hasError('required')">
+				Email is required.
+			</ng-container>
+			<ng-container *ngIf="form.controls.email.hasError('pattern')">
+				Please, enter a valid email address.
+			</ng-container>
+		</mat-error>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Password</mat-label>
+		<input
+			matInput
+			name="password"
+			formControlName="password"
+			[type]="showPassword ? 'text' : 'password'"
+		/>
+		<button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
+			<mat-icon>{{ showPassword ? "visibility_off" : "visibility" }}</mat-icon>
+		</button>
+		<mat-error *ngIf="form.controls.password.invalid && form.controls.password.touched">
+			<ng-container *ngIf="form.controls.password.hasError('required')">
+				Password is required.
+			</ng-container>
+		</mat-error>
+	</mat-form-field>
+	<p *ngIf="isSignupForm()" class="note mb-1">
+		Password must be an alphanumeric string of at least {{ passwordMinLength }} characters. It can
+		include only these special characters: {{ passwordSpecialChars }}
+	</p>
+	<button
+		mat-flat-button
+		type="submit"
+		color="primary"
+		class="mt-1/2"
+		[disabled]="form.invalid || isLoading"
+	>
+		{{ isLoading ? "Please wait..." : isSignupForm() ? "Sign up" : "Login" }}
+	</button>
+</form>
+<app-error-message *ngIf="showErrorMessage()">
+	{{ errorMessage }}
+</app-error-message>

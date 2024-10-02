@@ -1,0 +1,7 @@
+<app-random-quote
+	*ngIf="showRandomQuote"
+	(onSave)="handleOnSave()"
+	(clickDismiss)="showRandomQuote = false"
+/>
+<app-quotes-form (onSave)="handleOnSave()" />
+<app-quotes-list [resetSearchNeedleCounter]="resetSearchNeedleCounter" />

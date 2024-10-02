@@ -1,0 +1,73 @@
+<mat-card class="card">
+	<app-error-message *ngIf="isSaveError" [canBeDismissed]="true">
+		Failed saving quote. Please, try again.
+	</app-error-message>
+	<ng-container *ngIf="!quote">
+		<p *ngIf="isLoading" class="status-message text-sm">
+			We are looking for a new quote to suggest you...
+		</p>
+		<div *ngIf="isError" class="text-sm flex justify-between gap-2">
+			<div class="flex items-center">
+				<p>
+					Sorry, we couldn't find a new quote to suggest you. Please try to
+					<!-- prettier-ignore -->
+					<button type="button" class="link-color-inherit" (click)="handleClickRefresh()">refresh the page</button
+					>.
+				</p>
+			</div>
+			<button class="link" (click)="handleClickDismiss()">Dismiss</button>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="quote">
+		<div
+			*ngIf="{ showSaved: showSavedSbj$ | async } as asyncData"
+			class="flex justify-between gap-2"
+		>
+			<h3 class="text-sm">
+				You may like this quote by
+				<em class="text-sky-900">
+					{{ quote.author }}
+				</em>
+			</h3>
+			<div class="text-sm flex items-center gap-1/2">
+				<button
+					class="link"
+					[disabled]="isSaving || isLoading || asyncData.showSaved"
+					(click)="handleClickDismiss()"
+				>
+					Dismiss
+				</button>
+				<span class="divider">|</span>
+				<div class="text-sm font-medium sm:leading-7">
+					<button
+						type="button"
+						class="save-button link"
+						[disabled]="isSaving || isLoading || asyncData.showSaved"
+						(click)="handleClickSave()"
+					>
+						<span *ngIf="asyncData.showSaved; else buttonText" class="feedback">Saved!</span>
+						<ng-template #buttonText>
+							{{ isSaving ? "Saving..." : "Save" }}
+						</ng-template>
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- prettier-ignore -->
+		<blockquote 
+			class="quotes m-0 mt-1" 
+			[ngClass]="{ 
+				'opacity-50': isLoading, 
+				'hidden-on-mobile': hiddenOnMobile
+			}"
+		>{{ quote.content }}</blockquote>
+		<button
+			type="button"
+			class="toggle-button link text-sm"
+			(click)="hiddenOnMobile = !hiddenOnMobile"
+		>
+			{{ hiddenOnMobile ? "+ show" : "- hide" }}
+		</button>
+	</ng-container>
+</mat-card>

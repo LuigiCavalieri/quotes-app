@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+@import "../../../styles/media-queries";
+
+.wrapper {
+	background-color: $color-bg-primary;
+}
+
+.card {
+	min-height: $metric-auth-card-min-height;
+	padding: #{$metric-card-padding} 2.5rem;
+}
+
+@include media-sm {
+	.card {
+		border-radius: $metric-card-border-radius;
+		border-width: 1px;
+		width: $metric-auth-card-width;
+		padding-right: 1.5rem;
+		padding-left: 1.5rem;
+	}
+}

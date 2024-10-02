@@ -1,0 +1,27 @@
+<app-auth-layout>
+	<div class="text-lg text-center flex flex-grow justify-center items-center">
+		<p *ngIf="isLoading; else statusMessage">Your account is being activated...</p>
+		<ng-template [ngSwitch]="errorCode" #statusMessage>
+			<p *ngSwitchCase="errorCodes.invalidQueryParams">
+				<strong>Your account cannot be activated.</strong>
+				<br />
+				Please check your activation link and retry.
+			</p>
+			<p *ngSwitchCase="errorCodes.accountCannotBeActivated">
+				<strong>Your account cannot be activated.</strong>
+				<br />
+				Maybe your activation link has expired.
+				<br /><br />
+				Please, <a [routerLink]="pageItems.signup.url">try to sign up anew</a>.
+			</p>
+			<p *ngSwitchCase="errorCodes.serverError">
+				<strong>Something didn't work</strong> as expected,<br />please try again later.
+			</p>
+			<p *ngSwitchDefault>
+				Your account is active!
+				<br />
+				<a [routerLink]="pageItems.login.url">Log in</a>
+			</p>
+		</ng-template>
+	</div>
+</app-auth-layout>

@@ -1,0 +1,49 @@
+@use "@angular/material" as mat;
+
+html {
+	color: $color-text;
+	font: mat.get-theme-typography($theme, body-1);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: $font-weight-bold;
+	line-height: 1;
+	margin: 0;
+}
+
+h3 {
+	font-size: 1.875rem;
+	line-height: 2.25rem;
+}
+
+p {
+	margin: 0;
+}
+
+a,
+.link,
+.link-color-inherit {
+	background: none;
+	border: none;
+	color: $color-link-primary;
+	margin: 0;
+	padding: 0;
+	text-decoration: underline;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.disabled,
+	&:disabled {
+		color: $color-text-light;
+		cursor: default;
+	}
+}
+
+.link-color-inherit {
+	color: inherit;
+}

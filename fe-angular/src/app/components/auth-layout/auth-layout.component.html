@@ -1,0 +1,9 @@
+<app-loading-screen *ngIf="isLoading$ | async; else authPage" />
+
+<ng-template #authPage>
+	<div class="wrapper h-screen flex flex-center">
+		<mat-card class="card w-full flex flex-column justify-center">
+			<ng-content />
+		</mat-card>
+	</div>
+</ng-template>

@@ -1,0 +1,59 @@
+@import "../../../styles/variables";
+
+$counter-height: 2em;
+
+li {
+	border-top: 1px dashed #{$color-divider};
+
+	&::before {
+		align-items: center;
+		background-color: $color-bg-neutral;
+		border-radius: 50%;
+		color: $color-text-light;
+		content: attr(data-before);
+		display: inline-flex;
+		height: $counter-height;
+		justify-content: center;
+		width: $counter-height;
+	}
+}
+
+:host:first-of-type {
+	li {
+		border: none;
+	}
+}
+
+.copy-button {
+	background: none;
+	border: none;
+	color: $color-link-primary;
+	cursor: pointer;
+	float: right;
+	height: $counter-height;
+	padding: 0;
+
+	&.success {
+		color: $color-success;
+	}
+
+	&.error {
+		color: $color-warn;
+	}
+
+	.mat-icon {
+		font-size: $font-size-xl;
+		height: fit-content;
+		width: auto;
+	}
+}
+
+figcaption {
+	font-weight: $font-weight-bold;
+
+	&::before {
+		color: $color-text-lighter;
+		content: attr(data-before);
+		font-weight: $font-weight-medium;
+	}
+}
