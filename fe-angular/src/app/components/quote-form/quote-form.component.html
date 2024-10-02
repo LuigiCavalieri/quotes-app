@@ -2,7 +2,7 @@
 	<app-error-message *ngIf="errorMessage" [canBeDismissed]="true">
 		{{ errorMessage }}
 	</app-error-message>
-	<form [formGroup]="form" (ngSubmit)="handleNgSubmit()">
+	<form class="pt-1/2 pb-1/2" [formGroup]="form" (ngSubmit)="handleNgSubmit()">
 		<mat-form-field>
 			<textarea
 				matInput

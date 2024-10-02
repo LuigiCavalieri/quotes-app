@@ -28,6 +28,7 @@ export class RandomQuoteComponent implements OnInit {
 	isError = false;
 	isSaveError = false;
 	showView = true;
+	hiddenOnMobile = true;
 	quote: QuoteWithoutServerGenFields | null = null;
 
 	@Output() onSave = new EventEmitter();

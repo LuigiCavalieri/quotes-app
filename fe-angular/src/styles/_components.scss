@@ -1,18 +1,28 @@
 .container {
 	margin-left: auto;
 	margin-right: auto;
-	width: $metric-main-content-width;
+	max-width: $metric-main-content-width;
 }
 
 .card.mat-mdc-card {
-	border: 1px solid #{$color-card-border};
-	border-radius: 0.5rem;
+	border-color: $color-card-border;
+	border-style: solid;
+	border-radius: 0;
+	border-width: 1px 0;
 	box-shadow: none;
-	padding: 1.25rem;
+	padding: 0.75rem;
 }
 
 button.mat-mdc-unelevated-button {
 	border-radius: 99em;
 	height: 2.6em;
 	font-size: 1rem;
+}
+
+@include media-md {
+	.card.mat-mdc-card {
+		border-radius: $metric-card-border-radius;
+		border-width: 1px;
+		padding: $metric-card-padding;
+	}
 }

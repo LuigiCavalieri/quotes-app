@@ -22,9 +22,9 @@
 	<ng-container *ngIf="quote">
 		<div
 			*ngIf="{ showSaved: showSavedSbj$ | async } as asyncData"
-			class="flex justify-between items-start gap-2"
+			class="flex justify-between gap-2"
 		>
-			<h3>
+			<h3 class="text-sm">
 				You may like this quote by
 				<em class="text-sky-900">
 					{{ quote.author }}
@@ -55,6 +55,19 @@
 			</div>
 		</div>
 		<!-- prettier-ignore -->
-		<blockquote class="quotes m-0 mt-1" [ngClass]="{ 'opacity-50': isLoading }">{{ quote.content }}</blockquote>
+		<blockquote 
+			class="quotes m-0 mt-1" 
+			[ngClass]="{ 
+				'opacity-50': isLoading, 
+				'hidden-on-mobile': hiddenOnMobile
+			}"
+		>{{ quote.content }}</blockquote>
+		<button
+			type="button"
+			class="toggle-button link text-sm"
+			(click)="hiddenOnMobile = !hiddenOnMobile"
+		>
+			{{ hiddenOnMobile ? "+ show" : "- hide" }}
+		</button>
 	</ng-container>
 </mat-card>

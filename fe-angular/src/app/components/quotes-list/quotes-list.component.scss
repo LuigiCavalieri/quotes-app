@@ -1,9 +1,5 @@
 @import "../../../styles/variables";
-
-h2 {
-	font-size: 1.5rem;
-	line-height: 2rem;
-}
+@import "../../../styles/media-queries";
 
 .status-message {
 	color: $color-text-light;
@@ -11,4 +7,12 @@ h2 {
 
 ol {
 	list-style: none;
+}
+
+@include media-sm {
+	h2 {
+		font-size: $font-size-2xl;
+		line-height: $line-height-2xl;
+		text-align: left;
+	}
 }

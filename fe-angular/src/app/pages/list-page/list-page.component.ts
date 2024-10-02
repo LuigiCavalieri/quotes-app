@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
 	templateUrl: "./list-page.component.html",
 	styleUrl: "./list-page.component.scss",
 	host: {
-		class: "flex flex-column gap-3",
+		class: "flex flex-column gap-2",
 	},
 })
 export class ListPageComponent {

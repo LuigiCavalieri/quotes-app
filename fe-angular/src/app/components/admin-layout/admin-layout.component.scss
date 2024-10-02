@@ -1,4 +1,5 @@
 @import "../../../styles/variables";
+@import "../../../styles/media-queries";
 
 main {
 	background-color: $color-bg-primary;
@@ -8,13 +9,29 @@ header {
 	background-color: $color-bg-header;
 	color: $color-text-white;
 	height: $metric-app-header-height;
+	padding: 0 #{$metric-card-padding};
 }
 
 h1 {
-	font-size: 1.5rem;
+	font-size: $font-size-xl;
 }
 
 .page-content {
-	padding-bottom: 3rem;
-	padding-top: 3rem;
+	padding-top: $metric-main-content-padding-y;
+}
+
+@include media-sm {
+	.logout-button {
+		font-size: $font-size-sm;
+	}
+}
+
+@include media-md {
+	h1 {
+		font-size: $font-size-2xl;
+	}
+
+	.page-content {
+		padding-bottom: $metric-main-content-padding-y;
+	}
 }

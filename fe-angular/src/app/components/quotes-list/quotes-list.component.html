@@ -6,7 +6,7 @@
 		pagination: pagination$ | async,
 	} as asyncData"
 >
-	<h2 class="mt-1/2 mb-1">Your saved quotes</h2>
+	<h2 class="text-xl text-center mt-1/2 mb-1">Your saved quotes</h2>
 	<app-error-message *ngIf="isError$ | async">
 		Something didn't work. Please try to
 		<button type="button" class="link-color-inherit" (click)="handleClickRefreshPage()">

@@ -7,7 +7,7 @@
 				<h1>{{ title }}</h1>
 				<div class="text-xs mt-1/2">
 					<span>Hello {{ (user$ | async)?.name }}! —</span>
-					<button type="button" class="link-color-inherit text-sm" (click)="handleLogout()">
+					<button type="button" class="logout-button link-color-inherit" (click)="handleLogout()">
 						Log out
 					</button>
 				</div>

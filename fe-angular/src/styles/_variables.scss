@@ -22,7 +22,22 @@ $font-weight-standard: 300;
 $font-weight-medium: 400;
 $font-weight-bold: 500;
 
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+
+$line-height-xs: 1rem;
+$line-height-sm: 1.25rem;
+$line-height-lg: 1.5rem;
+$line-height-xl: 1.75rem;
+$line-height-2xl: 2rem;
+
 $metric-main-content-width: 768px;
+$metric-main-content-padding-y: 2rem;
 $metric-app-header-height: 3rem;
 $metric-auth-card-width: 24rem;
 $metric-auth-card-min-height: 20rem;
+$metric-card-border-radius: 0.5rem;
+$metric-card-padding: 1.25rem;

@@ -1,8 +1,11 @@
 @import "../../../styles/variables";
+@import "../../../styles/media-queries";
+
+.mat-mdc-card {
+	display: block;
+}
 
 h3 {
-	font-size: 1rem;
-	line-height: 1.5em;
 	font-weight: $font-weight-bold;
 
 	em {
@@ -17,6 +20,10 @@ h3 {
 
 .link {
 	text-decoration: none;
+
+	&:not(:disabled):hover {
+		text-decoration: underline;
+	}
 }
 
 .save-button {
@@ -25,4 +32,27 @@ h3 {
 
 .feedback {
 	color: $color-success;
+}
+
+.toggle-button {
+	margin-top: 0.5rem;
+}
+
+.hidden-on-mobile {
+	display: none;
+}
+
+@include media-sm {
+	h3 {
+		font-size: 1rem;
+		line-height: $line-height-lg;
+	}
+
+	.hidden-on-mobile {
+		display: initial;
+	}
+
+	.toggle-button {
+		display: none;
+	}
 }
