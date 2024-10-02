@@ -15,7 +15,7 @@ export default function RandomQuoteContent({
 
 	return (
 		<>
-			<div className="flex justify-between items-start gap-4">
+			<div className="flex justify-between items-center gap-4">
 				<h3 className="font-semibold text-sm sm:text-base">
 					{"You may like this quote by "}
 					<em className="text-sky-900" data-testid="random-quote-author">
@@ -49,7 +49,6 @@ export default function RandomQuoteContent({
 				{quote.content}
 			</blockquote>
 			<TextButton
-				disabled={disabled}
 				className={classNames("text-sm sm:hidden", { "inline-block": hiddenOnMobile })}
 				onClick={() => setHiddenOnMobile(value => !value)}
 			>

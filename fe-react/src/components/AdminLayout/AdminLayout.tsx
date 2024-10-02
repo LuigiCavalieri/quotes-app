@@ -37,7 +37,7 @@ export default function AdminLayout() {
 	}
 
 	return (
-		<main className="bg-sky-100 min-h-screen flex-grow">
+		<main className="bg-sky-100 min-h-screen">
 			{pageTitle && (
 				<Helmet>
 					<title>{`${pageTitle} | ${appConfig.appName}`}</title>
