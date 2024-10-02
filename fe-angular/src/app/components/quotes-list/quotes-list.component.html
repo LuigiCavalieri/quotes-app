@@ -14,7 +14,13 @@
 		>.
 	</app-error-message>
 	<mat-form-field *ngIf="showSearchField">
-		<input matInput type="search" name="searchNeedle" [formControl]="searchField" />
+		<input
+			matInput
+			type="search"
+			name="searchNeedle"
+			placeholder="Search by keywords"
+			[formControl]="searchField"
+		/>
 	</mat-form-field>
 	<p
 		*ngIf="!quotes.length; else dataTemplate"
