@@ -33,9 +33,9 @@ export class LoginPageComponent {
 		this.authService
 			.login(credentials)
 			.pipe(
-				catchError(({ error }: HttpErrorResponse) => {
+				catchError((errorMessage: string) => {
 					this.isLoading = false;
-					this.errorMessage = error?.message || EMPTY_STRING;
+					this.errorMessage = errorMessage;
 
 					return EMPTY;
 				})

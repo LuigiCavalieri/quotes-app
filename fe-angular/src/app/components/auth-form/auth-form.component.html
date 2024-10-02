@@ -54,6 +54,6 @@
 		{{ isLoading ? "Please wait..." : isSignupForm() ? "Sign up" : "Login" }}
 	</button>
 </form>
-<app-error-message *ngIf="showErrorMessage()">
+<app-error-message *ngIf="canShowErrorMessage()">
 	{{ errorMessage }}
 </app-error-message>

@@ -78,7 +78,7 @@ export class AuthFormComponent implements OnInit, OnChanges {
 		return this.type === "signup";
 	}
 
-	showErrorMessage(): boolean {
+	canShowErrorMessage(): boolean {
 		return Boolean(this.errorMessage);
 	}
 

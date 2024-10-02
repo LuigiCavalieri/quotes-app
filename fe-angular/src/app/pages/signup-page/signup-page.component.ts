@@ -27,9 +27,9 @@ export class SignupPageComponent {
 		this.authService
 			.signup(credentials)
 			.pipe(
-				catchError(({ error }: HttpErrorResponse) => {
+				catchError((errorMessage: string) => {
 					this.isLoading = false;
-					this.errorMessage = error?.message || "";
+					this.errorMessage = errorMessage;
 
 					return EMPTY;
 				})
