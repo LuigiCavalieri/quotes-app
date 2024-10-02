@@ -23,7 +23,7 @@ export class AuthFormComponent implements OnInit, OnChanges {
 	@Input({ required: true }) type!: "signup" | "login";
 	@Input() isLoading = false;
 	@Input() errorMessage = EMPTY_STRING;
-	@Output() onSubmit = new EventEmitter<Credentials>();
+	@Output() submitForm = new EventEmitter<Credentials>();
 
 	readonly passwordMinLength = appConfig.passwordMinLength;
 	readonly passwordSpecialChars = appConfig.passwordSpecialChars;
@@ -83,6 +83,6 @@ export class AuthFormComponent implements OnInit, OnChanges {
 	}
 
 	handleNgSubmit(): void {
-		this.onSubmit.emit(this.form.value as Credentials);
+		this.submitForm.emit(this.form.value as Credentials);
 	}
 }

@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { doLogin } from "../../store/actions/auth.actions";
 import { AppState } from "../../store";
 import { AuthService } from "../../services/auth.service";
-import { catchError, tap } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 import { EMPTY } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { EMPTY_STRING } from "../../constants";

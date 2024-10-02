@@ -31,7 +31,7 @@ export class RandomQuoteComponent implements OnInit {
 	hiddenOnMobile = true;
 	quote: QuoteWithoutServerGenFields | null = null;
 
-	@Output() onSave = new EventEmitter();
+	@Output() save = new EventEmitter();
 	@Output() clickDismiss = new EventEmitter();
 
 	readonly destroySbj$ = new Subject<boolean>();
@@ -79,7 +79,7 @@ export class RandomQuoteComponent implements OnInit {
 				this.isSaving = false;
 
 				this.showSavedSbj$.next(true);
-				this.onSave.emit();
+				this.save.emit();
 				this.store.dispatch(loadQuotes({ page: 1, refetch: true }));
 			});
 	}

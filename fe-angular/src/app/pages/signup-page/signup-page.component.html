@@ -16,7 +16,7 @@
 			type="signup"
 			[isLoading]="isLoading"
 			[errorMessage]="errorMessage"
-			(onSubmit)="onSubmit($event)"
+			(submitForm)="onSubmit($event)"
 		/>
 		<p>Do you already have an account? <a [routerLink]="pageItems.login.url">Log in</a></p>
 	</ng-template>

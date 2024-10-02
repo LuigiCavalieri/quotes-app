@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, Output } from "@angular/core";
 import appConfig from "../../config/appConfig";
 import { EMPTY_STRING } from "../../constants";
 
@@ -15,11 +15,11 @@ export class PaginationMenuComponent implements OnChanges {
 	@Input({ required: true }) numOfQuotes!: number;
 	@Output() clickPagination = new EventEmitter<number>();
 
-	ngOnChanges(_changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.computeMetrics();
 	}
 
-	computeMetrics() {
+	private computeMetrics() {
 		const firstItemInPageIndex = 1 + appConfig.quotesPerPage * (this.currentPage - 1);
 		const maxLastItemInPageIndex = firstItemInPageIndex + appConfig.quotesPerPage - 1;
 		const lastItemInPageIndex = Math.min(maxLastItemInPageIndex, this.numOfQuotes);

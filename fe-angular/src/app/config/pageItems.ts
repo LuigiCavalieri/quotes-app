@@ -36,7 +36,7 @@ const _pageItems: Readonly<Record<PageItemKey, PageItem>> = {
 	},
 };
 
-for (let key in _pageItems) {
+for (const key in _pageItems) {
 	const _key = key as PageItemKey;
 
 	if (_pageItems[_key].url) {

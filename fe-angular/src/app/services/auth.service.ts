@@ -11,19 +11,19 @@ import { Observable } from "rxjs";
 export class AuthService {
 	constructor(private http: HttpClient) {}
 
-	login(credentials: Credentials): Observable<Object> {
+	login(credentials: Credentials) {
 		return this.http.post(endpointsUrl.login, credentials);
 	}
 
-	logout(): Observable<Object> {
+	logout() {
 		return this.http.post(endpointsUrl.logout, null);
 	}
 
-	signup(credentials: Credentials): Observable<Object> {
+	signup(credentials: Credentials) {
 		return this.http.post(endpointsUrl.signup, credentials);
 	}
 
-	activateAccount(payload: { email: string; activationToken: string }): Observable<Object> {
+	activateAccount(payload: { email: string; activationToken: string }) {
 		return this.http.patch(endpointsUrl.activateAccount, payload);
 	}
 

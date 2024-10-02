@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import appConfig from "../../config/appConfig";
 import { Subject, takeUntil } from "rxjs";
 import { Store } from "@ngrx/store";
@@ -17,7 +17,7 @@ import { doLogout } from "../../store/actions/auth.actions";
 	templateUrl: "./admin-layout.component.html",
 	styleUrl: "./admin-layout.component.scss",
 })
-export class AdminLayoutComponent {
+export class AdminLayoutComponent implements OnDestroy {
 	readonly title = appConfig.appName;
 	readonly destroySbj$ = new Subject();
 	readonly isLoading$ = this.store.select(selectIsFetchingUser);

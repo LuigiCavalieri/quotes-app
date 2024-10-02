@@ -30,7 +30,7 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 	errorMessage = EMPTY_STRING;
 	showSavedSbj$ = new BehaviorSubject(false);
 
-	@Output() onSave = new EventEmitter();
+	@Output() save = new EventEmitter();
 
 	readonly destroySbj$ = new Subject();
 	readonly form = new FormGroup<{
@@ -96,7 +96,7 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 				this.form.reset();
 				this.form.enable();
 				this.showSavedSbj$.next(true);
-				this.onSave.emit();
+				this.save.emit();
 				this.store.dispatch(loadQuotes({ page: 1, refetch: true }));
 			});
 	}

@@ -4,7 +4,7 @@
 		type="login"
 		[isLoading]="isLoading"
 		[errorMessage]="errorMessage"
-		(onSubmit)="onSubmit($event)"
+		(submitForm)="onSubmit($event)"
 	/>
 	<p>Need an account? <a [routerLink]="pageItems.signup.url">Sign up</a></p>
 </app-auth-layout>
