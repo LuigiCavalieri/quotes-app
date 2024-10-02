@@ -9,7 +9,7 @@ import { QuoteWithoutServerGenFields } from "../../types/quotes";
 import { useTimer } from "../../hooks/timer";
 
 export default function QuoteForm() {
-	const { setTimer } = useTimer();
+	const { setTimer, clearTimer } = useTimer();
 	const formRef = useRef<HTMLFormElement | null>(null);
 	const [submitEnabled, setSubmitEnabled] = useState(false);
 	const [showSaved, setShowSaved] = useState(false);
@@ -35,6 +35,11 @@ export default function QuoteForm() {
 
 	const handleOnChange = (value: string) => {
 		setSubmitEnabled(Boolean(value.trim()));
+
+		if (showSaved) {
+			clearTimer();
+			setShowSaved(false);
+		}
 	};
 
 	return (

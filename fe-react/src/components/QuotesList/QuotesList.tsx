@@ -11,6 +11,7 @@ import { Quote } from "../../types/quotes";
 import TextField from "../TextField/TextField";
 import { useThrottle } from "../../hooks/throttle";
 import { useTimer } from "../../hooks/timer";
+import * as ClipboardService from "../../services/ClipboardService";
 
 export default function QuotesList() {
 	const { throttle } = useThrottle();
@@ -53,13 +54,7 @@ export default function QuotesList() {
 			setCopiedQuoteId(quote.id);
 
 			try {
-				if (!("clipboard" in navigator)) {
-					throw new Error();
-				}
-
-				const author = quote.author || appConfig.authorDefaultName;
-
-				await navigator.clipboard.writeText(`${quote.content}\n( ${author} )`);
+				await ClipboardService.copy(quote);
 
 				setCopyStatus(CopyStatus.copied);
 			} catch {

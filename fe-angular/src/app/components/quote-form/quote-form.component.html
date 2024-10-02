@@ -1,0 +1,33 @@
+<mat-card class="card">
+	<app-error-message *ngIf="errorMessage" [canBeDismissed]="true">
+		{{ errorMessage }}
+	</app-error-message>
+	<form class="pt-1/2 pb-1/2" [formGroup]="form" (ngSubmit)="handleNgSubmit()">
+		<mat-form-field>
+			<textarea
+				matInput
+				cdkTextareaAutosize
+				cdkAutosizeMinRows="1"
+				cdkAutosizeMaxRows="8"
+				name="content"
+				formControlName="content"
+				placeholder="Type in the quote you want to save"
+			></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<input
+				matInput
+				type="text"
+				name="author"
+				formControlName="author"
+				placeholder="by 'anonymous'"
+			/>
+		</mat-form-field>
+		<div class="flex items-center justify-end gap-1">
+			<span *ngIf="showSavedSbj$ | async" class="success-feedback text-sm">Saved!</span>
+			<button mat-flat-button type="submit" color="primary" [disabled]="isSubmitDisabled()">
+				{{ isSaving ? "Saving..." : "Save" }}
+			</button>
+		</div>
+	</form>
+</mat-card>

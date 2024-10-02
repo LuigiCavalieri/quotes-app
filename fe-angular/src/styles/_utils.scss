@@ -1,0 +1,283 @@
+.flex {
+	display: flex;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.flex-center {
+	align-items: center;
+	justify-content: center;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-end {
+	justify-content: end;
+}
+
+.gap-1\/2 {
+	gap: 0.5rem;
+}
+
+.gap-1 {
+	gap: 1rem;
+}
+
+.gap-2 {
+	gap: 2rem;
+}
+
+.gap-3 {
+	gap: 3rem;
+}
+
+.gap-4 {
+	gap: 4rem;
+}
+
+.gap-5 {
+	gap: 5rem;
+}
+
+.m-0 {
+	margin: 0;
+}
+
+.mt-0 {
+	margin-top: 0;
+}
+
+.mt-1\/2 {
+	margin-top: 0.5rem;
+}
+
+.mt-1 {
+	margin-top: 1rem;
+}
+
+.mt-2 {
+	margin-top: 2rem;
+}
+
+.mt-3 {
+	margin-top: 3rem;
+}
+
+.mt-4 {
+	margin-top: 4rem;
+}
+
+.mt-5 {
+	margin-top: 5rem;
+}
+
+.mb-1\/2 {
+	margin-bottom: 0.5rem;
+}
+
+.mb-0 {
+	margin-top: 0;
+}
+
+.mb-1 {
+	margin-bottom: 1rem;
+}
+
+.mb-2 {
+	margin-bottom: 2rem;
+}
+
+.mb-3 {
+	margin-bottom: 3rem;
+}
+
+.mb-4 {
+	margin-bottom: 4rem;
+}
+
+.mb-5 {
+	margin-bottom: 5rem;
+}
+
+.p-0 {
+	padding: 0;
+}
+
+.pt-1\/2 {
+	padding-top: 0.5rem;
+}
+
+.pt-0 {
+	margin-top: 0;
+}
+
+.pt-1 {
+	padding-top: 1rem;
+}
+
+.pt-2 {
+	padding-top: 2rem;
+}
+
+.pt-3 {
+	padding-top: 3rem;
+}
+
+.pt-4 {
+	padding-top: 4rem;
+}
+
+.pt-5 {
+	padding-top: 5rem;
+}
+
+.pb-1\/2 {
+	padding-bottom: 0.5rem;
+}
+
+.pb-0 {
+	margin-bottom: 0;
+}
+
+.pb-1 {
+	padding-bottom: 1rem;
+}
+
+.pb-2 {
+	padding-bottom: 2rem;
+}
+
+.pb-3 {
+	padding-bottom: 3rem;
+}
+
+.pb-4 {
+	padding-bottom: 4rem;
+}
+
+.pb-5 {
+	padding-bottom: 5rem;
+}
+
+.pr-1\/2 {
+	padding-right: 0.5rem;
+}
+
+.pr-0 {
+	margin-right: 0;
+}
+
+.pr-1 {
+	padding-right: 1rem;
+}
+
+.pr-2 {
+	padding-right: 2rem;
+}
+
+.pr-3 {
+	padding-right: 3rem;
+}
+
+.pr-4 {
+	padding-right: 4rem;
+}
+
+.pr-5 {
+	padding-right: 5rem;
+}
+
+.pl-1\/2 {
+	padding-left: 0.5rem;
+}
+
+.pl-0 {
+	margin-left: 0;
+}
+
+.pl-1 {
+	padding-left: 1rem;
+}
+
+.pl-2 {
+	padding-left: 2rem;
+}
+
+.pl-3 {
+	padding-left: 3rem;
+}
+
+.pl-4 {
+	padding-left: 4rem;
+}
+
+.pl-5 {
+	padding-left: 5rem;
+}
+
+.h-full {
+	height: 100%;
+}
+
+.h-screen {
+	height: 100vh;
+}
+
+.min-h-screen {
+	min-height: 100vh;
+}
+
+.w-full {
+	width: 100%;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-xs {
+	font-size: $font-size-xs;
+	line-height: $line-height-xs;
+}
+
+.text-sm {
+	font-size: $font-size-sm;
+	line-height: $line-height-sm;
+}
+
+.text-lg {
+	font-size: $font-size-lg;
+	line-height: $line-height-lg;
+}
+
+.text-xl {
+	font-size: $font-size-xl;
+	line-height: $line-height-xl;
+}
+
+.quotes {
+	&::before,
+	&::after {
+		content: "\0022";
+	}
+}
+
+.opacity-50 {
+	opacity: 0.5;
+}
