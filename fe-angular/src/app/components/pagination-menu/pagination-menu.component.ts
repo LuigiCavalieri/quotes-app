@@ -13,7 +13,7 @@ export class PaginationMenuComponent implements OnChanges {
 
 	@Input({ required: true }) currentPage!: number;
 	@Input({ required: true }) numOfQuotes!: number;
-	@Output() onClick = new EventEmitter<number>();
+	@Output() clickPagination = new EventEmitter<number>();
 
 	ngOnChanges(_changes: SimpleChanges): void {
 		this.computeMetrics();
@@ -28,13 +28,13 @@ export class PaginationMenuComponent implements OnChanges {
 		this.counterText = `${firstItemInPageIndex} - ${lastItemInPageIndex} / ${this.numOfQuotes}`;
 	}
 
-	handleOnClick(newPage: number) {
+	handleClick(newPage: number) {
 		if (newPage > this.currentPage) {
 			newPage = Math.min(this.totalPages, newPage);
 		} else {
 			newPage = Math.max(1, newPage);
 		}
 
-		this.onClick.emit(newPage);
+		this.clickPagination.emit(newPage);
 	}
 }

@@ -13,13 +13,13 @@ export class QuotesListItemComponent {
 	@Input({ required: true }) itemIndex = 1;
 	@Input() class = EMPTY_STRING;
 	@Input() copyStatus: CopyStatus | null = null;
-	@Output() onClickCopy = new EventEmitter<Quote>();
+	@Output() clickCopy = new EventEmitter<Quote>();
 
 	readonly copyStati = CopyStatus;
 	readonly authorDefaultName = appConfig.authorDefaultName;
 
 	handlerClickCopy() {
-		this.onClickCopy.emit(this.quote);
+		this.clickCopy.emit(this.quote);
 	}
 
 	isCopyStatus(status: CopyStatus) {

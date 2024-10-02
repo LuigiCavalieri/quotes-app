@@ -36,13 +36,13 @@
 				[quote]="quote"
 				[itemIndex]="getPaginatedItemIndex(i, asyncData.pagination?.currentPage)"
 				[copyStatus]="quote.id === copyQuoteId ? (copyStatusSbj$ | async) : null"
-				(onClickCopy)="handleOnClickCopy($event)"
+				(clickCopy)="handleClickCopy($event)"
 			/>
 		</ol>
 		<app-pagination-menu
 			[currentPage]="asyncData.pagination?.currentPage || 1"
 			[numOfQuotes]="asyncData.pagination?.totalCount || 0"
-			(onClick)="handleClickPagination($event)"
+			(clickPagination)="handleClickPagination($event)"
 		/>
 	</ng-template>
 </mat-card>

@@ -31,7 +31,7 @@ export class RandomQuoteComponent implements OnInit {
 	quote: QuoteWithoutServerGenFields | null = null;
 
 	@Output() onSave = new EventEmitter();
-	@Output() onClickDismiss = new EventEmitter();
+	@Output() clickDismiss = new EventEmitter();
 
 	readonly destroySbj$ = new Subject<boolean>();
 	readonly showSavedSbj$ = new BehaviorSubject(false);
@@ -84,7 +84,7 @@ export class RandomQuoteComponent implements OnInit {
 	}
 
 	handleClickDismiss() {
-		this.onClickDismiss.emit();
+		this.clickDismiss.emit();
 	}
 
 	handleClickRefresh() {

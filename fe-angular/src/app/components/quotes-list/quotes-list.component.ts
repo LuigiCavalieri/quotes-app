@@ -150,7 +150,7 @@ export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 		location.reload();
 	}
 
-	handleOnClickCopy(quote: Quote) {
+	handleClickCopy(quote: Quote) {
 		const author = quote.author || appConfig.authorDefaultName;
 		const textToCopy = `${quote.content}\n( ${author} )`;
 
