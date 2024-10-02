@@ -3,13 +3,11 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatLatestFrom } from "@ngrx/operators";
 import * as QuotesActions from "../actions/quotes.actions";
 import { catchError, map, switchMap } from "rxjs/operators";
-import { EMPTY_STRING } from "../../constants";
 import { of } from "rxjs";
 import { QuotesService } from "../../services/quotes.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "..";
 import { selectQuotes } from "../selectors/quotes.selectors";
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class QuotesEffects {
@@ -32,13 +30,7 @@ export class QuotesEffects {
 							totalCount: data?.total_count || 0,
 						})
 					),
-					catchError(({ error }: HttpErrorResponse) =>
-						of(
-							QuotesActions.fetchQuotesError({
-								errorMessage: error?.message || EMPTY_STRING,
-							})
-						)
-					)
+					catchError((errorMessage: string) => of(QuotesActions.fetchQuotesError({ errorMessage })))
 				);
 			})
 		)
