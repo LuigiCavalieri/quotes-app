@@ -7,7 +7,6 @@ import { AppState } from "../../store";
 import { AuthService } from "../../services/auth.service";
 import { catchError } from "rxjs/operators";
 import { EMPTY } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
 import { EMPTY_STRING } from "../../constants";
 
 @Component({

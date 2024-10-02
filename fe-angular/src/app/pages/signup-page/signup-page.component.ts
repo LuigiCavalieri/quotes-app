@@ -4,7 +4,6 @@ import { Credentials } from "../../types/auth";
 import { AuthService } from "../../services/auth.service";
 import { catchError, EMPTY } from "rxjs";
 import { EMPTY_STRING } from "../../constants";
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
 	selector: "app-signup-page",

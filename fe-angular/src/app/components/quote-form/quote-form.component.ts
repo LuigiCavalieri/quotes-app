@@ -14,7 +14,6 @@ import {
 	switchMap,
 	takeUntil,
 } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
 import { loadQuotes } from "../../store/actions/quotes.actions";
@@ -81,9 +80,9 @@ export class QuoteFormComponent implements OnInit, OnDestroy {
 		this.quotesService
 			.saveQuote(this.form.value as QuoteWithoutServerGenFields)
 			.pipe(
-				catchError(({ error }: HttpErrorResponse) => {
+				catchError((errorMessage: string) => {
 					this.isSaving = false;
-					this.errorMessage = error?.message || "";
+					this.errorMessage = errorMessage;
 
 					this.form.enable();
 
