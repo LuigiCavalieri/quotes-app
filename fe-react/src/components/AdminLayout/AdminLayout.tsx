@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useAuth } from "../../hooks/auth";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
@@ -11,7 +11,6 @@ import { useMutation } from "react-query";
 import { EMPTY_STRING } from "../../constants";
 
 export default function AdminLayout() {
-	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const { isLoggedIn, isFetchingUser, user, doLogout } = useAuth();
 	const { mutate } = useMutation({ mutationFn: logout });
@@ -25,7 +24,6 @@ export default function AdminLayout() {
 	const handleLogout = () => {
 		mutate();
 		doLogout();
-		navigate(pageItems.login.url);
 	};
 
 	if (isFetchingUser) {
