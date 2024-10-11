@@ -23,7 +23,8 @@ export default function ActivateAccountPage() {
 	);
 
 	const { isLoading } = useQuery<unknown, ResponseError>({
-		enabled: searchParamsAreValid && !errorMessage,
+		enabled: searchParamsAreValid,
+		queryKey: "activateAccount",
 		queryFn: () => activateAccount(email, activationToken),
 		onError: error => {
 			if (error.message === ErrorCodes.accountCannotBeActivated) {
