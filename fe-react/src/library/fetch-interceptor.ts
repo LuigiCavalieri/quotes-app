@@ -23,10 +23,6 @@ export const initFetchInterceptor = (args: { onAuthError: (response?: Response) 
 		try {
 			const response = await originalFetch(info, newInit);
 
-			if (response.ok) {
-				return Promise.resolve(response);
-			}
-
 			if (!authUrls.includes(url) && [401, 403].includes(response.status)) {
 				abortController.abort();
 				args?.onAuthError(response);
@@ -34,9 +30,7 @@ export const initFetchInterceptor = (args: { onAuthError: (response?: Response) 
 				return Promise.reject();
 			}
 
-			const errorMessage = await response.json();
-
-			return Promise.reject(errorMessage);
+			return response;
 		} catch (error) {
 			return Promise.reject(error);
 		}

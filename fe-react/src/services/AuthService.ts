@@ -1,10 +1,10 @@
-import { POSTwithoutRespData, POST, GET } from ".";
+import { POST, GET, PATCH } from ".";
 import { AuthFormValues } from "../components/AuthForm/AuthForm.types";
 import { endpointsUrl } from "../config/endpointsUrl";
 import { User } from "../types/user";
 
 export const login = (payload: AuthFormValues) => {
-	return POSTwithoutRespData(endpointsUrl.login, payload);
+	return POST(endpointsUrl.login, payload);
 };
 
 export const signup = (payload: AuthFormValues) => {
@@ -12,7 +12,7 @@ export const signup = (payload: AuthFormValues) => {
 };
 
 export const logout = () => {
-	return POSTwithoutRespData(endpointsUrl.logout);
+	return POST(endpointsUrl.logout);
 };
 
 export const me = () => {
@@ -20,8 +20,5 @@ export const me = () => {
 };
 
 export const activateAccount = (email: string, activationToken: string) => {
-	return fetch(endpointsUrl.activateAccount, {
-		method: "PATCH",
-		body: JSON.stringify({ email, activationToken }),
-	});
+	return PATCH(endpointsUrl.activateAccount, { email, activationToken });
 };
