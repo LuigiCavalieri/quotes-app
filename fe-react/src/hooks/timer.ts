@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
 export function useTimer() {
-	const callbackRef = useRef<(() => void) | null>(null);
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const clearTimer = useCallback(() => {
@@ -16,11 +15,10 @@ export function useTimer() {
 		(callback: () => void, delay: number) => {
 			clearTimer();
 
-			callbackRef.current = callback;
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
 
-				callbackRef.current?.();
+				callback?.();
 			}, Number(delay));
 		},
 		[clearTimer]
