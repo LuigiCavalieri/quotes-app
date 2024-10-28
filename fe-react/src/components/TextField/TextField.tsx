@@ -19,6 +19,7 @@ export default function TextField({
 	validate,
 	className,
 	outerClassName,
+	autoComplete,
 	onChange,
 	onValidated,
 	onError,
@@ -115,11 +116,12 @@ export default function TextField({
 					maxLength={maxLength}
 					disabled={disabled}
 					placeholder={placeholder}
-					onChange={handleOnChange}
+					autoComplete={autoComplete}
 					className={classNames(
 						"leading-10 outline-none px-2 flex-grow disabled:text-slate-400",
 						className
 					)}
+					onChange={handleOnChange}
 					onFocus={() => setIsActive(true)}
 					onBlur={() => setIsActive(false)}
 				/>

@@ -10,6 +10,7 @@ interface AuthFormFieldInfo {
 	name: string;
 	shortDescription: string;
 	showError?: boolean;
+	autoComplete: string;
 }
 
 export type AuthFormFieldsInfo = Record<string, AuthFormFieldInfo>;

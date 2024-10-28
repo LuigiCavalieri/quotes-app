@@ -108,6 +108,7 @@ export default function AuthForm({ type, errorMessage, isLoading, onSubmit }: Au
 							disabled={isLoading}
 							validate={info.canBeValidated}
 							showError={info.showError}
+							autoComplete={info.autoComplete}
 							onChange={handleOnChange}
 							onValidated={handleOnValidated}
 							onError={handleOnError}
@@ -140,6 +141,7 @@ const getFieldsInfo = (isSignupForm: boolean) => {
 			type: "name",
 			name: "name",
 			shortDescription: "Your Name",
+			autoComplete: "name",
 		};
 	}
 
@@ -149,6 +151,7 @@ const getFieldsInfo = (isSignupForm: boolean) => {
 		type: "email",
 		name: "email",
 		shortDescription: "Your Email",
+		autoComplete: isSignupForm ? "off" : "email",
 	};
 	info.password = {
 		value: EMPTY_STRING,
@@ -157,6 +160,7 @@ const getFieldsInfo = (isSignupForm: boolean) => {
 		name: "password",
 		shortDescription: "Password",
 		showError: false,
+		autoComplete: isSignupForm ? "new-password" : "current-password",
 	};
 
 	return info;

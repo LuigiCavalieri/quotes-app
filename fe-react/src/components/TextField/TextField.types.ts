@@ -12,6 +12,7 @@ export interface TextFieldProps {
 	maxLength?: number;
 	disabled?: boolean;
 	validate?: boolean;
+	autoComplete?: string;
 	className?: string;
 	outerClassName?: string;
 	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
