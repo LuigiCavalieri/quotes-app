@@ -23,14 +23,32 @@ import {
 	selectPagination,
 } from "../../store/selectors/quotes.selectors";
 import appConfig from "../../config/appConfig";
-import { FormControl } from "@angular/forms";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { CopyStatus, EMPTY_STRING } from "../../constants";
 import { Clipboard } from "@angular/cdk/clipboard";
+import { MatCardModule } from "@angular/material/card";
+import { ErrorMessageComponent } from "../error-message/error-message.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { CommonModule } from "@angular/common";
+import { QuotesListItemComponent } from "../quotes-list-item/quotes-list-item.component";
+import { PaginationMenuComponent } from "../pagination-menu/pagination-menu.component";
+import { MatInputModule } from "@angular/material/input";
 
 @Component({
+	standalone: true,
 	selector: "app-quotes-list",
 	templateUrl: "./quotes-list.component.html",
 	styleUrl: "./quotes-list.component.scss",
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		MatCardModule,
+		MatFormFieldModule,
+		MatInputModule,
+		ErrorMessageComponent,
+		QuotesListItemComponent,
+		PaginationMenuComponent,
+	],
 })
 export class QuotesListComponent implements OnInit, OnChanges, OnDestroy {
 	quotes: Quote[] = [];

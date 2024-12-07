@@ -7,15 +7,31 @@ import {
 	Output,
 	SimpleChanges,
 } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import appConfig from "../../config/appConfig";
 import { Credentials } from "../../types/auth";
 import { EMAIL_REGEXP, EMPTY_STRING } from "../../constants";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { ErrorMessageComponent } from "../error-message/error-message.component";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
+	standalone: true,
 	selector: "app-auth-form",
 	templateUrl: "./auth-form.component.html",
 	styleUrl: "./auth-form.component.scss",
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatIconModule,
+		MatButtonModule,
+		ErrorMessageComponent,
+	],
 })
 export class AuthFormComponent implements OnInit, OnChanges {
 	showPassword = false;

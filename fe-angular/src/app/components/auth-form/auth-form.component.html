@@ -38,7 +38,13 @@
 			[type]="showPassword ? 'text' : 'password'"
 			[autocomplete]="isSignupForm() ? 'new-password' : 'current-password'"
 		/>
-		<button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
+		<button
+			mat-icon-button
+			matSuffix
+			type="button"
+			class="visibility-btn"
+			(click)="showPassword = !showPassword"
+		>
 			<mat-icon>{{ showPassword ? "visibility_off" : "visibility" }}</mat-icon>
 		</button>
 		<mat-error *ngIf="form.controls.password.invalid && form.controls.password.touched">

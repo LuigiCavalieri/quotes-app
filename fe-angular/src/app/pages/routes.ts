@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { LoginPageComponent } from "../pages/login-page/login-page.component";
+import { Routes } from "@angular/router";
+import { LoginPageComponent } from "./login-page/login-page.component";
 import { pageItems } from "../config/pageItems";
-import { SignupPageComponent } from "../pages/signup-page/signup-page.component";
-import { NotFoundPageComponent } from "../pages/not-found-page/not-found-page.component";
+import { SignupPageComponent } from "./signup-page/signup-page.component";
+import { NotFoundPageComponent } from "./not-found-page/not-found-page.component";
 import appConfig from "../config/appConfig";
 import { AdminLayoutComponent } from "../components/admin-layout/admin-layout.component";
-import { ActivateAccountPageComponent } from "../pages/activate-account-page/activate-account-page.component";
-import { ListPageComponent } from "../pages/list-page/list-page.component";
+import { ActivateAccountPageComponent } from "./activate-account-page/activate-account-page.component";
+import { ListPageComponent } from "./list-page/list-page.component";
 
 const pageTitleEnd = ` | ${appConfig.appName}`;
-const routes: Routes = [
+
+export const routes: Routes = [
 	{
 		path: pageItems.login.routePath,
 		component: LoginPageComponent,
@@ -43,9 +43,3 @@ const routes: Routes = [
 		title: "404" + pageTitleEnd,
 	},
 ];
-
-@NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule],
-})
-export class AppRoutingModule {}

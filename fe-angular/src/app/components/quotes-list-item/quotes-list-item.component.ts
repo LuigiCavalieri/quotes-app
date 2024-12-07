@@ -2,11 +2,15 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Quote } from "../../types/quotes";
 import { CopyStatus, EMPTY_STRING } from "../../constants";
 import appConfig from "../../config/appConfig";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
+	standalone: true,
 	selector: "app-quotes-list-item",
 	templateUrl: "./quotes-list-item.component.html",
 	styleUrl: "./quotes-list-item.component.scss",
+	imports: [CommonModule, MatIconModule],
 })
 export class QuotesListItemComponent {
 	@Input({ required: true }) quote = {} as Quote;

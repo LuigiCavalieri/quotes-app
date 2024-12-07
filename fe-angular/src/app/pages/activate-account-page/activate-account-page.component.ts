@@ -1,16 +1,20 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { pageItems } from "../../config/pageItems";
 import { ErrorCodes } from "../../constants";
 import { AuthService } from "../../services/auth.service";
 import { catchError, EMPTY } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { isEmail } from "../../utils/strings";
+import { AuthLayoutComponent } from "../../components/auth-layout/auth-layout.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
+	standalone: true,
 	selector: "app-activate-account-page",
 	templateUrl: "./activate-account-page.component.html",
 	styleUrl: "./activate-account-page.component.scss",
+	imports: [CommonModule, RouterModule, AuthLayoutComponent],
 })
 export class ActivateAccountPageComponent {
 	isLoading = false;

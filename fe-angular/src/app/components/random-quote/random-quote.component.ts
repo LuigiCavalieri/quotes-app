@@ -16,11 +16,16 @@ import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
 import { loadQuotes } from "../../store/actions/quotes.actions";
 import appConfig from "../../config/appConfig";
+import { MatCardModule } from "@angular/material/card";
+import { ErrorMessageComponent } from "../error-message/error-message.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
+	standalone: true,
 	selector: "app-random-quote",
 	templateUrl: "./random-quote.component.html",
 	styleUrl: "./random-quote.component.scss",
+	imports: [CommonModule, MatCardModule, ErrorMessageComponent],
 })
 export class RandomQuoteComponent implements OnInit {
 	isLoading = false;

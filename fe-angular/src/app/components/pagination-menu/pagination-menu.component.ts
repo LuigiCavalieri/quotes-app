@@ -1,11 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from "@angular/core";
 import appConfig from "../../config/appConfig";
 import { EMPTY_STRING } from "../../constants";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
+	standalone: true,
 	selector: "app-pagination-menu",
 	templateUrl: "./pagination-menu.component.html",
 	styleUrl: "./pagination-menu.component.scss",
+	imports: [MatIconModule, MatButtonModule],
 })
 export class PaginationMenuComponent implements OnChanges {
 	totalPages = 1;

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { EMPTY_STRING } from "../../constants";
 import { QuoteWithoutServerGenFields } from "../../types/quotes";
 import { QuotesService } from "../../services/quotes.service";
@@ -18,11 +18,29 @@ import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
 import { loadQuotes } from "../../store/actions/quotes.actions";
 import appConfig from "../../config/appConfig";
+import { MatCardModule } from "@angular/material/card";
+import { ErrorMessageComponent } from "../error-message/error-message.component";
+import { RouterModule } from "@angular/router";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { CommonModule } from "@angular/common";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
+	standalone: true,
 	selector: "app-quotes-form",
 	templateUrl: "./quote-form.component.html",
 	styleUrl: "./quote-form.component.scss",
+	imports: [
+		CommonModule,
+		RouterModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatButtonModule,
+		MatCardModule,
+		ErrorMessageComponent,
+	],
 })
 export class QuoteFormComponent implements OnInit, OnDestroy {
 	isSaving = false;

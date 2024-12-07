@@ -3,7 +3,7 @@ import appConfig from "../../config/appConfig";
 import { Subject, takeUntil } from "rxjs";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import {
 	selectIsFetchingUser,
 	selectIsLoggedIn,
@@ -11,11 +11,15 @@ import {
 } from "../../store/selectors/auth.selectors";
 import { pageItems } from "../../config/pageItems";
 import { doLogout } from "../../store/actions/auth.actions";
+import { LoadingScreenComponent } from "../loading-screen/loading-screen.component";
+import { AsyncPipe, CommonModule } from "@angular/common";
 
 @Component({
+	standalone: true,
 	selector: "app-admin-layout",
 	templateUrl: "./admin-layout.component.html",
 	styleUrl: "./admin-layout.component.scss",
+	imports: [CommonModule, RouterModule, AsyncPipe, LoadingScreenComponent],
 })
 export class AdminLayoutComponent implements OnDestroy {
 	readonly title = appConfig.appName;
